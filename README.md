@@ -38,7 +38,7 @@ JSON files are used to feed information to the vector-map component. They need t
 
 ## Example
 
-You can consult a live example of the API in ...
+You can consult a live example of the API in http://bioinformatics-ua.github.io/jsMapsAPI/.
 
 This page displays a world map with several countries filled with a color that conveys some kind of information. There are also maps placed on the map.
 There are also some filters that can be used to filter the information displayed on the map.
