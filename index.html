@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Marker Filtering</title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+    <!--jVectormap-->
+    <link rel="stylesheet" href="lib/jvectormap/jquery-jvectormap-2.0.2.css">
+    <!--jQueryUI-->
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+    <!-- Scripts -->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="lib/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <!--Load the Maps API-->
+    <script type="text/javascript" src="js/maps-api.js"></script>
+    <!--Polymer-->
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+    <!-- Import custom elements created with Polymer-->
+    <link rel="import" href="vector-map.html">
+</head>
+
+<body>
+    <div class="container-fluid" style="margin-top:10px">
+        <div class="starter-template col-md-2" />
+    </div>
+    <div class="starter-template col-md-8">
+        <vector-map id="map" min_color='#ffffff' max_color="#000000" min_radius=2 max_radius=8 filters='json/filters.json' markers='json/countries_plus_markers.json'></vector-map>
+    </div>
+    <div class="starter-template col-md-2">
+    </div>
+    </div>
+    </script>
+</body>
+
+</html>

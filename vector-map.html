@@ -1,0 +1,106 @@
+<link rel="import" href="bower_components/polymer/polymer.html">
+<!--id - name of the custom component-->
+<dom-module id="vector-map">
+    <style>
+    /* CSS rules for the custom element */
+    
+    #my_map {
+        height: 500px;
+    }
+    
+    .dropdown {
+        margin-bottom: 10px;
+    }
+    
+    .btn {
+        width: 120px;
+    }
+    
+    #slider {}
+    </style>
+    <template>
+        <!--Bootstrap dropdown menu-->
+        <div class="dropdown col-md-2">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
+                Filter by
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="dr1" role="menu" aria-labelledby="dropdownMenu1">
+            </ul>
+        </div>
+        <div class="dropdown col-md-2">
+            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-expanded="true">
+                Select value
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" id="dr2" role="menu" aria-labelledby="dropdownMenu2">
+            </ul>
+        </div>
+        <!--jQueryUi slider-->
+        <div class="col-md-8">
+            <div id="slider" style="margin-top:10px;"></div>
+            <div style="margin-top:10px;">
+                <div id="minSlider" class="col-md-4">
+                    <p>abc</p>
+                </div>
+                <div id="maxSlider" class="col-md-4">
+                    <p>abc</p>
+                </div>
+                <div id="numMarkersDiv" class="col-md-4">
+                    <p>abc</p>
+                </div>
+            </div>
+        </div>
+        <div id="my_map" class="col-md-12"></div>
+    </template>
+</dom-module>
+<script>
+// element registration
+Polymer({
+    // name of the element
+    is: "vector-map",
+    //Lifecycle callbacks
+    created: function() {
+        var jsonFilters = $('#' + this.id).attr('filters');
+        var jsonMarkers = $('#' + this.id).attr('markers');
+
+        // check if all the mandatory fields are present
+        if (!jsonFilters)
+            console.log('You must input a JSON with the filters');
+        if(!jsonMarkers)
+            console.log('You must input a JSON with the markers');
+
+        // two simultaneous JSON requests
+        $.when(
+            $.getJSON(jsonFilters),
+            $.getJSON(jsonMarkers)
+        ).then(function(jsonFilters, jsonMarkers) {
+            // the arguments are on the format: [response, state, jqxhr]
+            var vMap = $('#map');
+            minRadius = +vMap.attr('min_radius');
+            maxRadius = +vMap.attr('max_radius');
+            // create a new VectorialMap
+            new VectorialMap().createMap(jsonMarkers[0], jsonFilters[0], minRadius, maxRadius, 'my_map');
+        });
+    },
+    properties: {
+        // declare properties for the element's public API
+        min_radius: {
+            type: Number,
+            value: 2
+        },
+        max_radius: {
+            type: Number,
+            value: 10
+        },
+        filters: {
+            type: String,
+            value: ''
+        },
+        markers: {
+            type: String,
+            value: ''
+        }
+    }
+});
+</script>
