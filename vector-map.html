@@ -38,17 +38,12 @@
         </div>
         <!--jQueryUi slider-->
         <div class="col-md-8">
-            <div id="slider" style="margin-top:10px;"></div>
-            <div style="margin-top:10px;">
-                <div id="minSlider" class="col-md-4">
-                    <p>abc</p>
-                </div>
-                <div id="maxSlider" class="col-md-4">
-                    <p>abc</p>
-                </div>
-                <div id="numMarkersDiv" class="col-md-4">
-                    <p>abc</p>
-                </div>
+            <div class="col-md-2" id="minSlider">
+                <p>abc</p>
+            </div>
+            <div class="col-md-8" id="slider" style="margin-top:10px;"></div>
+            <div class="col-md-2" id="maxSlider">
+                <p>abc</p>
             </div>
         </div>
         <div id="my_map" class="col-md-12"></div>
@@ -59,6 +54,9 @@
 Polymer({
     // name of the element
     is: "vector-map",
+    alertFunc: function() {
+        console.log('abcdef');
+    },
     //Lifecycle callbacks
     created: function() {
         var jsonFilters = $('#' + this.id).attr('filters');
@@ -67,7 +65,7 @@ Polymer({
         // check if all the mandatory fields are present
         if (!jsonFilters)
             console.log('You must input a JSON with the filters');
-        if(!jsonMarkers)
+        if (!jsonMarkers)
             console.log('You must input a JSON with the markers');
 
         // two simultaneous JSON requests

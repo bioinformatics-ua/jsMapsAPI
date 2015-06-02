@@ -1,4 +1,10 @@
 // VectorialMap
+
+var selectedFilterGlobal;
+var selectedCountries;
+var selectedMarkers;
+var selectedName;
+
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
@@ -19,14 +25,6 @@ VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadiu
     // try to read the filters
     jsonFilters = this.readFiltersFromJSON(inputFilters);
     numMarkers = jsonMarkers.length;
-
-    // set the text on the UI
-    $('#minSlider').text('Min radius: ' + minRadius);
-    $('#maxSlider').text('Max radius: ' + maxRadius);
-    $('#numMarkersDiv').text('Number of markers inside that range: ' + numMarkers);
-
-    // generate the slider and set corresponding values and callbacks
-    this.setSlider();
 
     // fill the Dropdown menu
     this.setDropdown(jsonFilters);
@@ -72,6 +70,9 @@ VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadiu
     // give colors to the map regions
     map.series.regions[0].setValues(this.generateColorsForTheCountries());
 
+    // generate the slider and set corresponding values and callbacks
+    this.setSlider();
+
     // draw markers on the map
     if (inputMarkers.markers) {
         // draw markers on the map
@@ -82,18 +83,32 @@ VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadiu
                 // set the style for this marker
                 style: {
                     fill: 'green',
-                    r: currentObject.mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
                 }
             });
         });
     }
 };
 
+
 VectorialMap.prototype.setDropdown = function(jsonFilters) {
 
     $.each(jsonFilters, function(index, currentFilter) {
         var filterName = currentFilter.Name;
         $("#dr1").append("<li role='presentation'><a role='menuitem' tabindex='-1'>" + filterName + "</a></li>");
+    });
+
+    // when a item is selected the DROPDOWN MENU 1, filtering should be applied
+    $("#dr1 > li > a").click(function() {
+        var selectedFilterName = $(this).text();
+        // find the filter that was selected
+        $.each(jsonFilters, function(index, currentFilter) {
+            if (currentFilter.Name === selectedFilterName) {
+                selectedFilterGlobal = currentFilter;
+                dropdownSelected(currentFilter);
+            }
+
+        });
     });
 
     // when a item is selected the DROPDOWN MENU 2, filtering should be applied
@@ -113,64 +128,203 @@ VectorialMap.prototype.setDropdown = function(jsonFilters) {
                     // set the style for this marker
                     style: {
                         fill: 'green',
-                        r: currentMarker.radius
+                        r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
                     }
                 });
             }
         });
-
-    });
-
-    // when a item is selected the DROPDOWN MENU 1, filtering should be applied
-    $("#dr1 > li > a").click(function() {
-        $("#dropdownMenu1:first-child").text($(this).text());
-        $("#dropdownMenu1:first-child").val($(this).text());
-
-        console.log('dr1');
-        selectedFilterName = $(this).text();
-        // update the possibilities to choose from on the second dropdown
-        // fill the dropdown with the filters
-
-        // find which filter was selected
-        var selectedFilter;
-
-        $.each(jsonFilters, function(index, currentFilter) {
-            if (currentFilter.Name === selectedFilterName) {
-                selectedFilter = index;
-                return;
-            }
-        });
-
-        // remove all child nodes
-        $("#dr2").empty();
-        for (var i = 0; i < jsonFilters[selectedFilter].Values.length; i++) {
-            var filterValue = jsonFilters[selectedFilter].Values[i];
-            $("#dr2").append("<li role='presentation'><a class='pop' role='menuitem' tabindex='-1'>" + filterValue + "</a></li>");
-        }
-
-        // remove all markers from the map
-        map.removeAllMarkers();
-        var currentNumberMarkers = 0;
-
-        for (var i = 0; i < numMarkers; i++) {
-            // if the marker is inside the range
-            if (jsonCountries[i].Name1 === selectedFilterName) {
-                currentNumberMarkers++;
-                map.addMarker(i, {
-                    latLng: [jsonCountries[i].latitude, jsonCountries[i].longitude],
-                    name: jsonCountries[i].desc,
-
-                    // set the style for this marker
-                    style: {
-                        fill: 'green',
-                        r: jsonCountries[i].radius
-                    }
-                });
-            }
-        }
     });
 }
 
+function dropdownSelected(selectedFilter) {
+    $("#dropdownMenu1:first-child").text(selectedFilter.Name);
+    $("#dropdownMenu1:first-child").val(selectedFilter.Name);
+
+    // update the possibilities to choose from on the second dropdown
+    // remove all child nodes
+    $("#dr2").empty();
+    $.each(selectedFilter.Values, function(index, currentValue) {
+        $("#dr2").append("<li role='presentation'><a class='pop' role='menuitem' tabindex='-1'>" + currentValue + "</a></li>");
+    });
+
+    // check what countries to colour
+    colors = [];
+    selectedCountries = [];
+    $.each(jsonCountries, function(index, currentCountry) {
+        // check if any of the names is equal to the selected filter
+        // try to read all the names and values
+        var i = 0;
+        // colour the COuntry white so it won't be selected
+        colors[currentCountry.Country] = 'rgb(255,255,255)';
+        do {
+            i++;
+            var currentNameToCheck = 'Name' + i;
+            var currentValue = 'Value' + i;
+            // check if the Country has that name
+            if (currentCountry[currentNameToCheck] !== undefined) {
+                if (currentCountry[currentNameToCheck] === selectedFilter.Name) {
+                    var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
+                    colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
+                    selectedCountries.push(currentCountry);
+                    selectedName = currentValue;
+                }
+            } else
+                break;
+        } while (true)
+    });
+    map.series.regions[0].setValues(colors);
+
+    // remove all markers from the map
+    map.removeAllMarkers();
+
+    // add only the markers who have that filter value
+    $.each(jsonMarkers, function(index, currentMarker) {
+        // check if any of the names is equal to the selected filter
+        // try to read all the names and values
+        var i = 0;
+        do {
+            i++;
+            var currentNameToCheck = 'Name' + i;
+            var currentValue = 'Value' + i;
+            // check if the Country has that name
+            if (currentMarker[currentNameToCheck] !== undefined) {
+                if (currentMarker[currentNameToCheck] === selectedFilter.Name) {
+                    map.addMarker(index, {
+                        latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                        name: currentMarker.desc,
+
+                        // set the style for this marker
+                        style: {
+                            fill: 'green',
+                            r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                        }
+                    });
+                }
+            } else {
+                break;
+            }
+        } while (true)
+    });
+
+
+    // update the slider
+    // check if any of the values is a numbers, if it is we then update the slider
+    if (!isNaN(selectedFilter.Values[0])) {
+        $('#slider').show();
+        $('#minSlider').show();
+        $('#maxSlider').show();
+
+        // jQueryUI slider
+        var slider = $("#slider").slider();
+        var minValue = selectedFilter.Values[0];
+        var maxValue = selectedFilter.Values[selectedFilter.Values.length - 1];
+
+        // set max and min value for the slider
+        slider.slider("option", "min", minValue);
+        slider.slider("option", "max", maxValue);
+
+        // set the text on the UI
+        $('#minSlider').text(minValue);
+        $('#maxSlider').text(maxValue);
+    } else {
+        $('#slider').hide();
+        $('#minSlider').hide();
+        $('#maxSlider').hide();
+    }
+}
+
+sliderChanged = function() {
+
+    // get the max and min values for the currently selected range
+    var currentRange = slider.slider("option", "values");
+    var min = currentRange[0];
+    var max = currentRange[1];
+
+    // set the text on the UI
+    $('#minSlider').text(min);
+    $('#maxSlider').text(max);
+
+    // filter the Countries
+    colors = [];
+    $.each(selectedCountries, function(index, currentCountry) {
+        if (currentCountry[selectedName] >= min && currentCountry[selectedName] <= max) {
+            var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
+            colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
+        } else
+            colors[currentCountry.Country] = 'rgb(255,255,255)';
+    });
+    map.series.regions[0].setValues(colors);
+
+    // filter the Markers
+    // first, remove all markers
+    map.removeAllMarkers();
+
+    // add only the markers who have that filter value
+    $.each(jsonMarkers, function(index, currentMarker) {
+        // check if the Country has that name
+        if (currentMarker[selectedName] >= min && currentMarker[selectedName] <= max) {
+            map.addMarker(index, {
+                latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                name: currentMarker.desc,
+
+                // set the style for this marker
+                style: {
+                    fill: 'green',
+                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                }
+            });
+        }
+    });
+
+};
+
+
+
+// Auxiliary function to transpose a value from an initial range to another range
+function mapRange(value, low1, high1, low2, high2) {
+    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
+}
+
+VectorialMap.prototype.generateColorsForTheCountries = function() {
+    var colors = [];
+    $.each(jsonCountries, function(index, currentMarker) {
+        var hue = mapRange(currentMarker.Count, minCount, maxCount, 160, 220);
+        colors[currentMarker.Country] = 'hsl(' + hue + ', 100%, 50%)';
+    });
+    return colors;
+};
+
+VectorialMap.prototype.setSlider = function() {
+    // set the text on the UI
+    $('#minSlider').text('Min radius: ' + minRadius);
+    $('#maxSlider').text('Max radius: ' + maxRadius);
+    $('#numMarkersDiv').text('Number of markers inside that range: ' + numMarkers);
+
+    // jQueryUI slider
+    slider = $("#slider").slider();
+
+    // set max and min value for the slider
+    slider.slider("option", "min", minRadius);
+    slider.slider("option", "max", maxRadius);
+
+    // allow the user to select a range
+    slider.slider("option", "range", true);
+
+    // when user clicks the slider, it will animate to the clicked position
+    slider.slider("option", "animate", "slow");
+
+    // after selecting a new slider value
+    slider.on("slidechange", function(event, ui) {
+        sliderChanged();
+    });
+
+    // hide all the components until they are hidden
+    $('#slider').hide();
+    $('#minSlider').hide();
+    $('#maxSlider').hide();
+}
+
+// read the filters from a JSON file
 VectorialMap.prototype.readFiltersFromJSON = function(inputFilters) {
     var filtersReturn = [];
 
@@ -190,71 +344,6 @@ VectorialMap.prototype.readFiltersFromJSON = function(inputFilters) {
     return filtersReturn;
 };
 
-VectorialMap.prototype.generateColorsForTheCountries = function() {
-    var colors = [];
-    $.each(jsonCountries, function(index, currentMarker) {
-        var hue = currentObject.mapRange(currentMarker.Count, minCount, maxCount, 160, 220);
-        colors[currentMarker.Country] = 'hsl(' + hue + ', 100%, 50%)';
-    });
-    return colors;
-};
-
-// Auxiliary function to transpose a value from an initial range to another range
-VectorialMap.prototype.mapRange = function(value, low1, high1, low2, high2) {
-    return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
-}
-
-VectorialMap.prototype.setSlider = function() {
-    // jQueryUI slider
-    var slider = $("#slider").slider();
-    currentObject = this;
-
-    // set max and min value for the slider
-    slider.slider("option", "min", minRadius);
-    slider.slider("option", "max", maxRadius);
-
-    // allow the user to select a range
-    slider.slider("option", "range", true);
-
-    // when user clicks the slider, it will animate to the clicked position
-    slider.slider("option", "animate", "slow");
-
-    // after selecting a new slider value
-    slider.on("slidechange", function(event, ui) {
-        // get the max and min values for the currently selected range
-        var currentRange = slider.slider("option", "values");
-        var min = currentRange[0];
-        var max = currentRange[1];
-
-        // set the text on the UI
-        $('#minSlider').text('Min radius: ' + min);
-        $('#maxSlider').text('Max radius: ' + max);
-
-        // remove all the markers from the map
-        map.removeAllMarkers();
-
-        var currentNumberMarkers = 0;
-
-        $.each(jsonCountries, function(index, currentMarker) {
-            var markerRadius = currentObject.mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                // if the marker is inside the range
-            if (markerRadius >= min && markerRadius <= max) {
-                currentNumberMarkers++;
-                map.addMarker(index, {
-                    latLng: [currentMarker.latitude, currentMarker.longitude],
-                    name: currentMarker.desc,
-                    // set the style for this marker
-                    style: {
-                        fill: 'green',
-                        r: markerRadius
-                    }
-                });
-            }
-        });
-        $('#numMarkersDiv').text('Number of markers inside that range: ' + currentNumberMarkers);
-    });
-}
-
 // read the markers from a JSON file
 VectorialMap.prototype.readCountriesFromJSON = function(markers) {
     var returnCountries = [];
@@ -263,26 +352,17 @@ VectorialMap.prototype.readCountriesFromJSON = function(markers) {
     minCount = Infinity;
     maxCount = -Infinity;
 
-    $.each(markers, function(index, currentMarker) {
-        // + is used to assure that a Number is being read
-        var Count = +currentMarker.Count;
-        var Gender = currentMarker.Gender;
-        var Value1 = currentMarker.Value1;
-        var Name1 = currentMarker.Name1;
-        var Var = currentMarker.Var;
-        var Cnt = currentMarker.Country;
-        returnCountries[index] = new Country(Cnt, Count, Gender, Name1, Value1, Var);
+    $.each(markers, function(index, currentCountry) {
+        returnCountries[index] = new Country(currentCountry);
 
-        if (Count > maxCount) {
-            maxCount = Count;
+        if (returnCountries[index].Count > maxCount) {
+            maxCount = returnCountries[index].Count;
         }
-        if (Count < minCount)
-            minCount = Count;
+        if (returnCountries[index].Count < minCount)
+            minCount = returnCountries[index].Count;
     });
     return returnCountries;
 }
-
-
 
 // read the markers from a JSON file
 VectorialMap.prototype.readMarkersFromJSON = function(markers) {
@@ -292,16 +372,8 @@ VectorialMap.prototype.readMarkersFromJSON = function(markers) {
     maxCount = -Infinity;
 
     $.each(markers, function(index, currentMarker) {
-        // + is used to assure that a Number is being read
-        var Count = +currentMarker.Count;
-        var Gender = currentMarker.Gender;
-        var Value1 = currentMarker.Value1;
-        var Name1 = currentMarker.Name1;
-        var Var = currentMarker.Var;
-        var Latitude = currentMarker.Latitude;
-        var Longitude = currentMarker.Longitude;
-        var Country = currentMarker.Country;
-        returnMarkers[index] = new Marker(Country, Count, Gender, Name1, Value1, Var, Latitude, Longitude);
+        returnMarkers[index] = new Marker(currentMarker);
+        var Count = returnMarkers[index].Count;
 
         if (Count > maxCount) {
             maxCount = Count;
@@ -313,26 +385,51 @@ VectorialMap.prototype.readMarkersFromJSON = function(markers) {
 }
 
 // Country definition 
-var Country = function(Country, Count, Gender, Name1, Value1, Var) {
-    this.Country = Country;
-    this.Count = Count;
-    this.Gender = Gender;
-    this.Name1 = Name1;
-    this.Value1 = Value1;
-    this.Var = Var;
+var Country = function(countryObject) {
+    // try to read all the names and values
+    var hasName = true;
+    var i = 0;
+    do {
+        i++;
+        var currentNameToCheck = 'Name' + i;
+        var currentValue = 'Value' + i;
+        if (countryObject[currentNameToCheck] === undefined) {
+            hasName = false;
+        } else {
+            this[currentNameToCheck] = countryObject[currentNameToCheck];
+            this[currentValue] = countryObject[currentValue];
+        }
+    } while (hasName)
+
+    this.Country = countryObject.Country;
+    // + is used to assure that a Number is being read
+    this.Count = +countryObject.Count;
+    this.Var = countryObject.Var;
     this.desc = 'abc';
 };
 
 // Marker definition 
-var Marker = function(Country, Count, Gender, Name1, Value1, Var, Latitude, Longitude) {
-    this.Country = Country;
-    this.Count = Count;
-    this.Gender = Gender;
-    this.Name1 = Name1;
-    this.Value1 = Value1;
-    this.Var = Var;
-    this.Latitude = Latitude;
-    this.Longitude = Longitude;
+var Marker = function(markerObject) {
+    // try to read all the names and values
+    var hasName = true;
+    var i = 0;
+    do {
+        i++;
+        var currentNameToCheck = 'Name' + i;
+        var currentValue = 'Value' + i;
+        if (markerObject[currentNameToCheck] === undefined) {
+            hasName = false;
+        } else {
+            this[currentNameToCheck] = markerObject[currentNameToCheck];
+            this[currentValue] = markerObject[currentValue];
+        }
+    } while (hasName)
+
+    this.Country = markerObject.Country;
+    this.Count = +markerObject.Count;
+    this.Var = markerObject.Var;
+    this.Latitude = markerObject.Latitude;
+    this.Longitude = markerObject.Longitude;
     this.desc = 'abc';
 };
 
@@ -341,9 +438,4 @@ var Filter = function(Name, Value, Values) {
     this.Name = Name;
     this.Value = Value;
     this.Values = Values;
-};
-
-// Marker object
-Filter.prototype.toString = function() {
-    console.log('Filter: ' + this.Name + '\nValue: ' + this.Value);
 };
