@@ -54,6 +54,9 @@
 Polymer({
     // name of the element
     is: "vector-map",
+    alertFunc: function() {
+        console.log('abcdef');
+    },
     //Lifecycle callbacks
     created: function() {
         var jsonFilters = $('#' + this.id).attr('filters');
