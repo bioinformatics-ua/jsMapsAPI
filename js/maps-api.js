@@ -95,20 +95,32 @@ VectorialMap.prototype.setDropdown = function(jsonFilters) {
 
     $.each(jsonFilters, function(index, currentFilter) {
         var filterName = currentFilter.Name;
-        $("#dr1").append("<li role='presentation'><a role='menuitem' tabindex='-1'>" + filterName + "</a></li>");
+
+        var toAppend = '';
+        toAppend += '<li>' + filterName + '<ul>';
+        // add all the values from the filters        
+        $.each(currentFilter.Values, function(i, currentValue) {
+            toAppend += '<li filter_index=' + index + '>' + currentValue + '</li>';
+        });
+        toAppend += '</ul></li>';
+        $('#jquerymenu').append(toAppend);
     });
 
-    // when a item is selected the DROPDOWN MENU 1, filtering should be applied
-    $("#dr1 > li > a").click(function() {
-        var selectedFilterName = $(this).text();
-        // find the filter that was selected
-        $.each(jsonFilters, function(index, currentFilter) {
-            if (currentFilter.Name === selectedFilterName) {
-                selectedFilterGlobal = currentFilter;
-                dropdownSelected(currentFilter);
-            }
+    $("#jquerymenu").menu({
+        create: function(event, ui) {
+            //console.log('menu created');
+        }
+    });
 
-        });
+    // triggered when an item is selected
+    $("#jquerymenu").on("menuselect", function(event, ui) {
+        //console.log('item selected: ' + ui.item.attr('filter_index'));
+        // selected filter
+        var selectedFilter = jsonFilters[ui.item.attr('filter_index')];
+        // selected value for the filter
+        var filterValue = ui.item.text();
+        // apply filtering
+        filterSelected(selectedFilter, filterValue);
     });
 
     // when a item is selected the DROPDOWN MENU 2, filtering should be applied
@@ -136,16 +148,7 @@ VectorialMap.prototype.setDropdown = function(jsonFilters) {
     });
 }
 
-function dropdownSelected(selectedFilter) {
-    $("#dropdownMenu1:first-child").text(selectedFilter.Name);
-    $("#dropdownMenu1:first-child").val(selectedFilter.Name);
-
-    // update the possibilities to choose from on the second dropdown
-    // remove all child nodes
-    $("#dr2").empty();
-    $.each(selectedFilter.Values, function(index, currentValue) {
-        $("#dr2").append("<li role='presentation'><a class='pop' role='menuitem' tabindex='-1'>" + currentValue + "</a></li>");
-    });
+function filterSelected(selectedFilter, filterValue) {
 
     // check what countries to colour
     colors = [];
@@ -163,10 +166,12 @@ function dropdownSelected(selectedFilter) {
             // check if the Country has that name
             if (currentCountry[currentNameToCheck] !== undefined) {
                 if (currentCountry[currentNameToCheck] === selectedFilter.Name) {
-                    var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
-                    colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
-                    selectedCountries.push(currentCountry);
-                    selectedName = currentValue;
+                    // check by value
+                    if (currentCountry[currentValue] === filterValue) {
+                        var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
+                        colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
+                        selectedCountries.push(currentCountry);
+                    }
                 }
             } else
                 break;
@@ -189,16 +194,18 @@ function dropdownSelected(selectedFilter) {
             // check if the Country has that name
             if (currentMarker[currentNameToCheck] !== undefined) {
                 if (currentMarker[currentNameToCheck] === selectedFilter.Name) {
-                    map.addMarker(index, {
-                        latLng: [currentMarker.Latitude, currentMarker.Longitude],
-                        name: currentMarker.desc,
+                    if (currentMarker[currentValue] === filterValue) {
+                        map.addMarker(index, {
+                            latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                            name: currentMarker.desc,
 
-                        // set the style for this marker
-                        style: {
-                            fill: 'green',
-                            r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                        }
-                    });
+                            // set the style for this marker
+                            style: {
+                                fill: 'green',
+                                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                            }
+                        });
+                    }
                 }
             } else {
                 break;
