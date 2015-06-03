@@ -95,7 +95,26 @@ VectorialMap.prototype.setDropdown = function(jsonFilters) {
 
     $.each(jsonFilters, function(index, currentFilter) {
         var filterName = currentFilter.Name;
-        $("#dr1").append("<li role='presentation'><a role='menuitem' tabindex='-1'>" + filterName + "</a></li>");
+
+        var toAppend = '';
+        toAppend += '<li>' + filterName + '<ul>';
+        // add all the values from the filters        
+        $.each(currentFilter.Values, function(index, currentValue) {
+            toAppend += '<li>' + currentValue + '</li>';
+        });
+        toAppend += '</ul></li>';
+        $('#jquerymenu').append(toAppend);
+    });
+
+    $("#jquerymenu").menu({
+        create: function(event, ui) {
+            console.log('menu created');
+        }
+    });
+
+    // triggered when an item is selected
+    $("#jquerymenu").on("menuselect", function(event, ui) {
+        console.log('item selected: '+ui.item.text());
     });
 
     // when a item is selected the DROPDOWN MENU 1, filtering should be applied
