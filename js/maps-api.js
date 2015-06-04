@@ -166,6 +166,7 @@ VectorialMap.prototype.setFilters = function(jsonFilters, filterType) {
 
 function filterSelected(selectedFilter, filterValue) {
 
+
     // check what countries to colour
     colors = [];
     selectedCountries = [];
@@ -184,6 +185,7 @@ function filterSelected(selectedFilter, filterValue) {
                 if (currentCountry[currentNameToCheck] === selectedFilter.Name) {
                     // check by value
                     if (currentCountry[currentValue] === filterValue) {
+                        console.log('+')
                         var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
                         colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
                         selectedCountries.push(currentCountry);
@@ -194,6 +196,8 @@ function filterSelected(selectedFilter, filterValue) {
         } while (true)
     });
     map.series.regions[0].setValues(colors);
+
+    console.log(selectedCountries)
 
     // remove all markers from the map
     map.removeAllMarkers();
@@ -269,8 +273,10 @@ sliderChanged = function() {
 
     // filter the Countries
     colors = [];
+    console.log(selectedCountries)
     $.each(selectedCountries, function(index, currentCountry) {
         if (currentCountry[selectedName] >= min && currentCountry[selectedName] <= max) {
+            console.log('+')
             var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
             colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
         } else

@@ -67,6 +67,9 @@ Polymer({
             // the arguments are on the format: [response, state, jqxhr]
             // create a new Filter ???
             // set the filters for the vector map
+            // in case the filters element show up before the vector-map element
+            if (vectorMap == undefined)
+                vectorMap = new VectorialMap();
             jsonFiltersArray = vectorMap.readFiltersFromJSON(jsonFilters);
             vectorMap.setFilters(jsonFiltersArray, filterType)
         });
