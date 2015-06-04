@@ -9,35 +9,187 @@ filter = function(filterName, filterValue) {
     var returning = false;
     var filterObject;
 
-    // check if the filterName is valid
-    $.each(jsonFiltersArray, function(index, currentFilter) {
-        if (currentFilter.Name === filterName) {
-            filterObject = currentFilter;
-            returning = true;
-            return;
+    function checkFilterNameIsValid(jsonFilters, filterName) {
+        var valid = false;
+        $.each(jsonFilters, function(index, currentFilter) {
+            if (currentFilter.Name === filterName) {
+                filterObject = currentFilter;
+                valid = true;
+                return;
+            }
+        });
+        return valid;
+    }
+
+    function checkFilterValueIsValid(filter, parts) {
+        var valid = false;
+        $.each(parts, function(index, part) {
+            // check if the current value is valid
+            $.each(filterObject.Values, function(index, currentValue) {
+                if (currentValue == part) {
+                    valid = true;
+                    return;
+                }
+            });
+            if (!valid) {
+                console.log('Invalid value for the filter: ' + part);
+                return;
+            }
+        });
+        return valid;
+    }
+
+    function getAllFilterValues(filterValue) {
+        // check we have an enumeration (comma-separated values and/or ranges)
+        var returnParts = [];
+        if (String(filterValue).indexOf(",") != -1) {
+            // check if every individual value and/or range is valid
+            var parts = String(filterValue).split(",");
+            //returnParts.push(parts);
+
+            // check if we have a simple value or a range
+            $.each(parts, function(index, currentPart) {
+                if (currentPart.indexOf("-") != -1) {
+                    // we have a range
+                    var subParts = String(currentPart).split("-");
+                    // check if the extreme values are valid
+                    checkFilterValueIsValid(filterObject, subParts);
+                    // get all the values between those two numbers
+                    var min = subParts[0];
+                    var max = subParts[1];
+                    for (; min <= max; min++) {
+                        returnParts.push(min);
+                    }
+                } else
+                    returnParts.push(currentPart);
+            });
+        } else {
+            // just a single part
+            if (filterValue.indexOf("-") != -1) {
+                // we have a range
+                var subParts = String(filterValue).split("-");
+                // check if the extreme values are valid
+                checkFilterValueIsValid(filterObject, subParts);
+                // get all the values between those two numbers
+                var min = subParts[0];
+                var max = subParts[1];
+                for (; min <= max; min++) {
+                    returnParts.push(min);
+                }
+            } else
+                returnParts.push(filterValue);
         }
-    });
-    if (!returning) {
+        return returnParts;
+    }
+
+    // check if the filterName is valid
+    if (!checkFilterNameIsValid(jsonFiltersArray, filterName)) {
         // invalid filter name
         console.log('Invalid filter name!');
     } else {
         returning = false;
         // if valid, check the filterValue
+        var finalParts = getAllFilterValues(filterValue);
+        console.log('PARTS: ' + finalParts);
 
-        // check if we have a range
-
-        $.each(filterObject.Values, function(index, currentValue) {
-            if (currentValue == filterValue) {
-                returning = true;
-                return;
-            }
+        // erase all markers and countries from the map
+        var colors = [];
+        $.each(jsonCountries, function(index, currentCountry) {
+            colors[currentCountry.Country] = 'rgb(255,255,255)';
         });
-        if (!returning)
-            console.log('Invalid value for the filter!');
-        else {
-            // apply filtering
-            filterSelected(filterObject, filterValue);
-        }
+        map.series.regions[0].setValues(colors);
+        // remove all markers from the map
+        map.removeAllMarkers();
+        // apply the filtering
+        $.each(finalParts, function(index, part) {
+            applyFilter(filterObject, part, colors);
+        });
+    }
+}
+
+function applyFilter(selectedFilter, filterValue, colors) {
+
+    // check what countries to colour
+    selectedCountries = [];
+    $.each(jsonCountries, function(index, currentCountry) {
+        // check if any of the names is equal to the selected filter
+        // try to read all the names and values
+        var i = 0;
+        do {
+            i++;
+            var currentNameToCheck = 'Name' + i;
+            var currentValue = 'Value' + i;
+            // check if the Country has that name
+            if (currentCountry[currentNameToCheck] !== undefined) {
+                if (currentCountry[currentNameToCheck] === selectedFilter.Name) {
+                    // check by value
+                    if (currentCountry[currentValue] == filterValue) {
+                        var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
+                        colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
+                        selectedCountries.push(currentCountry);
+                    }
+                }
+            } else
+                break;
+        } while (true)
+    });
+    map.series.regions[0].setValues(colors);
+
+    // add only the markers who have that filter value
+    $.each(jsonMarkers, function(index, currentMarker) {
+        // check if any of the names is equal to the selected filter
+        // try to read all the names and values
+        var i = 0;
+        do {
+            i++;
+            var currentNameToCheck = 'Name' + i;
+            var currentValue = 'Value' + i;
+            // check if the Country has that name
+            if (currentMarker[currentNameToCheck] !== undefined) {
+                if (currentMarker[currentNameToCheck] == selectedFilter.Name) {
+                    if (currentMarker[currentValue] == filterValue) {
+                        map.addMarker(index, {
+                            latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                            name: currentMarker.desc,
+
+                            // set the style for this marker
+                            style: {
+                                fill: 'green',
+                                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                            }
+                        });
+                    }
+                }
+            } else {
+                break;
+            }
+        } while (true)
+    });
+
+
+    // update the slider
+    // check if any of the values is a numbers, if it is we then update the slider
+    if (!isNaN(selectedFilter.Values[0])) {
+        $('#slider').show();
+        $('#minSlider').show();
+        $('#maxSlider').show();
+
+        // jQueryUI slider
+        var slider = $("#slider").slider();
+        var minValue = selectedFilter.Values[0];
+        var maxValue = selectedFilter.Values[selectedFilter.Values.length - 1];
+
+        // set max and min value for the slider
+        slider.slider("option", "min", minValue);
+        slider.slider("option", "max", maxValue);
+
+        // set the text on the UI
+        $('#minSlider').text(minValue);
+        $('#maxSlider').text(maxValue);
+    } else {
+        $('#slider').hide();
+        $('#minSlider').hide();
+        $('#maxSlider').hide();
     }
 }
 
