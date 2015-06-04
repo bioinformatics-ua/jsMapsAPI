@@ -27,6 +27,7 @@
     <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
     <!-- Import custom elements created with Polymer-->
     <link rel="import" href="vector-map.html">
+    <link rel="import" href="vector-map-filters.html">
 </head>
 
 <body>
@@ -34,13 +35,14 @@
         <div class="starter-template col-md-2" />
     </div>
     <div class="starter-template col-md-8">
-        <vector-map id="map" min_color='#ffffff' max_color="#000000" min_radius=5 max_radius=15 filters='json/filters.json' markers='json/countries_plus_markers.json' filter_type="radio"></vector-map>
+        <vector-map id="map" min_color='#ffffff' max_color="#000000" min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'></vector-map>
+        <vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>
     </div>
     <div class="starter-template col-md-2">
     </div>
     </div>
     <script type="text/javascript">
-    $('vector-map').get(0).alertFunc();
+    //$('vector-map').get(0).alertFunc();
     </script>
 </body>
 

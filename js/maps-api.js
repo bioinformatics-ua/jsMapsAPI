@@ -1,17 +1,17 @@
-// VectorialMap
-
-var selectedFilterGlobal;
+//var selectedFilterGlobal;
 var selectedCountries;
 var selectedMarkers;
 var selectedName;
+var vectorMap;
+var jsonFilters = [];
 
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadius, maxRadius, mapDiv, filterType) {
+VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, mapDiv) {
     jsonCountries = [];
     jsonMarkers = [];
-    jsonFilters = [];
+    
 
     // read markers and jsonFilters from JSON file
     // try to read the countries
@@ -22,12 +22,10 @@ VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadiu
     else
         jsonMarkers = this.readMarkersFromJSON(inputMarkers.markers);
 
-    // try to read the filters
-    jsonFilters = this.readFiltersFromJSON(inputFilters);
     numMarkers = jsonMarkers.length;
 
     // fill the Dropdown menu
-    this.setFilters(jsonFilters, filterType);
+    //this.setFilters(jsonFilters, filterType);
 
     // no markers are initially specified
     map = new jvm.Map({
