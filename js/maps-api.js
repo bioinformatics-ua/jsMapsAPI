@@ -8,7 +8,7 @@ var selectedName;
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadius, maxRadius, mapDiv) {
+VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadius, maxRadius, mapDiv, filterType) {
     jsonCountries = [];
     jsonMarkers = [];
     jsonFilters = [];
@@ -27,7 +27,7 @@ VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadiu
     numMarkers = jsonMarkers.length;
 
     // fill the Dropdown menu
-    this.setDropdown(jsonFilters);
+    this.setFilters(jsonFilters, filterType);
 
     // no markers are initially specified
     map = new jvm.Map({
@@ -91,61 +91,79 @@ VectorialMap.prototype.createMap = function(inputMarkers, inputFilters, minRadiu
 };
 
 
-VectorialMap.prototype.setDropdown = function(jsonFilters) {
+VectorialMap.prototype.setFilters = function(jsonFilters, filterType) {
 
-    $.each(jsonFilters, function(index, currentFilter) {
-        var filterName = currentFilter.Name;
+    function setMenu() {
+        $.each(jsonFilters, function(index, currentFilter) {
+            var filterName = currentFilter.Name;
 
-        var toAppend = '';
-        toAppend += '<li>' + filterName + '<ul>';
-        // add all the values from the filters        
-        $.each(currentFilter.Values, function(i, currentValue) {
-            toAppend += '<li filter_index=' + index + '>' + currentValue + '</li>';
+            var toAppend = '';
+            toAppend += '<li>' + filterName + '<ul>';
+            // add all the values from the filters        
+            $.each(currentFilter.Values, function(i, currentValue) {
+                toAppend += '<li filter_index=' + index + '>' + currentValue + '</li>';
+            });
+            toAppend += '</ul></li>';
+            $('#jquerymenu').append(toAppend);
         });
-        toAppend += '</ul></li>';
-        $('#jquerymenu').append(toAppend);
-    });
 
-    $("#jquerymenu").menu({
-        create: function(event, ui) {
-            //console.log('menu created');
-        }
-    });
+        // set the element to behave as a menu
+        $("#jquerymenu").menu();
 
-    // triggered when an item is selected
-    $("#jquerymenu").on("menuselect", function(event, ui) {
-        //console.log('item selected: ' + ui.item.attr('filter_index'));
-        // selected filter
-        var selectedFilter = jsonFilters[ui.item.attr('filter_index')];
-        // selected value for the filter
-        var filterValue = ui.item.text();
-        // apply filtering
-        filterSelected(selectedFilter, filterValue);
-    });
-
-    // when a item is selected the DROPDOWN MENU 2, filtering should be applied
-    $("#dr2 >li >a").click(function() {
-        var selectedFilterValue = $(this).text();
-
-        // remove all markers from the map
-        map.removeAllMarkers();
-        var currentNumberMarkers = 0;
-
-        $.each(jsonCountries, function(index, currentMarker) {
-            if (currentMarker.Name1 === selectedFilterValue && currentMarker.Value1 == selectedFilterValue) {
-                currentNumberMarkers++;
-                map.addMarker(i, {
-                    latLng: [currentMarker.latitude, currentMarker.longitude],
-                    name: currentMarker.desc,
-                    // set the style for this marker
-                    style: {
-                        fill: 'green',
-                        r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                    }
-                });
-            }
+        // triggered when an item is selected
+        $("#jquerymenu").on("menuselect", function(event, ui) {
+            // selected filter
+            var selectedFilter = jsonFilters[ui.item.attr('filter_index')];
+            // selected value for the filter
+            var filterValue = ui.item.text();
+            // apply filtering
+            filterSelected(selectedFilter, filterValue);
         });
-    });
+    }
+
+    function setRadioButtons() {
+        $.each(jsonFilters, function(index, currentFilter) {
+            var filterName = currentFilter.Name;
+            var toAppend = '';
+            // add all the values from the filters   
+            toAppend += '<input type="radio" id="radio' + Number(index + 1) + '" name="radio">';
+            toAppend += '<label for = "radio' + Number(index + 1) + '">' + filterName + ' </label>';
+            $('#radioButtons').append(toAppend);
+        });
+
+        // set the element to behave as a menu
+        $("#radioButtons").buttonset();
+
+        // triggered when an item is selected
+        $("#search_button").click(function() {
+            // check what is on the search box
+            var searchText = $('#search_text').val();
+            if (searchText === '')
+                alert('You must enter a search text');
+            else
+                console.log('searching for ' + searchText);
+
+            // get the selected radio button
+
+        });
+    }
+
+    switch (filterType) {
+        case 'menu':
+            $('#checkboxes_search').hide();
+            setMenu();
+            break;
+        case 'radio':
+            $('#jquerymenu').hide();
+            setRadioButtons();
+            break;
+        default:
+            console.log('not supported filter')
+            break;
+    }
+
+
+
 }
 
 function filterSelected(selectedFilter, filterValue) {

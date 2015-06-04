@@ -16,16 +16,32 @@
         width: 120px;
     }
     
+    form {
+        display: inline-block;
+    }
+    
     #slider {}
     </style>
     <template>
         <!--Bootstrap dropdown menu-->
-        <div class="col-md-2">
+        <div class="col-md-6">
             <ul id="jquerymenu">
             </ul>
+            <div id="checkboxes_search">
+                <form id="checkboxes">
+                    <div id="radioButtons">
+                    </div>
+                </form>
+                <form id="search" role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="search_text">
+                    </div>
+                </form>
+                <button type="button" id="search_button" class="btn btn-primary">Search</button>
+            </div>
         </div>
         <!--jQueryUi slider-->
-        <div class="col-md-10">
+        <div class="col-md-6">
             <div class="col-md-2" id="minSlider">
                 <p>abc</p>
             </div>
@@ -42,13 +58,12 @@
 Polymer({
     // name of the element
     is: "vector-map",
-    alertFunc: function() {
-        console.log('abcdef');
-    },
+    alertFunc: function() {},
     //Lifecycle callbacks
     created: function() {
         var jsonFilters = $('#' + this.id).attr('filters');
         var jsonMarkers = $('#' + this.id).attr('markers');
+        var filterType = $('#' + this.id).attr('filter_type');
 
         // check if all the mandatory fields are present
         if (!jsonFilters)
@@ -66,7 +81,7 @@ Polymer({
             minRadius = +vMap.attr('min_radius');
             maxRadius = +vMap.attr('max_radius');
             // create a new VectorialMap
-            new VectorialMap().createMap(jsonMarkers[0], jsonFilters[0], minRadius, maxRadius, 'my_map');
+            new VectorialMap().createMap(jsonMarkers[0], jsonFilters[0], minRadius, maxRadius, 'my_map', filterType);
         });
     },
     properties: {
@@ -81,11 +96,15 @@ Polymer({
         },
         filters: {
             type: String,
-            value: ''
+            value: ''   
         },
         markers: {
             type: String,
             value: ''
+        },
+        filter_type: {
+            type: String,
+            value: "menu"
         }
     }
 });
