@@ -71,7 +71,7 @@ Polymer({
             if (vectorMap == undefined)
                 vectorMap = new VectorialMap();
             jsonFiltersArray = vectorMap.readFiltersFromJSON(jsonFilters);
-            vectorMap.setFilters(jsonFiltersArray, filterType)
+            setFilters(jsonFiltersArray, filterType)
         });
     },
     properties: {
