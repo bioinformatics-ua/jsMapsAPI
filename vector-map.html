@@ -16,32 +16,13 @@
         width: 120px;
     }
     
+    form {
+        display: inline-block;
+    }
+    
     #slider {}
     </style>
     <template>
-        <!--Bootstrap dropdown menu-->
-        <div class="dropdown col-md-2">
-            <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-expanded="true">
-                Filter by
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" id="dr1" role="menu" aria-labelledby="dropdownMenu1">
-            </ul>
-        </div>
-        <div class="col-md-2">
-            <ul id="jquerymenu">
-            </ul>
-        </div>
-        <!--jQueryUi slider-->
-        <div class="col-md-8">
-            <div class="col-md-2" id="minSlider">
-                <p>abc</p>
-            </div>
-            <div class="col-md-8" id="slider" style="margin-top:10px;"></div>
-            <div class="col-md-2" id="maxSlider">
-                <p>abc</p>
-            </div>
-        </div>
         <div id="my_map" class="col-md-12"></div>
     </template>
 </dom-module>
@@ -50,31 +31,26 @@
 Polymer({
     // name of the element
     is: "vector-map",
-    alertFunc: function() {
-        console.log('abcdef');
-    },
+    alertFunc: function() {},
     //Lifecycle callbacks
     created: function() {
-        var jsonFilters = $('#' + this.id).attr('filters');
         var jsonMarkers = $('#' + this.id).attr('markers');
 
         // check if all the mandatory fields are present
-        if (!jsonFilters)
-            console.log('You must input a JSON with the filters');
         if (!jsonMarkers)
             console.log('You must input a JSON with the markers');
 
         // two simultaneous JSON requests
         $.when(
-            $.getJSON(jsonFilters),
             $.getJSON(jsonMarkers)
-        ).then(function(jsonFilters, jsonMarkers) {
+        ).then(function(jsonMarkers) {
             // the arguments are on the format: [response, state, jqxhr]
             var vMap = $('#map');
             minRadius = +vMap.attr('min_radius');
             maxRadius = +vMap.attr('max_radius');
             // create a new VectorialMap
-            new VectorialMap().createMap(jsonMarkers[0], jsonFilters[0], minRadius, maxRadius, 'my_map');
+            vectorMap = new VectorialMap();
+            vectorMap.createMap(jsonMarkers, minRadius, maxRadius, 'my_map');
         });
     },
     properties: {
@@ -86,10 +62,6 @@ Polymer({
         max_radius: {
             type: Number,
             value: 10
-        },
-        filters: {
-            type: String,
-            value: ''
         },
         markers: {
             type: String,
