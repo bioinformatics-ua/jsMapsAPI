@@ -7,79 +7,14 @@ var Filter = function(Name, Value, Values) {
 
 filter = function(filterName, filterValue) {
     var returning = false;
-    var filterObject;
 
-    function checkFilterNameIsValid(jsonFilters, filterName) {
-        var valid = false;
-        $.each(jsonFilters, function(index, currentFilter) {
-            if (currentFilter.Name === filterName) {
-                filterObject = currentFilter;
-                valid = true;
-                return;
-            }
-        });
-        return valid;
-    }
+    console.log(filterName)
 
-    function checkFilterValueIsValid(filter, parts) {
-        var valid = false;
-        $.each(parts, function(index, part) {
-            // check if the current value is valid
-            $.each(filterObject.Values, function(index, currentValue) {
-                if (currentValue == part) {
-                    valid = true;
-                    return;
-                }
-            });
-            if (!valid) {
-                console.log('Invalid value for the filter: ' + part);
-                return;
-            }
-        });
-        return valid;
-    }
-
-    function getAllFilterValues(filterValue) {
-        // check we have an enumeration (comma-separated values and/or ranges)
-        var returnParts = [];
-        if (String(filterValue).indexOf(",") != -1) {
-            // check if every individual value and/or range is valid
-            var parts = String(filterValue).split(",");
-            //returnParts.push(parts);
-
-            // check if we have a simple value or a range
-            $.each(parts, function(index, currentPart) {
-                if (currentPart.indexOf("-") != -1) {
-                    // we have a range
-                    var subParts = String(currentPart).split("-");
-                    // check if the extreme values are valid
-                    checkFilterValueIsValid(filterObject, subParts);
-                    // get all the values between those two numbers
-                    var min = subParts[0];
-                    var max = subParts[1];
-                    for (; min <= max; min++) {
-                        returnParts.push(min);
-                    }
-                } else
-                    returnParts.push(currentPart);
-            });
-        } else {
-            // just a single part
-            if (filterValue.indexOf("-") != -1) {
-                // we have a range
-                var subParts = String(filterValue).split("-");
-                // check if the extreme values are valid
-                checkFilterValueIsValid(filterObject, subParts);
-                // get all the values between those two numbers
-                var min = subParts[0];
-                var max = subParts[1];
-                for (; min <= max; min++) {
-                    returnParts.push(min);
-                }
-            } else
-                returnParts.push(filterValue);
-        }
-        return returnParts;
+    // check the filterName
+    if (filterName.toLowerCase() == 'all') {
+        console.log('removing all applied filters')
+        resetFilters();
+        return;
     }
 
     // check if the filterName is valid
@@ -105,6 +40,102 @@ filter = function(filterName, filterValue) {
             applyFilter(filterObject, part, colors);
         });
     }
+}
+
+function checkFilterNameIsValid(jsonFilters, filterName) {
+    var valid = false;
+    $.each(jsonFilters, function(index, currentFilter) {
+        if (currentFilter.Name === filterName) {
+            filterObject = currentFilter;
+            valid = true;
+            return;
+        }
+    });
+    return valid;
+}
+
+function checkFilterValueIsValid(filter, parts) {
+    var valid = false;
+    $.each(parts, function(index, part) {
+        // check if the current value is valid
+        $.each(filterObject.Values, function(index, currentValue) {
+            if (currentValue == part) {
+                valid = true;
+                return;
+            }
+        });
+        if (!valid) {
+            console.log('Invalid value for the filter: ' + part);
+            return;
+        }
+    });
+    return valid;
+}
+
+function getAllFilterValues(filterValue) {
+    // check we have an enumeration (comma-separated values and/or ranges)
+    var returnParts = [];
+    if (String(filterValue).indexOf(",") != -1) {
+        // check if every individual value and/or range is valid
+        var parts = String(filterValue).split(",");
+        //returnParts.push(parts);
+
+        // check if we have a simple value or a range
+        $.each(parts, function(index, currentPart) {
+            if (currentPart.indexOf("-") != -1) {
+                // we have a range
+                var subParts = String(currentPart).split("-");
+                // check if the extreme values are valid
+                checkFilterValueIsValid(filterObject, subParts);
+                // get all the values between those two numbers
+                var min = subParts[0];
+                var max = subParts[1];
+                for (; min <= max; min++) {
+                    returnParts.push(min);
+                }
+            } else
+                returnParts.push(currentPart);
+        });
+    } else {
+        // just a single part
+        if (filterValue.indexOf("-") != -1) {
+            // we have a range
+            var subParts = String(filterValue).split("-");
+            // check if the extreme values are valid
+            checkFilterValueIsValid(filterObject, subParts);
+            // get all the values between those two numbers
+            var min = subParts[0];
+            var max = subParts[1];
+            for (; min <= max; min++) {
+                returnParts.push(min);
+            }
+        } else
+            returnParts.push(filterValue);
+    }
+    return returnParts;
+}
+
+function resetFilters() {
+	colors = [];
+    $.each(jsonCountries, function(index, currentCountry) {
+        var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
+        colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
+    });
+    map.series.regions[0].setValues(colors);
+
+    // add only the markers who have that filter value
+    $.each(jsonMarkers, function(index, currentMarker) {
+        map.addMarker(index, {
+            latLng: [currentMarker.Latitude, currentMarker.Longitude],
+            name: currentMarker.desc,
+
+            // set the style for this marker
+            style: {
+                fill: 'green',
+                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+            }
+        });
+    });
 }
 
 function applyFilter(selectedFilter, filterValue, colors) {
@@ -360,7 +391,6 @@ function filterSelected(selectedFilter, filterValue) {
 }
 
 sliderChanged = function() {
-
     // get the max and min values for the currently selected range
     var currentRange = slider.slider("option", "values");
     var min = currentRange[0];

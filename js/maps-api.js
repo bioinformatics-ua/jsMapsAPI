@@ -12,7 +12,6 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
     jsonCountries = [];
     jsonMarkers = [];
 
-
     // read markers and jsonFilters from JSON file
     // try to read the countries
     jsonCountries = this.readCountriesFromJSON(inputMarkers.countries);
@@ -130,7 +129,6 @@ VectorialMap.prototype.setSlider = function() {
     $('#maxSlider').hide();
 }
 
-// read the filters from a JSON file
 VectorialMap.prototype.readFiltersFromJSON = function(inputFilters) {
     var filtersReturn = [];
 
@@ -150,7 +148,6 @@ VectorialMap.prototype.readFiltersFromJSON = function(inputFilters) {
     return filtersReturn;
 };
 
-// read the markers from a JSON file
 VectorialMap.prototype.readCountriesFromJSON = function(markers) {
     var returnCountries = [];
     var numJSONCountries = markers.length;
