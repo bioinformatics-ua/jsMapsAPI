@@ -9,7 +9,7 @@ filter = function(filterName, filterValue) {
     var returning = false;
 
     console.log(filterName)
-
+ 
     // check the filterName
     if (filterName.toLowerCase() == 'all') {
         console.log('removing all applied filters')
