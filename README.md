@@ -32,6 +32,18 @@ Here is an example:
 
     <vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>
 
+## Multiple filters at the same time
+
+Many filters can be applied on the map by using a custom _filters box_ that can be added to a page using the **filters-box** tag with the following attributes:
+
+- id="filters-box"
+- filters - url of the json that contains information about the filters
+
+Here is an example:
+    
+    <filters-box id="filters-box" filters="json/filters.json"></filters-box>
+
+
 ### Programmatic Filters
 
 You can programmatically filter the applied filters by invoking the _filter_ function. Here are some examples of its use:
