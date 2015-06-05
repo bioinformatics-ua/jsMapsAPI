@@ -22,6 +22,25 @@ Here is an example:
 
 Filters are used on the markers to better select the information to be consulted. For example, we can view information related only to a certain year or a certain gender.
 
+You can filter the information shown on the map by using the **vector-map-filters** tag in your HTML file with the following attributes:
+
+- id="filters"
+- filters - url of the json that contains information about the filters
+- filter_type - type of filter. Supported values are _menu_ and _radio_
+
+Here is an example:
+
+    <vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>
+
+### Programmatic Filters
+
+You can programmatically filter the applied filters by invoking the _filter_ function. Here are some examples of its use:
+
+    filter('YEAR','2005-2007') // range
+    filter('YEAR','2003,2004,2005') // enumeration
+
+Enumeration and range can be combined, i.e., you can use _filter('YEAR','2003,2004-2008')_. In case you want to cancel all the applied filters you just use _filter('ALL','')_.
+
 ## Countries 
 
 Countries appear on the map with different colours according to the Count attribute associated with them.
