@@ -9,7 +9,7 @@ filter = function(filterName, filterValue) {
     var returning = false;
 
     console.log(filterName)
- 
+
     // check the filterName
     if (filterName.toLowerCase() == 'all') {
         console.log('removing all applied filters')
@@ -116,7 +116,7 @@ function getAllFilterValues(filterValue) {
 }
 
 function resetFilters() {
-	colors = [];
+    colors = [];
     $.each(jsonCountries, function(index, currentCountry) {
         var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
         colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
@@ -224,7 +224,44 @@ function applyFilter(selectedFilter, filterValue, colors) {
     }
 }
 
-setFilters = function(jsonFilters, filterType) {
+function setMultipleFilters(jsonFilters) {
+
+    $.each(jsonFilters, function(index, currentFilter) {
+        var filterName = currentFilter.Name;
+
+        var toAppend = '';
+
+        // filter text
+        toAppend += '<p><b>' + filterName + ':</b></p>';
+        // dropdown start
+        toAppend += '<div class="dropdown">';
+        // dropdown button
+        toAppend += '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown<span class="caret"></span></button>';
+        // dropdown items
+        toAppend += '<ul class="dropdown-menu">';
+        $.each(currentFilter.Values, function(index, element) {
+            toAppend += '<li><a href="#">' + element + ' </a></li>';
+        });
+
+        toAppend += '</ul></div>';
+        $('#filters_box').prepend(toAppend);
+    });
+
+    // triggered when the search button is clicked
+    $("#filter_box_apply_filters").click(function() {
+        console.log('search button pressed')
+        /*
+        // check what is on the search box
+        var searchText = $('#search_text').val();
+        if (searchText === '')
+            alert('You must enter a search text');
+        else
+            console.log('searching for ' + searchText);
+        */
+    });
+}
+
+function setFilters(jsonFilters, filterType) {
 
     function setMenu() {
         $.each(jsonFilters, function(index, currentFilter) {
@@ -390,7 +427,7 @@ function filterSelected(selectedFilter, filterValue) {
     }
 }
 
-sliderChanged = function() {
+function sliderChanged() {
     // get the max and min values for the currently selected range
     var currentRange = slider.slider("option", "values");
     var min = currentRange[0];
