@@ -20,7 +20,6 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
         console.log('There are no markers as input');
     else
         jsonMarkers = this.readMarkersFromJSON(inputMarkers.markers);
-
     numMarkers = jsonMarkers.length;
 
 

@@ -32,7 +32,7 @@ Here is an example:
 
     <vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>
 
-## Multiple filters at the same time
+### Multiple filters at the same time
 
 Many filters can be applied on the map by using a custom _filters box_ that can be added to a page using the **filters-box** tag with the following attributes:
 

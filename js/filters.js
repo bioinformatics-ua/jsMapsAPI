@@ -5,7 +5,7 @@ var Filter = function(Name, Value, Values) {
     this.Values = Values;
 };
 
-filter = function(filterName, filterValue) {
+function filter(filterName, filterValue) {
     var returning = false;
 
     console.log(filterName)
@@ -226,9 +226,12 @@ function applyFilter(selectedFilter, filterValue, colors) {
 
 function setMultipleFilters(jsonFilters) {
 
+    var selectedMultipleFilters = [];
+
     $.each(jsonFilters, function(index, currentFilter) {
         var filterName = currentFilter.Name;
-
+        var buttonId = 'dropdown' + index + 'button';
+        var ulId = 'dropdown' + index;
         var toAppend = '';
 
         // filter text
@@ -236,29 +239,126 @@ function setMultipleFilters(jsonFilters) {
         // dropdown start
         toAppend += '<div class="dropdown">';
         // dropdown button
-        toAppend += '<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown<span class="caret"></span></button>';
+        toAppend += '<button id=' + buttonId + ' class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown<span class="caret"></span></button>';
         // dropdown items
-        toAppend += '<ul class="dropdown-menu">';
-        $.each(currentFilter.Values, function(index, element) {
-            toAppend += '<li><a href="#">' + element + ' </a></li>';
+        toAppend += '<ul id=' + ulId + ' class="dropdown-menu">';
+        $.each(currentFilter.Values, function(valueIndex, element) {
+            toAppend += '<li><a href="#" filterIndex=' + index + ' index=' + valueIndex + '>' + element + ' </a></li>';
         });
 
         toAppend += '</ul></div>';
         $('#filters_box').prepend(toAppend);
+
+        // add on click listener
+        $("#" + ulId + " li a").click(function() {
+            var filterIndex = $(this).attr('filterIndex');
+            var selectedIndex = $(this).attr('index');
+            //console.log('Filter: '+filterIndex+'; Value: '+selectedIndex);
+            $("#" + buttonId + ":first-child").text($(this).text());
+            $("#" + buttonId + ":first-child").val($(this).text());
+            selectedMultipleFilters[filterIndex] = jsonFilters[filterIndex].Values[selectedIndex];
+            console.log(selectedMultipleFilters);
+        });
     });
 
     // triggered when the search button is clicked
     $("#filter_box_apply_filters").click(function() {
-        console.log('search button pressed')
-        /*
-        // check what is on the search box
-        var searchText = $('#search_text').val();
-        if (searchText === '')
-            alert('You must enter a search text');
-        else
-            console.log('searching for ' + searchText);
-        */
+        if (selectedMultipleFilters.length != 0)
+            applyMultipleFilters(selectedMultipleFilters, jsonFilters);
     });
+}
+
+function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
+
+    // number of filters to be applied
+    var numFiltersToApply = selectedMultipleFilters.filter(function(value) {
+        return value !== undefined
+    }).length;
+    var countriesHaveFilter = [];
+
+    // erase all markers and countries from the map
+    var colors = [];
+    $.each(jsonCountries, function(index, currentCountry) {
+        colors[currentCountry.Country] = 'rgb(255,255,255)';
+    });
+    map.series.regions[0].setValues(colors);
+    // remove all markers from the map
+    map.removeAllMarkers();
+
+
+
+    // for each of the countries
+    $.each(jsonCountries, function(countryIndex, currentCountry) {
+        // set to 0 the number of filters
+        countriesHaveFilter[countryIndex] = 0;
+        // check if it has the needed values
+        $.each(selectedMultipleFilters, function(index, currentFilterValue) {
+            var i = 0;
+            do {
+                i++;
+                var currentNameToCheck = 'Name' + i;
+                var currentValue = 'Value' + i;
+                // check if the Country has that name
+                if (currentCountry[currentNameToCheck] == undefined)
+                    break;
+
+                if (currentCountry[currentNameToCheck] === jsonFilters[index].Name) {
+                    // check by value
+                    if (currentCountry[currentValue] == currentFilterValue) {
+                        countriesHaveFilter[countryIndex]++;
+                    }
+                }
+            } while (true)
+        });
+    });
+
+    console.log('countries ' + countriesHaveFilter);
+
+    // colour only the countris whose countriesHaveFilter[index] == numberFilters
+    $.each(jsonCountries, function(countryIndex, currentCountry) {
+        console.log(countriesHaveFilter[countryIndex] + ' ' + numFiltersToApply);
+        if (countriesHaveFilter[countryIndex] == numFiltersToApply) {
+            console.log('+');
+            var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
+            colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
+        }
+    });
+
+    // colour the countries
+    map.series.regions[0].setValues(colors);
+    /*
+
+        // add only the markers who have that filter value
+        $.each(jsonMarkers, function(index, currentMarker) {
+            // check if any of the names is equal to the selected filter
+            // try to read all the names and values
+            var i = 0;
+            do {
+                i++;
+                var currentNameToCheck = 'Name' + i;
+                var currentValue = 'Value' + i;
+                // check if the Country has that name
+                if (currentMarker[currentNameToCheck] !== undefined) {
+                    if (currentMarker[currentNameToCheck] == selectedFilter.Name) {
+                        if (currentMarker[currentValue] == filterValue) {
+                            map.addMarker(index, {
+                                latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                                name: currentMarker.desc,
+
+                                // set the style for this marker
+                                style: {
+                                    fill: 'green',
+                                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                                }
+                            });
+                        }
+                    }
+                } else {
+                    break;
+                }
+            } while (true)
+        });
+    */
 }
 
 function setFilters(jsonFilters, filterType) {
