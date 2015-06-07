@@ -694,3 +694,22 @@ function sliderChanged() {
         }
     });
 };
+
+function readFiltersFromJSON(inputFilters) {
+    var filtersReturn = [];
+
+    // read filters from JSON
+    for (var i = 0; i < inputFilters.values.length; i++) {
+        // read the current filter
+        currentFilter = inputFilters.values[i];
+        // fields
+        var name = currentFilter.name;
+        var value = currentFilter.value;
+        var values = [];
+
+        for (var j = 0; j < currentFilter.values.length; j++)
+            values.push(currentFilter.values[j]);
+        filtersReturn[i] = new Filter(name, value, values);
+    }
+    return filtersReturn;
+};

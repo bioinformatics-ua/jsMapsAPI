@@ -14,12 +14,12 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
 
     // read markers and jsonFilters from JSON file
     // try to read the countries
-    jsonCountries = this.readCountriesFromJSON(inputMarkers.countries);
+    jsonCountries = readCountriesFromJSON(inputMarkers.countries);
     // try to read the markers 
     if (!inputMarkers.markers)
         console.log('There are no markers as input');
     else
-        jsonMarkers = this.readMarkersFromJSON(inputMarkers.markers);
+        jsonMarkers = readMarkersFromJSON(inputMarkers.markers);
     numMarkers = jsonMarkers.length;
 
 
@@ -62,7 +62,7 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
     });
 
     // give colors to the map regions
-    map.series.regions[0].setValues(this.generateColorsForTheCountries());
+    map.series.regions[0].setValues(generateColorsForTheCountries());
 
     // generate the slider and set corresponding values and callbacks
     this.setSlider();
@@ -88,15 +88,6 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
 function mapRange(value, low1, high1, low2, high2) {
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
-
-VectorialMap.prototype.generateColorsForTheCountries = function() {
-    var colors = [];
-    $.each(jsonCountries, function(index, currentMarker) {
-        var hue = mapRange(currentMarker.Count, minCount, maxCount, 160, 220);
-        colors[currentMarker.Country] = 'hsl(' + hue + ', 100%, 50%)';
-    });
-    return colors;
-};
 
 VectorialMap.prototype.setSlider = function() {
     // set the text on the UI
@@ -126,62 +117,4 @@ VectorialMap.prototype.setSlider = function() {
     $('#slider').hide();
     $('#minSlider').hide();
     $('#maxSlider').hide();
-}
-
-VectorialMap.prototype.readFiltersFromJSON = function(inputFilters) {
-    var filtersReturn = [];
-
-    // read filters from JSON
-    for (var i = 0; i < inputFilters.values.length; i++) {
-        // read the current filter
-        currentFilter = inputFilters.values[i];
-        // fields
-        var name = currentFilter.name;
-        var value = currentFilter.value;
-        var values = [];
-
-        for (var j = 0; j < currentFilter.values.length; j++)
-            values.push(currentFilter.values[j]);
-        filtersReturn[i] = new Filter(name, value, values);
-    }
-    return filtersReturn;
-};
-
-VectorialMap.prototype.readCountriesFromJSON = function(markers) {
-    var returnCountries = [];
-    var numJSONCountries = markers.length;
-
-    minCount = Infinity;
-    maxCount = -Infinity;
-
-    $.each(markers, function(index, currentCountry) {
-        returnCountries[index] = new Country(currentCountry);
-
-        if (returnCountries[index].Count > maxCount) {
-            maxCount = returnCountries[index].Count;
-        }
-        if (returnCountries[index].Count < minCount)
-            minCount = returnCountries[index].Count;
-    });
-    return returnCountries;
-}
-
-// read the markers from a JSON file
-VectorialMap.prototype.readMarkersFromJSON = function(markers) {
-    var returnMarkers = [];
-
-    minCount = Infinity;
-    maxCount = -Infinity;
-
-    $.each(markers, function(index, currentMarker) {
-        returnMarkers[index] = new Marker(currentMarker);
-        var Count = returnMarkers[index].Count;
-
-        if (Count > maxCount) {
-            maxCount = Count;
-        }
-        if (Count < minCount)
-            minCount = Count;
-    });
-    return returnMarkers;
 }

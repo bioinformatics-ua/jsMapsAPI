@@ -22,3 +22,24 @@ var Marker = function(markerObject) {
     this.Longitude = markerObject.Longitude;
     this.desc = 'abc';
 };
+
+
+// read the markers from a JSON file
+function readMarkersFromJSON(markers) {
+    var returnMarkers = [];
+
+    minCount = Infinity;
+    maxCount = -Infinity;
+
+    $.each(markers, function(index, currentMarker) {
+        returnMarkers[index] = new Marker(currentMarker);
+        var Count = returnMarkers[index].Count;
+
+        if (Count > maxCount) {
+            maxCount = Count;
+        }
+        if (Count < minCount)
+            minCount = Count;
+    });
+    return returnMarkers;
+}
