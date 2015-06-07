@@ -53,6 +53,11 @@ You can programmatically filter the applied filters by invoking the _filter_ fun
 
 Enumeration and range can be combined, i.e., you can use _filter('YEAR','2003,2004-2008')_. In case you want to cancel all the applied filters you just use _filter('ALL','')_.
 
+In case you want to apply multiple filters you use the _multiFilter_ function:
+
+    multiFilter({"Year":'2005','Gender':'F'})
+
+
 ## Countries 
 
 Countries appear on the map with different colours according to the Count attribute associated with them.
