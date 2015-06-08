@@ -50,7 +50,7 @@ Polymer({
             maxRadius = +vMap.attr('max_radius');
             minColor = vMap.attr('min_color');
             maxColor = vMap.attr('max_color');
-            console.log(minColor+' '+maxColor);
+            
             // create a new VectorialMap
             vectorMap = new VectorialMap();
             vectorMap.createMap(jsonMarkers, minRadius, maxRadius, 'my_map', minColor, maxColor);

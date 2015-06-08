@@ -41,6 +41,7 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
     var keys = Object.keys(filtersToApply)
     var numFiltersToApply = keys.length;
     var countriesHaveFilter = [];
+    var markersHaveFilter = [];
 
     console.log(filtersToApply)
     console.log(numFiltersToApply);
@@ -49,8 +50,6 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
     $.each(keys, function(index, filterName) {
         var filterValue = filtersToApply[filterName];
     });
-
-    // erase all markers and countries from the map
     var colors = [];
 
     // remove all markers from the map
@@ -73,9 +72,8 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 
                 if (currentCountry[currentNameToCheck].toLowerCase() == currentFilterName.toLowerCase()) {
                     // check by value
-                    if (currentCountry[currentValue] == filtersToApply[currentFilterName]) {
+                    if (currentCountry[currentValue] == filtersToApply[currentFilterName])
                         countriesHaveFilter[countryIndex]++;
-                    }
                 }
             } while (true)
         });
@@ -87,42 +85,56 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
             colors[currentCountry.Country] = currentCountry.Count;
         }
     });
-
     reloadMap(colors);
 
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /*
+    Markers
+    */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        // add only the markers who have that filter value
-        $.each(jsonMarkers, function(index, currentMarker) {
-            // check if any of the names is equal to the selected filter
-            // try to read all the names and values
+    // for each of the markers
+    $.each(jsonMarkers, function(markerIndex, currentMarker) {
+        // set to 0 the number of filters
+        markersHaveFilter[markerIndex] = 0;
+        // check if it has the needed values
+        $.each(keys, function(index, currentFilterName) {
             var i = 0;
             do {
                 i++;
                 var currentNameToCheck = 'Name' + i;
                 var currentValue = 'Value' + i;
                 // check if the Country has that name
-                if (currentMarker[currentNameToCheck] !== undefined) {
-                    if (currentMarker[currentNameToCheck] == selectedFilter.Name) {
-                        if (currentMarker[currentValue] == filterValue) {
-                            map.addMarker(index, {
-                                latLng: [currentMarker.Latitude, currentMarker.Longitude],
-                                name: currentMarker.desc,
-
-                                // set the style for this marker
-                                style: {
-                                    fill: 'green',
-                                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                                }
-                            });
-                        }
-                    }
-                } else {
+                if (!currentMarker[currentNameToCheck])
                     break;
+
+                if (currentMarker[currentNameToCheck].toLowerCase() == currentFilterName.toLowerCase()) {
+                    // check by value
+                    if (currentMarker[currentValue] == filtersToApply[currentFilterName])
+                        markersHaveFilter[markerIndex]++;
                 }
             } while (true)
         });
-    */
+    });
+
+    console.log(markersHaveFilter);
+
+    // add only the markers who satisfy the criteria
+    $.each(jsonMarkers, function(index, currentMarker) {
+        if (markersHaveFilter[index] == numFiltersToApply) {
+            map.addMarker(index, {
+                latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                name: currentMarker.desc,
+
+                // set the style for this marker
+                style: {
+                    fill: 'green',
+                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                }
+            });
+        }
+    });
+
 }
 
 function setMultipleFilters(jsonFilters) {
@@ -170,13 +182,13 @@ function setMultipleFilters(jsonFilters) {
 
 function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 
-    console.log('+');
-
     // number of filters to be applied
     var numFiltersToApply = selectedMultipleFilters.filter(function(value) {
         return value !== undefined
     }).length;
+
     var countriesHaveFilter = [];
+    var markersHaveFilter = [];
 
     // for each of the countries
     $.each(jsonCountries, function(countryIndex, currentCountry) {
@@ -213,37 +225,53 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 
     // colour the countries
     reloadMap(colors);
-    /*
 
-        // add only the markers who have that filter value
-        $.each(jsonMarkers, function(index, currentMarker) {
-            // check if any of the names is equal to the selected filter
-            // try to read all the names and values
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /*
+    Markers
+    */
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    // for each of the markers
+    $.each(jsonMarkers, function(markerIndex, currentMarker) {
+        // set to 0 the number of filters
+        markersHaveFilter[markerIndex] = 0;
+        // check if it has the needed values
+        $.each(selectedMultipleFilters, function(index, currentFilterValue) {
             var i = 0;
             do {
                 i++;
                 var currentNameToCheck = 'Name' + i;
                 var currentValue = 'Value' + i;
                 // check if the Country has that name
-                if (currentMarker[currentNameToCheck] !== undefined) {
-                    if (currentMarker[currentNameToCheck] == selectedFilter.Name) {
-                        if (currentMarker[currentValue] == filterValue) {
-                            map.addMarker(index, {
-                                latLng: [currentMarker.Latitude, currentMarker.Longitude],
-                                name: currentMarker.desc,
-
-                                // set the style for this marker
-                                style: {
-                                    fill: 'green',
-                                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                                }
-                            });
-                        }
-                    }
-                } else {
+                if (!currentMarker[currentNameToCheck])
                     break;
+
+                if (currentMarker[currentNameToCheck].toLowerCase() == jsonFilters[index].Name.toLowerCase() ) {
+                    // check by value
+                    if (currentMarker[currentValue] == currentFilterValue)
+                        markersHaveFilter[markerIndex]++;
                 }
             } while (true)
         });
-    */
+    });
+
+    console.log(markersHaveFilter);
+
+    // add only the markers who satisfy the criteria
+    $.each(jsonMarkers, function(index, currentMarker) {
+        if (markersHaveFilter[index] == numFiltersToApply) {
+            map.addMarker(index, {
+                latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                name: currentMarker.desc,
+
+                // set the style for this marker
+                style: {
+                    fill: 'green',
+                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                }
+            });
+        }
+    });
 }
