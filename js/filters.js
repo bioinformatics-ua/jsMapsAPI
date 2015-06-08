@@ -392,13 +392,11 @@ function sliderChanged() {
     // filter the Countries
     colors = [];
     $.each(selectedCountries, function(index, currentCountry) {
-        if (currentCountry[selectedName] >= min && currentCountry[selectedName] <= max) {
-            var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
-            colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
-        } else
-            colors[currentCountry.Country] = 'rgb(255,255,255)';
+        if (currentCountry[selectedName] >= min && currentCountry[selectedName] <= max) 
+            colors[currentCountry.Country] = currentCountry.Count;
     });
-    map.series.regions[0].setValues(colors);
+
+    reloadMap(colors);
 
     // filter the Markers
     // first, remove all markers

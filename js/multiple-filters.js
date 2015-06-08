@@ -152,9 +152,9 @@ function setMultipleFilters(jsonFilters) {
         // dropdown start
         toAppend += '<div class="dropdown">';
         // dropdown button
-        toAppend += '<button id=' + buttonId + ' class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown<span class="caret"></span></button>';
+        toAppend += '<button id='+ buttonId +' class="btn btn-primary dropdown-toggle filter-box-dropdown" type="button" data-toggle="dropdown">Select a value<span class="caret"></span></button>';
         // dropdown items
-        toAppend += '<ul id=' + ulId + ' class="dropdown-menu">';
+        toAppend += '<ul id='+ ulId +' class="dropdown-menu">';
         $.each(currentFilter.Values, function(valueIndex, element) {
             toAppend += '<li><a href="#" filterIndex=' + index + ' index=' + valueIndex + '>' + element + ' </a></li>';
         });
@@ -177,6 +177,41 @@ function setMultipleFilters(jsonFilters) {
     $("#filter_box_apply_filters").click(function() {
         if (selectedMultipleFilters.length != 0)
             applyMultipleFilters(selectedMultipleFilters, jsonFilters);
+    });
+
+    // triggered when the reset button is clicked
+    $("#filter_box_reset_filters").click(function() {   
+        console.log('reset filters');
+
+        // re-render dropdowns??
+
+        // set the dropbown button text
+        $(".filter-box-dropdown").text("Select a value");
+        $(".filter-box-dropdown").val('Select a value');
+
+
+        // reload the map
+        var colors = [];
+        $.each(jsonCountries, function(index, currentCountry) {
+            colors[currentCountry.Country] = currentCountry.Count;
+        });
+        reloadMap(colors);
+
+        // add all the markers to the map
+        $.each(jsonMarkers, function(index, currentMarker) {
+            map.addMarker(index, {
+                latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                name: currentMarker.desc,
+
+                // set the style for this marker
+                style: {
+                    fill: 'green',
+                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                }
+            });
+
+        });
+
     });
 }
 
@@ -248,7 +283,7 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
                 if (!currentMarker[currentNameToCheck])
                     break;
 
-                if (currentMarker[currentNameToCheck].toLowerCase() == jsonFilters[index].Name.toLowerCase() ) {
+                if (currentMarker[currentNameToCheck].toLowerCase() == jsonFilters[index].Name.toLowerCase()) {
                     // check by value
                     if (currentMarker[currentValue] == currentFilterValue)
                         markersHaveFilter[markerIndex]++;
