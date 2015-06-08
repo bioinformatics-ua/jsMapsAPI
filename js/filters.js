@@ -570,7 +570,7 @@ function filterSelected(selectedFilter, filterValue) {
         // try to read all the names and values
         var i = 0;
         // colour the COuntry white so it won't be selected
-        colors[currentCountry.Country] = 'rgb(255,255,255)';
+        colors[currentCountry.Country] = 0;
         do {
             i++;
             var currentNameToCheck = 'Name' + i;
@@ -580,8 +580,7 @@ function filterSelected(selectedFilter, filterValue) {
                 if (currentCountry[currentNameToCheck] === selectedFilter.Name) {
                     // check by value
                     if (currentCountry[currentValue] == filterValue) {
-                        var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
-                        colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
+                        colors[currentCountry.Country] = currentCountry.Count;
                         selectedCountries.push(currentCountry);
                     }
                 }

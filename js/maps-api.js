@@ -4,13 +4,18 @@ var selectedMarkers;
 var selectedName;
 var vectorMap;
 var jsonFilters = [];
+var minColorMap;
+var maxColorMap;
 
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, mapDiv) {
+VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, mapDiv, minColor, maxColor) {
     jsonCountries = [];
     jsonMarkers = [];
+
+    minColorMap = minColor;
+    maxColorMap = maxColor;
 
     // read markers and jsonFilters from JSON file
     // try to read the countries
@@ -22,6 +27,8 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
         jsonMarkers = readMarkersFromJSON(inputMarkers.markers);
     numMarkers = jsonMarkers.length;
 
+    // get the Count of each Country
+    var auxColors = generateColorsForTheCountries();
 
     // no markers are initially specified
     map = new jvm.Map({
@@ -47,22 +54,19 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
         },
         series: {
             markers: [{
-                attribute: 'fill',
-                scale: ['#C8EEFF', '#0071A4'],
-                normalizeFunction: 'polynomial',
-                values: [100, 512, 550, 1081, 1200],
+                scale: [minColorMap, maxColorMap],
+                values: [minCount, maxCount],
                 legend: {
                     vertical: true
                 }
             }],
             regions: [{
-                attribute: 'fill'
+                scale: [minColorMap, maxColorMap],
+                attribute: 'fill',
+                values: auxColors
             }]
         }
     });
-
-    // give colors to the map regions
-    map.series.regions[0].setValues(generateColorsForTheCountries());
 
     // generate the slider and set corresponding values and callbacks
     this.setSlider();

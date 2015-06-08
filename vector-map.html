@@ -48,9 +48,12 @@ Polymer({
             var vMap = $('#map');
             minRadius = +vMap.attr('min_radius');
             maxRadius = +vMap.attr('max_radius');
+            minColor = vMap.attr('min_color');
+            maxColor = vMap.attr('max_color');
+            console.log(minColor+' '+maxColor);
             // create a new VectorialMap
             vectorMap = new VectorialMap();
-            vectorMap.createMap(jsonMarkers, minRadius, maxRadius, 'my_map');
+            vectorMap.createMap(jsonMarkers, minRadius, maxRadius, 'my_map', minColor, maxColor);
         });
     },
     properties: {
@@ -62,6 +65,14 @@ Polymer({
         max_radius: {
             type: Number,
             value: 10
+        },
+        min_color: {
+            type: String,
+            value: "#C8EEFF"
+        },
+        max_color: {
+            type: String,
+            value: "#0071A4"
         },
         markers: {
             type: String,

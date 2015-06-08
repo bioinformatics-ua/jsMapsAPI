@@ -24,9 +24,8 @@ var Country = function(countryObject) {
 
 function generateColorsForTheCountries() {
     var colors = [];
-    $.each(jsonCountries, function(index, currentMarker) {
-        var hue = mapRange(currentMarker.Count, minCount, maxCount, 160, 220);
-        colors[currentMarker.Country] = 'hsl(' + hue + ', 100%, 50%)';
+    $.each(jsonCountries, function(index, currentCountry) {
+        colors[currentCountry.Country] = currentCountry.Count;
     });
     return colors;
 };
