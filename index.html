@@ -31,6 +31,7 @@
     <!-- Import custom elements created with Polymer-->
     <link rel="import" href="vector-map.html">
     <link rel="import" href="vector-map-filters.html">
+    <link rel="import" href="vector-map-multiple-filters.html">
 </head>
 
 <body>
@@ -42,6 +43,7 @@
         <vector-map id="map" min_color='#ffffff' max_color="#000000" min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'></vector-map>
     </div>
     <div class="starter-template col-md-2">
+        <filters-box id="filters-box" filters="json/filters.json"></filters-box>
     </div>
     </div>
     <script type="text/javascript">

@@ -70,7 +70,7 @@ Polymer({
             // in case the filters element show up before the vector-map element
             if (vectorMap == undefined)
                 vectorMap = new VectorialMap();
-            jsonFiltersArray = vectorMap.readFiltersFromJSON(jsonFilters);
+            jsonFiltersArray = readFiltersFromJSON(jsonFilters);
             setFilters(jsonFiltersArray, filterType)
         });
     },
