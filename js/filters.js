@@ -159,12 +159,6 @@ function filter(filterName, filterValue) {
         var finalParts = getAllFilterValues(filterValue);
         console.log('PARTS: ' + finalParts);
 
-        // erase all markers and countries from the map
-        var colors = [];
-        $.each(jsonCountries, function(index, currentCountry) {
-            colors[currentCountry.Country] = 'rgb(255,255,255)';
-        });
-        map.series.regions[0].setValues(colors);
         // remove all markers from the map
         map.removeAllMarkers();
         // apply the filtering
@@ -401,20 +395,13 @@ function setMultipleFilters(jsonFilters) {
 
 function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 
+    console.log('+');
+
     // number of filters to be applied
     var numFiltersToApply = selectedMultipleFilters.filter(function(value) {
         return value !== undefined
     }).length;
     var countriesHaveFilter = [];
-
-    // erase all markers and countries from the map
-    var colors = [];
-    $.each(jsonCountries, function(index, currentCountry) {
-        colors[currentCountry.Country] = 'rgb(255,255,255)';
-    });
-    map.series.regions[0].setValues(colors);
-    // remove all markers from the map
-    map.removeAllMarkers();
 
     // for each of the countries
     $.each(jsonCountries, function(countryIndex, currentCountry) {
@@ -441,16 +428,16 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
         });
     });
 
+    var colors = [];
+
     // colour only the countris whose countriesHaveFilter[index] == numberFilters
     $.each(jsonCountries, function(countryIndex, currentCountry) {
-        if (countriesHaveFilter[countryIndex] == numFiltersToApply) {
-            var hue = mapRange(currentCountry.Count, minCount, maxCount, 160, 220);
-            colors[currentCountry.Country] = 'hsl(' + hue + ', 100%, 50%)';
-        }
+        if (countriesHaveFilter[countryIndex] == numFiltersToApply) 
+            colors[currentCountry.Country] = currentCountry.Count;
     });
 
     // colour the countries
-    map.series.regions[0].setValues(colors);
+    reloadMap(colors);
     /*
 
         // add only the markers who have that filter value
@@ -542,7 +529,6 @@ function setFilters(jsonFilters, filterType) {
 
         });
     }
-
     switch (filterType) {
         case 'menu':
             $('#checkboxes_search').hide();
@@ -560,17 +546,14 @@ function setFilters(jsonFilters, filterType) {
 
 function filterSelected(selectedFilter, filterValue) {
 
-    console.log(filterValue)
-
     // check what countries to colour
     colors = [];
     selectedCountries = [];
+    map.series.regions[0].setValues([]);
     $.each(jsonCountries, function(index, currentCountry) {
         // check if any of the names is equal to the selected filter
         // try to read all the names and values
         var i = 0;
-        // colour the COuntry white so it won't be selected
-        colors[currentCountry.Country] = 0;
         do {
             i++;
             var currentNameToCheck = 'Name' + i;
@@ -588,7 +571,7 @@ function filterSelected(selectedFilter, filterValue) {
                 break;
         } while (true)
     });
-    map.series.regions[0].setValues(colors);
+    reloadMap(colors);
 
     // remove all markers from the map
     map.removeAllMarkers();

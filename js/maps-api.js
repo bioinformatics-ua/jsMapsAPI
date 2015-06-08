@@ -6,6 +6,7 @@ var vectorMap;
 var jsonFilters = [];
 var minColorMap;
 var maxColorMap;
+var mDiv;
 
 var VectorialMap = function() {};
 
@@ -13,6 +14,7 @@ var VectorialMap = function() {};
 VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, mapDiv, minColor, maxColor) {
     jsonCountries = [];
     jsonMarkers = [];
+    mDiv = mapDiv;
 
     minColorMap = minColor;
     maxColorMap = maxColor;
@@ -61,6 +63,7 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
                 }
             }],
             regions: [{
+                // min and max values of count
                 scale: [minColorMap, maxColorMap],
                 attribute: 'fill',
                 values: auxColors
@@ -87,6 +90,47 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
         });
     }
 };
+
+function reloadMap(colors) {
+    document.getElementById(mDiv).innerHTML = "";
+    map = new jvm.Map({
+        map: 'world_mill_en',
+        container: $('#' + mDiv),
+        onMarkerTipShow: function(e, label, index) {
+            map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
+        },
+        onRegionTipShow: function(e, countryName, code) {
+            // code contains the code of the country (i.e., PT, ES, FR, etc)
+            // show the Count associated to that Country - look for the country
+            var selectedCountry = -1;
+            $.each(jsonCountries, function(index, currentCountry) {
+                if (currentCountry.Country === code) {
+                    selectedCountry = currentCountry;
+                    return;
+                }
+            });
+            if (selectedCountry != -1)
+                countryName.html(countryName.html() + ' (' + selectedCountry.Count + ') ');
+            else
+                countryName.html(countryName.html());
+        },
+        series: {
+            markers: [{
+                scale: [minColorMap, maxColorMap],
+                values: [minCount, maxCount],
+                legend: {
+                    vertical: true
+                }
+            }],
+            regions: [{
+                // min and max values of count
+                scale: [minColorMap, maxColorMap],
+                attribute: 'fill',
+                values: colors
+            }]
+        }
+    });
+}
 
 // Auxiliary function to transpose a value from an initial range to another range
 function mapRange(value, low1, high1, low2, high2) {
