@@ -1,4 +1,4 @@
-// Filter definition 
+// Filter definition
 var Filter = function(Name, Value, Values) {
     this.Name = Name;
     this.Value = Value;
@@ -17,6 +17,8 @@ function filter(filterName, filterValue) {
         resetFilters();
         return;
     }
+
+
 
     // check if the filterName is valid
     if (!checkFilterNameIsValid(jsonFiltersArray, filterName)) {
@@ -226,7 +228,7 @@ function setFilters(jsonFilters, filterType) {
 
             var toAppend = '';
             toAppend += '<li>' + filterName + '<ul>';
-            // add all the values from the filters        
+            // add all the values from the filters
             $.each(currentFilter.Values, function(i, currentValue) {
                 toAppend += '<li filter_index=' + index + '>' + currentValue + '</li>';
             });
@@ -252,7 +254,7 @@ function setFilters(jsonFilters, filterType) {
         $.each(jsonFilters, function(index, currentFilter) {
             var filterName = currentFilter.Name;
             var toAppend = '';
-            // add all the values from the filters   
+            // add all the values from the filters
             toAppend += '<input type="radio" id="radio' + Number(index + 1) + '" name="radio">';
             toAppend += '<label for = "radio' + Number(index + 1) + '">' + filterName + ' </label>';
             $('#radioButtons').append(toAppend);
@@ -392,7 +394,7 @@ function sliderChanged() {
     // filter the Countries
     colors = [];
     $.each(selectedCountries, function(index, currentCountry) {
-        if (currentCountry[selectedName] >= min && currentCountry[selectedName] <= max) 
+        if (currentCountry[selectedName] >= min && currentCountry[selectedName] <= max)
             colors[currentCountry.Country] = currentCountry.Count;
     });
 

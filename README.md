@@ -6,7 +6,7 @@ Javascript API that makes use of the [jvectormap](http://jvectormap.com/) lib to
 
 To display a map on a webpage just include the **vector-map** tag in your HTML with the following attributes:
 
-- id = "map" 
+- id = "map"
 - min_color - color that represents the country with lowest Count
 - max_color - color that represents the country with the highest Count
 - min_radius - min radius for the markers
@@ -40,7 +40,7 @@ Many filters can be applied on the map by using a custom _filters box_ that can 
 - filters - url of the json that contains information about the filters
 
 Here is an example:
-    
+
     <filters-box id="filters-box" filters="json/filters.json"></filters-box>
 
 
@@ -58,7 +58,7 @@ In case you want to apply multiple filters you use the _multiFilter_ function:
     multiFilter({"Year":'2005','Gender':'F'})
 
 
-## Countries 
+## Countries
 
 Countries appear on the map with different colours according to the Count attribute associated with them.
 
@@ -78,6 +78,3 @@ You can consult a live example of the API in http://bioinformatics-ua.github.io/
 
 This page displays a world map with several countries filled with a color that conveys some kind of information. There are also maps placed on the map.
 There are also some filters that can be used to filter the information displayed on the map.
-
-
-

@@ -7,7 +7,7 @@ var jsonFilters = [];
 var minColorMap;
 var maxColorMap;
 var mDiv;
-
+ 
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
@@ -22,7 +22,7 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
     // read markers and jsonFilters from JSON file
     // try to read the countries
     jsonCountries = readCountriesFromJSON(inputMarkers.countries);
-    // try to read the markers 
+    // try to read the markers
     if (!inputMarkers.markers)
         console.log('There are no markers as input');
     else
