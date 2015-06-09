@@ -99,7 +99,7 @@ function applyFilter(selectedFilter, filterValue) {
 function checkFilterNameIsValid(filterName) {
 	var valid = false;
 	$.each(jsonFiltersArray, function (index, currentFilter) {
-		if(currentFilter.Name.toLowerCase() === filterName.toLowerCase()) {
+		if(currentFilter.Name.toLowerCase() === filterName.toLowerCase() ) {
 			filterObject = currentFilter;
 			valid = true;
 			return;
