@@ -5,7 +5,7 @@ var Filter = function (Name, Value, Values) {
 	this.Values = Values;
 };
 
-var countryColors = [];
+var markersToAdd = [];
 
 function filter(filterName, filterValue) {
 
@@ -33,6 +33,8 @@ function filter(filterName, filterValue) {
 	// apply the filtering
 	countryColors = [];
 
+	markersToAdd = [];
+
 	// check what countries and markers should be shown on the map
 	$.each(finalParts, function (index, part) {
 		applyFilter(filterObject, part);
@@ -40,6 +42,11 @@ function filter(filterName, filterValue) {
 
 	// reload the map
 	reloadMap(countryColors);
+
+	/* add the markers
+	this must be done here because reload map erases all the markers
+	*/
+	addMarkersToMap(markersToAdd);
 }
 
 function applyFilter(selectedFilter, filterValue) {
@@ -66,9 +73,6 @@ function applyFilter(selectedFilter, filterValue) {
 		} while (true)
 	});
 
-	// reload the map with the correct countries highlighted
-	// reloadMap(colors);
-
 	// add only the markers who have that filter value
 	$.each(jsonMarkers, function (index, currentMarker) {
 		// check if any of the names is equal to the selected filter
@@ -81,53 +85,16 @@ function applyFilter(selectedFilter, filterValue) {
 			// check if the Country has that name
 			if(currentMarker[currentNameToCheck] !== undefined) {
 				if(currentMarker[currentNameToCheck] == selectedFilter.Name) {
-					if(currentMarker[currentValue] == filterValue) {
-						map.addMarker(index, {
-							latLng: [currentMarker.Latitude, currentMarker.Longitude],
-							name: currentMarker.desc,
+					if(currentMarker[currentValue] == filterValue)
+						markersToAdd.push(currentMarker);
 
-							// set the style for this marker
-							style: {
-								fill: 'green',
-								r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-							}
-						});
-					}
 				}
 			} else {
 				break;
 			}
 		} while (true)
 	});
-
-	/*
-		// update the slider
-		// check if any of the values is a numbers, if it is we then update the slider
-		if(!isNaN(selectedFilter.Values[0])) {
-			$('#slider').show();
-			$('#minSlider').show();
-			$('#maxSlider').show();
-
-			// jQueryUI slider
-			var slider = $("#slider").slider();
-			var minValue = selectedFilter.Values[0];
-			var maxValue = selectedFilter.Values[selectedFilter.Values.length - 1];
-
-			// set max and min value for the slider
-			slider.slider("option", "min", minValue);
-			slider.slider("option", "max", maxValue);
-
-			// set the text on the UI
-			$('#minSlider').text(minValue);
-			$('#maxSlider').text(maxValue);
-		} else {
-			$('#slider').hide();
-			$('#minSlider').hide();
-			$('#maxSlider').hide();
-		}
-	    */
 }
-
 
 function checkFilterNameIsValid(filterName) {
 	var valid = false;
@@ -147,6 +114,7 @@ function checkFilterValueIsValid(filter, parts) {
 		// check if the current value is valid
 		$.each(filterObject.Values, function (index, currentValue) {
 			if(currentValue == part) {
+				console.log(currentValue + ' valid');
 				valid = true;
 				return;
 			}
@@ -160,28 +128,39 @@ function checkFilterValueIsValid(filter, parts) {
 }
 
 function getAllFilterValues(filterValue) {
-	// check we have an enumeration (comma-separated values and/or ranges)
 	var returnParts = [];
+
+	// check if we have an enumeration (comma-separated values and/or ranges)
 	if(String(filterValue).indexOf(",") != -1) {
-		// check if every individual value and/or range is valid
-		var parts = String(filterValue).split(",");
-		//returnParts.push(parts);
+
+		// get all the enumerated values (can be singular or range)
+		var enumerationParts = String(filterValue).split(",");
 
 		// check if we have a simple value or a range
-		$.each(parts, function (index, currentPart) {
-			if(currentPart.indexOf("-") != -1) {
-				// we have a range
-				var subParts = String(currentPart).split("-");
+		$.each(enumerationParts, function (index, currentEnumeration) {
+
+			// if we have a range...
+			if(currentEnumeration.indexOf("-") != -1) {
+
+				// all the range parts
+				var rangeParts = String(currentEnumeration).split("-");
+
 				// check if the extreme values are valid
-				checkFilterValueIsValid(filterObject, subParts);
+				checkFilterValueIsValid(filterObject, rangeParts);
+
 				// get all the values between those two numbers
-				var min = subParts[0];
-				var max = subParts[1];
-				for(; min <= max; min++) {
+				// and add them
+				var min = rangeParts[0];
+				var max = rangeParts[1];
+				for(; min <= max; min++)
 					returnParts.push(min);
-				}
-			} else
-				returnParts.push(currentPart);
+
+			} else {
+				// if we don't have a range
+				// check if the single value is valid
+				returnParts.push(currentEnumeration);
+
+			}
 		});
 	} else {
 		// just a single part
@@ -224,7 +203,6 @@ function resetFilters() {
 		});
 	});
 }
-
 
 function setFilters(jsonFilters, filterType) {
 
