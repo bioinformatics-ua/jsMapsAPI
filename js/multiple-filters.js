@@ -180,8 +180,7 @@ function setMultipleFilters(jsonFilters) {
     });
 
     // triggered when the reset button is clicked
-    $("#filter_box_reset_filters").click(function() {   
-        console.log('reset filters');
+    $("#filter_box_reset_filters").click(function() {
 
         // re-render dropdowns??
 
@@ -291,8 +290,6 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
             } while (true)
         });
     });
-
-    console.log(markersHaveFilter);
 
     // add only the markers who satisfy the criteria
     $.each(jsonMarkers, function(index, currentMarker) {

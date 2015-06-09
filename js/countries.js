@@ -1,4 +1,3 @@
-// Country definition
 var Country = function (countryObject) {
 	// try to read all the names and values
 	var hasName = true;
