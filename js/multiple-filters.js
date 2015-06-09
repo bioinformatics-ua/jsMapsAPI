@@ -144,7 +144,8 @@ function setMultipleFilters(jsonFilters) {
 
 	// create filters box
 	$.each(jsonFilters, function (index, currentFilter) {
-		var filterName = currentFilter.Name;
+		var filterName = currentFilter.Name.toLowerCase();
+		filterName = filterName.charAt(0).toUpperCase() + filterName.slice(1);
 		var buttonId = 'dropdown' + index + 'button';
 		var ulId = 'dropdown' + index;
 		var toAppend = '';
@@ -221,6 +222,76 @@ function setMultipleFilters(jsonFilters) {
 
 	});
 }
+
+function setMultipleFiltersEnumeration(jsonFilters) {
+
+	var selectedMultipleFilters = [];
+
+	// create filters box with enumeration
+	$.each(jsonFilters, function (index, currentFilter) {
+		var filterName = currentFilter.Name.toLowerCase();
+		filterName = filterName.charAt(0).toUpperCase() + filterName.slice(1);
+		var buttonId = 'dropdown' + index + 'button';
+		var ulId = 'dropdown' + index;
+		var toAppend = '';
+
+		// filter text
+		toAppend += '<p><b>' + filterName + ':</b></p>';
+		// dropdown start
+		toAppend += '<div class="form-group">';
+		toAppend += '<input type="text" class="form-control" id="usr">';
+		toAppend += '</div>';
+
+		$('#filters_box_enumeration').prepend(toAppend);
+
+		// add tooltip to the filters box
+		$('#filters_box_enumeration').tooltip({
+			title: "Use this filter box to filter by multiple filters",
+			placement: "bottom"
+		});
+	});
+
+	// triggered when the search button is clicked
+	$("#filter_box_apply_filters").click(function () {
+		if(selectedMultipleFilters.length != 0)
+			applyMultipleFilters(selectedMultipleFilters, jsonFilters);
+	});
+
+	// triggered when the reset button is clicked
+	$("#filter_box_reset_filters").click(function () {
+
+		// re-render dropdowns??
+
+		// set the dropbown button text
+		$(".filter-box-dropdown").text("Select a value");
+		$(".filter-box-dropdown").val('Select a value');
+
+
+		// reload the map
+		var colors = [];
+		$.each(jsonCountries, function (index, currentCountry) {
+			colors[currentCountry.Country] = currentCountry.Count;
+		});
+		reloadMap(colors);
+
+		// add all the markers to the map
+		$.each(jsonMarkers, function (index, currentMarker) {
+			map.addMarker(index, {
+				latLng: [currentMarker.Latitude, currentMarker.Longitude],
+				name: currentMarker.desc,
+
+				// set the style for this marker
+				style: {
+					fill: 'green',
+					r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+				}
+			});
+
+		});
+
+	});
+}
+
 
 function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 
