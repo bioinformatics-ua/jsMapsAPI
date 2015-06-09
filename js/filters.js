@@ -32,24 +32,24 @@ function filter(filterName, filterValue) {
 
 	// apply the filtering
 	countryColors = [];
-
 	markersToAdd = [];
 
 	// check what countries and markers should be shown on the map
 	$.each(finalParts, function (index, part) {
-		applyFilter(filterObject, part);
+		checkWhatCountriesMarkersToAdd(filterObject, part);
 	});
 
 	// reload the map
 	reloadMap(countryColors);
 
-	/* add the markers
+	/*
+		add the markers
 	this must be done here because reload map erases all the markers
 	*/
 	addMarkersToMap(markersToAdd);
 }
 
-function applyFilter(selectedFilter, filterValue) {
+function checkWhatCountriesMarkersToAdd(selectedFilter, filterValue) {
 
 	// check what countries to colour
 	$.each(jsonCountries, function (index, currentCountry) {
@@ -61,7 +61,7 @@ function applyFilter(selectedFilter, filterValue) {
 			var currentNameToCheck = 'Name' + i;
 			var currentValue = 'Value' + i;
 			// check if the Country has that name
-			if(currentCountry[currentNameToCheck] !== undefined) {
+			if(currentCountry[currentNameToCheck]) {
 				if(currentCountry[currentNameToCheck] === selectedFilter.Name) {
 					// check by value
 					if(currentCountry[currentValue] == filterValue) {
@@ -83,7 +83,7 @@ function applyFilter(selectedFilter, filterValue) {
 			var currentNameToCheck = 'Name' + i;
 			var currentValue = 'Value' + i;
 			// check if the Country has that name
-			if(currentMarker[currentNameToCheck] !== undefined) {
+			if(currentMarker[currentNameToCheck]) {
 				if(currentMarker[currentNameToCheck] == selectedFilter.Name) {
 					if(currentMarker[currentValue] == filterValue)
 						markersToAdd.push(currentMarker);
@@ -99,7 +99,7 @@ function applyFilter(selectedFilter, filterValue) {
 function checkFilterNameIsValid(filterName) {
 	var valid = false;
 	$.each(jsonFiltersArray, function (index, currentFilter) {
-		if(currentFilter.Name.toLowerCase() === filterName.toLowerCase() ) {
+		if(currentFilter.Name.toLowerCase() === filterName.toLowerCase()) {
 			filterObject = currentFilter;
 			valid = true;
 			return;
@@ -108,9 +108,9 @@ function checkFilterNameIsValid(filterName) {
 	return valid;
 }
 
-function checkFilterValueIsValid(filter, parts) {
+function checkFilterValuesAreValid(filter, filterValues) {
 	var valid = false;
-	$.each(parts, function (index, part) {
+	$.each(filterValues, function (index, part) {
 		// check if the current value is valid
 		$.each(filterObject.Values, function (index, currentValue) {
 			if(currentValue == part) {
@@ -146,7 +146,7 @@ function getAllFilterValues(filterValue) {
 				var rangeParts = String(currentEnumeration).split("-");
 
 				// check if the extreme values are valid
-				checkFilterValueIsValid(filterObject, rangeParts);
+				checkFilterValuesAreValid(filterObject, rangeParts);
 
 				// get all the values between those two numbers
 				// and add them
@@ -168,7 +168,7 @@ function getAllFilterValues(filterValue) {
 			// we have a range
 			var subParts = String(filterValue).split("-");
 			// check if the extreme values are valid
-			checkFilterValueIsValid(filterObject, subParts);
+			checkFilterValuesAreValid(filterObject, subParts);
 			// get all the values between those two numbers
 			var min = subParts[0];
 			var max = subParts[1];
@@ -182,11 +182,8 @@ function getAllFilterValues(filterValue) {
 }
 
 function resetFilters() {
-	colors = [];
-	$.each(jsonCountries, function (index, currentCountry) {
-		colors[currentCountry.Country] = currentCountry.Count;
-	});
-
+	// color the original map
+	var colors = generateColorsForTheCountries();
 	reloadMap(colors);
 
 	// add only the markers who have that filter value
@@ -260,6 +257,7 @@ function setFilters(jsonFilters, filterType) {
 
 		});
 	}
+
 	switch(filterType) {
 	case 'menu':
 		$('#checkboxes_search').hide();

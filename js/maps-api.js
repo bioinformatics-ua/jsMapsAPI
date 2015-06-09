@@ -92,7 +92,9 @@ VectorialMap.prototype.createMap = function (inputMarkers, minRadius, maxRadius,
 };
 
 function reloadMap(colors) {
+	// erase the map
 	document.getElementById(mDiv).innerHTML = "";
+
 	map = new jvm.Map({
 		map: 'world_mill_en',
 		container: $('#' + mDiv),

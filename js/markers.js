@@ -7,7 +7,7 @@ var Marker = function (markerObject) {
 		i++;
 		var currentNameToCheck = 'Name' + i;
 		var currentValue = 'Value' + i;
-		if(markerObject[currentNameToCheck] === undefined) {
+		if(!markerObject[currentNameToCheck]) {
 			hasName = false;
 		} else {
 			this[currentNameToCheck] = markerObject[currentNameToCheck];
@@ -46,9 +46,7 @@ function readMarkersFromJSON(markers) {
 
 
 function addMarkersToMap(markers) {
-    console.log(markers.length);
 
-	// add only the markers who have that filter value
 	$.each(markers, function (index, currentMarker) {
 		map.addMarker(index, {
 			latLng: [currentMarker.Latitude, currentMarker.Longitude],

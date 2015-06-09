@@ -44,9 +44,6 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 	var countriesHaveFilter = [];
 	var markersHaveFilter = [];
 
-	console.log(filtersToApply)
-	console.log(numFiltersToApply);
-
 	// for every key
 	$.each(keys, function (index, filterName) {
 		var filterValue = filtersToApply[filterName];
@@ -118,8 +115,6 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 		});
 	});
 
-	console.log(markersHaveFilter);
-
 	// add only the markers who satisfy the criteria
 	$.each(jsonMarkers, function (index, currentMarker) {
 		if(markersHaveFilter[index] == numFiltersToApply) {
@@ -138,7 +133,7 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 
 }
 
-function setMultipleFilters(jsonFilters) {
+function createFiltersBox(jsonFilters) {
 
 	var selectedMultipleFilters = [];
 
@@ -223,9 +218,7 @@ function setMultipleFilters(jsonFilters) {
 	});
 }
 
-function setMultipleFiltersEnumeration(jsonFilters) {
-
-	var selectedMultipleFilters = [];
+function createFiltersBoxWithEnumeration(jsonFilters) {
 
 	// create filters box with enumeration
 	$.each(jsonFilters, function (index, currentFilter) {
@@ -239,7 +232,7 @@ function setMultipleFiltersEnumeration(jsonFilters) {
 		toAppend += '<p><b>' + filterName + ':</b></p>';
 		// dropdown start
 		toAppend += '<div class="form-group">';
-		toAppend += '<input type="text" class="form-control" id="usr">';
+		toAppend += '<input type="text" class="form-control" id="fbox'+index+'">';
 		toAppend += '</div>';
 
 		$('#filters_box_enumeration').prepend(toAppend);
@@ -252,15 +245,32 @@ function setMultipleFiltersEnumeration(jsonFilters) {
 	});
 
 	// triggered when the search button is clicked
-	$("#filter_box_apply_filters").click(function () {
-		if(selectedMultipleFilters.length != 0)
-			applyMultipleFilters(selectedMultipleFilters, jsonFilters);
+	$("#filters_box_enum_apply_filters").click(function () {
+		console.log('applying enumeration');
+
+		var jsonText = '{';
+		for(var  i = 0 ; i < jsonFilters.length; i++)
+		{
+			// get the text from the input tags (fbox#)
+			var inputID = "#fbox"+i;
+			var inputText = $(inputID).val();
+			console.log(inputText);
+			if(inputText != '')
+			{
+				jsonText += '"'+jsonFilters[i].Name+'": "'+inputText+'"';
+				if(i+1!=jsonFilters.length)
+					jsonText += ',';
+			}
+		}
+		jsonText += '}';
+		var filtersToApply = JSON.parse(jsonText);
+
+		applyMultipleFiltersProgramattically(filtersToApply);
 	});
 
 	// triggered when the reset button is clicked
-	$("#filter_box_reset_filters").click(function () {
-
-		// re-render dropdowns??
+	$("#filters_box_enum_reset_filters").click(function () {
+		console.log('reset enumeration');
 
 		// set the dropbown button text
 		$(".filter-box-dropdown").text("Select a value");
@@ -291,7 +301,6 @@ function setMultipleFiltersEnumeration(jsonFilters) {
 
 	});
 }
-
 
 function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 

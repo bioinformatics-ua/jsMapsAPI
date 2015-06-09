@@ -17,8 +17,8 @@
 	</style>
 	<template>
 		<div id="filters_box_enumeration">
-			<button class="btn btn-primary" id="filter_box_apply_filters" type="button">Filter</button>
-			<button class="btn btn-primary" id="filter_box_reset_filters" type="button">Reset</button>
+			<button class="btn btn-primary" id="filters_box_enum_apply_filters" type="button">Filter</button>
+			<button class="btn btn-primary" id="filters_box_enum_reset_filters" type="button">Reset</button>
 		</div>
 	</template>
 </dom-module>
@@ -36,14 +36,8 @@
 				console.log('You must input a JSON with the filters');
 
 			$.when($.getJSON(jsonFilters)).then(function (jsonFilters) {
-				// create a new Filter ???
-				// set the filters for the vector map
-				// in case the filters element show up before the vector-map element
-				if (vectorMap == undefined)
-					vectorMap = new VectorialMap();
-
 				jsonFiltersArray = readFiltersFromJSON(jsonFilters);
-				setMultipleFiltersEnumeration(jsonFiltersArray);
+				createFiltersBoxWithEnumeration(jsonFiltersArray);
 			});
 		},
 		properties: {
