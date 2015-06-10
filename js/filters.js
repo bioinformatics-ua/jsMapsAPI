@@ -5,6 +5,7 @@ var Filter = function (Name, Value, Values) {
 	this.Values = Values;
 };
 
+var currentFilter;
 var markersToAdd = [];
 
 function filter(filterName, filterValue) {
@@ -273,8 +274,11 @@ function setFilters(jsonFilters, filterType) {
 	}
 }
 
+var countryValueToCheck;
+
 function filterSelected(selectedFilter, filterValue) {
 
+	currentFilter = selectedFilter;
 	// check what countries to colour
 	colors = [];
 	selectedCountries = [];
@@ -288,12 +292,13 @@ function filterSelected(selectedFilter, filterValue) {
 			var currentNameToCheck = 'Name' + i;
 			var currentValue = 'Value' + i;
 			// check if the Country has that name
-			if(currentCountry[currentNameToCheck] !== undefined) {
+			if(currentCountry[currentNameToCheck]) {
 				if(currentCountry[currentNameToCheck] === selectedFilter.Name) {
 					// check by value
 					if(currentCountry[currentValue] == filterValue) {
 						colors[currentCountry.Country] = currentCountry.Count;
 						selectedCountries.push(currentCountry);
+						countryValueToCheck = currentValue;
 					}
 				}
 			} else
@@ -369,21 +374,26 @@ function sliderChanged() {
 	var min = currentRange[0];
 	var max = currentRange[1];
 
+	var currentFilterName = currentFilter.Name;
+
 	// set the text on the UI
 	$('#minSlider').text(min);
 	$('#maxSlider').text(max);
 
+
+
 	// filter the Countries
 	colors = [];
-	$.each(selectedCountries, function (index, currentCountry) {
-		if(currentCountry[selectedName] >= min && currentCountry[selectedName] <= max)
+	$.each(jsonCountries, function (index, currentCountry) {
+		var filterValueForCountry = +currentCountry[countryValueToCheck];
+		if(filterValueForCountry >= min && filterValueForCountry <= max)
 			colors[currentCountry.Country] = currentCountry.Count;
 	});
 
+	// draw the countries on the map
 	reloadMap(colors);
 
-	// filter the Markers
-	// first, remove all markers
+	// filter the Markers - first, remove all markers
 	map.removeAllMarkers();
 
 	// add only the markers who have that filter value

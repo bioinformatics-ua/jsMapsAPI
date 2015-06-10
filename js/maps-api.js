@@ -72,7 +72,7 @@ VectorialMap.prototype.createMap = function (inputMarkers, minRadius, maxRadius,
 	});
 
 	// generate the slider and set corresponding values and callbacks
-	this.setSlider();
+	this.createSlider();
 
 	// draw markers on the map
 	if(inputMarkers.markers) {
@@ -140,11 +140,7 @@ function mapRange(value, low1, high1, low2, high2) {
 	return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
-VectorialMap.prototype.setSlider = function () {
-	// set the text on the UI
-	$('#minSlider').text('Min radius: ' + minRadius);
-	$('#maxSlider').text('Max radius: ' + maxRadius);
-	$('#numMarkersDiv').text('Number of markers inside that range: ' + numMarkers);
+VectorialMap.prototype.createSlider = function () {
 
 	// jQueryUI slider
 	slider = $("#slider").slider();
