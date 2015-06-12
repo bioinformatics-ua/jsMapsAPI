@@ -1,9 +1,11 @@
-// Filter definition
+// create a new FIlter object
 var Filter = function(Name, Value, Values) {
 	this.Name = Name;
 	this.Value = Value;
 	this.Values = Values;
 };
+
+var numFilters;
 
 var currentFilter;
 var markersToAdd = [];
@@ -13,7 +15,10 @@ function filter(filterName, filterValue) {
 	// check the filterName
 	if(filterName.toLowerCase() == 'all') {
 		console.log('removing all applied filters')
+		// reloads the original markers and countries on the map
 		resetFilters();
+		// erase the text from the filters box
+		resetFiltersBox();
 		return;
 	}
 
@@ -28,9 +33,6 @@ function filter(filterName, filterValue) {
 	var finalParts = getAllFilterValues(filterValue);
 	console.log('Filter values: ' + finalParts);
 
-	// remove all markers from the map
-	map.removeAllMarkers();
-
 	// apply the filtering
 	countryColors = [];
 	markersToAdd = [];
@@ -43,10 +45,8 @@ function filter(filterName, filterValue) {
 	// reload the map
 	reloadMap(countryColors);
 
-	/*
-		add the markers
-	this must be done here because reload map erases all the markers
-	*/
+	//add the markers
+	//this must be done here because reload map erases all the markers
 	addMarkersToMap(markersToAdd);
 }
 
@@ -349,7 +349,8 @@ function sliderChanged() {
 };
 
 function readFiltersFromJSON(inputFilters) {
-	var filtersReturn = [];
+	var filters = [];
+
 
 	// read filters from JSON
 	for(var i = 0; i < inputFilters.values.length; i++) {
@@ -362,7 +363,8 @@ function readFiltersFromJSON(inputFilters) {
 
 		for(var j = 0; j < currentFilter.values.length; j++)
 			values.push(currentFilter.values[j]);
-		filtersReturn[i] = new Filter(name, value, values);
+		filters[i] = new Filter(name, value, values);
 	}
-	return filtersReturn;
+	numFilters = filters.length;
+	return filters;
 };

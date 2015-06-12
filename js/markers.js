@@ -20,33 +20,32 @@ var Marker = function (markerObject) {
 	this.Var = markerObject.Var;
 	this.Latitude = markerObject.Latitude;
 	this.Longitude = markerObject.Longitude;
+	// TODO - add escription to a Marker from the JSON file
 	this.desc = 'abc';
 };
 
-
 // read the markers from a JSON file
-function readMarkersFromJSON(markers) {
-	var returnMarkers = [];
+function readMarkersFromJSON(jsonMarkers) {
+	var markers = [];
 
 	minCount = Infinity;
 	maxCount = -Infinity;
 
-	$.each(markers, function (index, currentMarker) {
-		returnMarkers[index] = new Marker(currentMarker);
-		var Count = returnMarkers[index].Count;
+	$.each(jsonMarkers, function (index, currentJSONMarker) {
+		markers[index] = new Marker(currentJSONMarker);
+		var currentCountValue = markers[index].Count;
 
-		if(Count > maxCount) {
-			maxCount = Count;
+		if(currentCountValue > maxCount) {
+			maxCount = currentCountValue;
 		}
-		if(Count < minCount)
-			minCount = Count;
+		if(currentCountValue < minCount)
+			minCount = currentCountValue;
 	});
-	return returnMarkers;
+	return markers;
 }
 
 
 function addMarkersToMap(markers) {
-
 	$.each(markers, function (index, currentMarker) {
 		map.addMarker(index, {
 			latLng: [currentMarker.Latitude, currentMarker.Longitude],

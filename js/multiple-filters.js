@@ -2,28 +2,30 @@ function multiFilter(inputArgs) {
 
 	var keys = Object.keys(inputArgs)
 	var numberKeys = keys.length;
-
-	console.log(inputArgs)
-	console.log(numberKeys);
-
 	var validFilters = 0;
 	var countryColors = [];
+
+	// check if any of the filters is 'all'
+	$.each(keys, function(index, filterName) {
+		if(filterName.toLowerCase() == 'all') {
+			console.log('removing all applied filters');
+			// reloads the original markers and countries on the map
+			resetFilters();
+			// erase the text from the filters box
+			resetFiltersBox();
+			return;
+		}
+	});
 
 	// for every key
 	$.each(keys, function(index, filterName) {
 		var filterValue = inputArgs[filterName];
 
-		// check the currentKey
-		if(filterName.toLowerCase() == 'all') {
-			console.log('removing all applied filters')
-			resetFilters();
-			return;
-		}
-
 		// check if the filterName is valid
 		if(!checkFilterNameIsValid(filterName)) {
 			// invalid filter name
-			console.log('Invalid filter name!(' + filterName);
+			console.log('Invalid filter name!(' + filterName + ')');
+			return;
 		} else {
 			// if valid, check the filterValue
 			var finalParts = getAllFilterValues(filterValue);
@@ -35,7 +37,6 @@ function multiFilter(inputArgs) {
 				var returnColorsJSON = checkReturn[0];
 				var markersToMap = checkReturn[1];
 				// add elements to countryColors
-				console.log('return colors');
 				console.log(Object.keys(checkReturn[0]));
 				$.each(Object.keys(checkReturn[0]), function(index, currentKey) {
 					// the colors that are returned are in a json format

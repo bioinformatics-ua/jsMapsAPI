@@ -70,7 +70,6 @@ function setFilters(jsonFilters, filterType) {
 	}
 }
 
-///////////////////////////////////////////////////////////////////////////////////////////////////
 function createFiltersBox(jsonFilters) {
 
 	var selectedMultipleFilters = [];
@@ -156,6 +155,35 @@ function createFiltersBox(jsonFilters) {
 	});
 }
 
+var resetFiltersBox = function() {
+	console.log('resetting filter box (enumeration)');
+
+	// reset all the 'fboxes'
+	for(var i = 0; i < numFilters; i++) {
+		$("#fbox" + i).text('');
+		$("#fbox" + i).val('');
+	}
+
+	// reload the map
+	var colors = generateColorsForTheCountries();
+	reloadMap(colors);
+
+	// add all the markers to the map
+	$.each(jsonMarkers, function(index, currentMarker) {
+		map.addMarker(index, {
+			latLng: [currentMarker.Latitude, currentMarker.Longitude],
+			name: currentMarker.desc,
+
+			// set the style for this marker
+			style: {
+				fill: 'green',
+				r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+			}
+		});
+
+	});
+};
+
 function createFiltersBoxWithEnumeration(jsonFilters) {
 
 	var numFilters = jsonFilters.length;
@@ -170,14 +198,13 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 
 		// filter text
 		toAppend += '<p><b>' + filterName + ':</b></p>';
-		// dropdown start
 		toAppend += '<div class="form-group">';
 		toAppend += '<input type="text" class="form-control" id="fbox' + index + '">';
 		toAppend += '</div>';
 
 		$('#filters_box_enumeration').prepend(toAppend);
 
-		// add tooltip to the filters box
+		// add Bootstrap tooltip to the filters box
 		$('#filters_box_enumeration').tooltip({
 			title: "Use this filter box to filter by multiple filters",
 			placement: "bottom"
@@ -186,8 +213,6 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 
 	// triggered when the search button is clicked
 	$("#filters_box_enum_apply_filters").click(function() {
-		console.log('applying filters (filter box w/ enumeration)');
-
 		var jsonText = '{';
 		for(var i = 0; i < jsonFilters.length; i++) {
 			// current and next filter id's
@@ -212,32 +237,6 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 
 	// triggered when the reset button is clicked
 	$("#filters_box_enum_reset_filters").click(function() {
-		console.log('resetting filter box (enumeration)');
-
-		// reset all the 'fboxes'
-		for(var i = 0; i < numFilters; i++) {
-			$("#fbox" + i).text('');
-			$("#fbox" + i).val('');
-		}
-
-		// reload the map
-		var colors = generateColorsForTheCountries();
-		reloadMap(colors);
-
-		// add all the markers to the map
-		$.each(jsonMarkers, function(index, currentMarker) {
-			map.addMarker(index, {
-				latLng: [currentMarker.Latitude, currentMarker.Longitude],
-				name: currentMarker.desc,
-
-				// set the style for this marker
-				style: {
-					fill: 'green',
-					r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-				}
-			});
-
-		});
-
+		resetFiltersBox();
 	});
 }
