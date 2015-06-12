@@ -24,7 +24,7 @@ function setFilters(jsonFilters, filterType) {
 			// selected value for the filter
 			var filterValue = ui.item.text();
 			// apply filtering
-			filterSelected(selectedFilter, filterValue);
+			filterFromMenuSelected(selectedFilter, filterValue);
 		});
 	}
 

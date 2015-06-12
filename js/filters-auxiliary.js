@@ -1,4 +1,58 @@
-function checkWhatCountriesToAdd() {
+function getAllFilterValues(filterValue) {
+	var returnParts = [];
+
+	// check if we have an enumeration (comma-separated values and/or ranges)
+	if(String(filterValue).indexOf(",") != -1) {
+
+		// get all the enumerated values (can be singular or range)
+		var enumerationParts = String(filterValue).split(",");
+
+		// check if we have a simple value or a range
+		$.each(enumerationParts, function(index, currentEnumeration) {
+
+			// if we have a range...
+			if(currentEnumeration.indexOf("-") != -1) {
+
+				// all the range parts
+				var rangeParts = String(currentEnumeration).split("-");
+
+				// check if the extreme values are valid
+				checkFilterValuesAreValid(filterObject, rangeParts);
+
+				// get all the values between those two numbers
+				// and add them
+				var min = rangeParts[0];
+				var max = rangeParts[1];
+				for(; min <= max; min++)
+					returnParts.push(min);
+
+			} else {
+				// if we don't have a range
+				// check if the single value is valid
+				returnParts.push(currentEnumeration);
+
+			}
+		});
+	} else {
+		// just a single part
+		if(filterValue.indexOf("-") != -1) {
+			// we have a range
+			var subParts = String(filterValue).split("-");
+			// check if the extreme values are valid
+			checkFilterValuesAreValid(filterObject, subParts);
+			// get all the values between those two numbers
+			var min = subParts[0];
+			var max = subParts[1];
+			for(; min <= max; min++) {
+				returnParts.push(min);
+			}
+		} else
+			returnParts.push(filterValue);
+	}
+	return returnParts;
+}
+
+function checkWhatCountriesToAdd(selectedFilter, filterValue) {
 	var countries = [];
 	$.each(jsonCountries, function(index, currentCountry) {
 		// check if any of the names is equal to the selected filter
@@ -14,6 +68,7 @@ function checkWhatCountriesToAdd() {
 					// check by value
 					if(currentCountry[currentValue] == filterValue) {
 						countries[currentCountry.Country] = currentCountry.Count;
+						countryValueToCheck = currentValue;
 					}
 				}
 			} else
@@ -54,10 +109,10 @@ function checkWhatCountriesMarkersToAdd(selectedFilter, filterValue) {
 	var markersToAdd = [];
 
 	// check what countries to colour
-	countriesToAdd = checkWhatCountriesToAdd();
+	countriesToAdd = checkWhatCountriesToAdd(selectedFilter, filterValue);
 	markersToAdd = checkWhatMarkersToAdd(selectedFilter, filterValue);
 
-	return [countriesToAddColors, markersToAddToMap];
+	return [countriesToAdd, markersToAdd];
 }
 
 function checkFilterNameIsValid(filterName) {
