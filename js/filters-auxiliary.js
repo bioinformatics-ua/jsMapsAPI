@@ -65,11 +65,11 @@ function checkWhatCountriesToAdd(selectedFilter, filterValue) {
 			// check if the Country has that name
 			if(currentCountry[currentNameToCheck]) {
 				if(currentCountry[currentNameToCheck] === selectedFilter.Name) {
+					countryValueToCheck = currentValue;
 					// check by value
-					if(currentCountry[currentValue] == filterValue) {
+					if(currentCountry[currentValue] == filterValue)
 						countries[currentCountry.Country] = currentCountry.Count;
-						countryValueToCheck = currentValue;
-					}
+					
 				}
 			} else
 				break;

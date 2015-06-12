@@ -157,7 +157,7 @@ function sliderChanged() {
 	$.each(jsonCountries, function(index, currentCountry) {
 		var filterValueForCountry = +currentCountry[countryValueToCheck];
 		if(filterValueForCountry >= min && filterValueForCountry <= max)
-		countries[currentCountry.Country] = currentCountry.Count;
+			countries[currentCountry.Country] = currentCountry.Count;
 	});
 
 	// draw the countries on the map
@@ -172,13 +172,10 @@ function sliderChanged() {
 		var currentNameToCheck = 'Name' + i;
 		var currentValue = 'Value' + i;
 		// check if the Country has that name
-		if(currentCountry[currentNameToCheck]) {
-			if(currentCountry[currentNameToCheck] === currentFilterName) {
-				selectedName = currentValue;
-				break;
-			}
-		} else
+		if(currentCountry[currentNameToCheck] === currentFilterName) {
+			selectedName = currentValue;
 			break;
+		}
 	} while (true);
 
 	// add only the markers who have that filter value
