@@ -9,7 +9,7 @@ function multiFilter(inputArgs) {
 	var validFilters = 0;
 
 	// for every key
-	$.each(keys, function (index, filterName) {
+	$.each(keys, function(index, filterName) {
 		var filterValue = inputArgs[filterName];
 
 		// check the currentKey
@@ -45,7 +45,7 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 	var markersHaveFilter = [];
 
 	// for every key
-	$.each(keys, function (index, filterName) {
+	$.each(keys, function(index, filterName) {
 		var filterValue = filtersToApply[filterName];
 	});
 	var colors = [];
@@ -54,11 +54,11 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 	map.removeAllMarkers();
 
 	// for each of the countries
-	$.each(jsonCountries, function (countryIndex, currentCountry) {
+	$.each(jsonCountries, function(countryIndex, currentCountry) {
 		// set to 0 the number of filters
 		countriesHaveFilter[countryIndex] = 0;
 		// check if it has the needed values
-		$.each(keys, function (index, currentFilterName) {
+		$.each(keys, function(index, currentFilterName) {
 			var i = 0;
 			do {
 				i++;
@@ -78,7 +78,7 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 	});
 
 	// colour only the countris whose countriesHaveFilter[index] == numberFilters
-	$.each(jsonCountries, function (countryIndex, currentCountry) {
+	$.each(jsonCountries, function(countryIndex, currentCountry) {
 		if(countriesHaveFilter[countryIndex] == numFiltersToApply) {
 			colors[currentCountry.Country] = currentCountry.Count;
 		}
@@ -92,11 +92,11 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// for each of the markers
-	$.each(jsonMarkers, function (markerIndex, currentMarker) {
+	$.each(jsonMarkers, function(markerIndex, currentMarker) {
 		// set to 0 the number of filters
 		markersHaveFilter[markerIndex] = 0;
 		// check if it has the needed values
-		$.each(keys, function (index, currentFilterName) {
+		$.each(keys, function(index, currentFilterName) {
 			var i = 0;
 			do {
 				i++;
@@ -116,7 +116,7 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 	});
 
 	// add only the markers who satisfy the criteria
-	$.each(jsonMarkers, function (index, currentMarker) {
+	$.each(jsonMarkers, function(index, currentMarker) {
 		if(markersHaveFilter[index] == numFiltersToApply) {
 			map.addMarker(index, {
 				latLng: [currentMarker.Latitude, currentMarker.Longitude],
@@ -138,7 +138,7 @@ function createFiltersBox(jsonFilters) {
 	var selectedMultipleFilters = [];
 
 	// create filters box
-	$.each(jsonFilters, function (index, currentFilter) {
+	$.each(jsonFilters, function(index, currentFilter) {
 		var filterName = currentFilter.Name.toLowerCase();
 		filterName = filterName.charAt(0).toUpperCase() + filterName.slice(1);
 		var buttonId = 'dropdown' + index + 'button';
@@ -153,7 +153,7 @@ function createFiltersBox(jsonFilters) {
 		toAppend += '<button id=' + buttonId + ' class="btn btn-primary dropdown-toggle filter-box-dropdown" type="button" data-toggle="dropdown">Select a value<span class="caret"></span></button>';
 		// dropdown items
 		toAppend += '<ul id=' + ulId + ' class="dropdown-menu">';
-		$.each(currentFilter.Values, function (valueIndex, element) {
+		$.each(currentFilter.Values, function(valueIndex, element) {
 			toAppend += '<li><a href="#" filterIndex=' + index + ' index=' + valueIndex + '>' + element + ' </a></li>';
 		});
 
@@ -161,7 +161,7 @@ function createFiltersBox(jsonFilters) {
 		$('#filters_box').prepend(toAppend);
 
 		// add on click listener
-		$("#" + ulId + " li a").click(function () {
+		$("#" + ulId + " li a").click(function() {
 			var filterIndex = $(this).attr('filterIndex');
 			var selectedIndex = $(this).attr('index');
 			//console.log('Filter: '+filterIndex+'; Value: '+selectedIndex);
@@ -178,13 +178,13 @@ function createFiltersBox(jsonFilters) {
 	});
 
 	// triggered when the search button is clicked
-	$("#filter_box_apply_filters").click(function () {
+	$("#filter_box_apply_filters").click(function() {
 		if(selectedMultipleFilters.length != 0)
 			applyMultipleFilters(selectedMultipleFilters, jsonFilters);
 	});
 
 	// triggered when the reset button is clicked
-	$("#filter_box_reset_filters").click(function () {
+	$("#filter_box_reset_filters").click(function() {
 
 		// re-render dropdowns??
 
@@ -195,13 +195,13 @@ function createFiltersBox(jsonFilters) {
 
 		// reload the map
 		var colors = [];
-		$.each(jsonCountries, function (index, currentCountry) {
+		$.each(jsonCountries, function(index, currentCountry) {
 			colors[currentCountry.Country] = currentCountry.Count;
 		});
 		reloadMap(colors);
 
 		// add all the markers to the map
-		$.each(jsonMarkers, function (index, currentMarker) {
+		$.each(jsonMarkers, function(index, currentMarker) {
 			map.addMarker(index, {
 				latLng: [currentMarker.Latitude, currentMarker.Longitude],
 				name: currentMarker.desc,
@@ -220,8 +220,10 @@ function createFiltersBox(jsonFilters) {
 
 function createFiltersBoxWithEnumeration(jsonFilters) {
 
+	var numFilters = jsonFilters.length;
+
 	// create filters box with enumeration
-	$.each(jsonFilters, function (index, currentFilter) {
+	$.each(jsonFilters, function(index, currentFilter) {
 		var filterName = currentFilter.Name.toLowerCase();
 		filterName = filterName.charAt(0).toUpperCase() + filterName.slice(1);
 		var buttonId = 'dropdown' + index + 'button';
@@ -232,7 +234,7 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 		toAppend += '<p><b>' + filterName + ':</b></p>';
 		// dropdown start
 		toAppend += '<div class="form-group">';
-		toAppend += '<input type="text" class="form-control" id="fbox'+index+'">';
+		toAppend += '<input type="text" class="form-control" id="fbox' + index + '">';
 		toAppend += '</div>';
 
 		$('#filters_box_enumeration').prepend(toAppend);
@@ -245,47 +247,42 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 	});
 
 	// triggered when the search button is clicked
-	$("#filters_box_enum_apply_filters").click(function () {
-		console.log('applying enumeration');
+	$("#filters_box_enum_apply_filters").click(function() {
+		console.log('applying filters (filter box w/ enumeration)');
 
 		var jsonText = '{';
-		for(var  i = 0 ; i < jsonFilters.length; i++)
-		{
+		for(var i = 0; i < jsonFilters.length; i++) {
 			// get the text from the input tags (fbox#)
-			var inputID = "#fbox"+i;
+			var inputID = "#fbox" + i;
 			var inputText = $(inputID).val();
-			console.log(inputText);
-			if(inputText != '')
-			{
-				jsonText += '"'+jsonFilters[i].Name+'": "'+inputText+'"';
-				if(i+1!=jsonFilters.length)
+			// check if we have any filtering to apply or not
+			if(inputText !== '') {
+				jsonText += '"' + jsonFilters[i].Name + '": "' + inputText + '"';
+				if(i + 1 != jsonFilters.length)
 					jsonText += ',';
 			}
 		}
 		jsonText += '}';
 		var filtersToApply = JSON.parse(jsonText);
-
 		applyMultipleFiltersProgramattically(filtersToApply);
 	});
 
 	// triggered when the reset button is clicked
-	$("#filters_box_enum_reset_filters").click(function () {
-		console.log('reset enumeration');
+	$("#filters_box_enum_reset_filters").click(function() {
+		console.log('resetting filter box (enumeration)');
 
-		// set the dropbown button text
-		$(".filter-box-dropdown").text("Select a value");
-		$(".filter-box-dropdown").val('Select a value');
-
+		// reset all the 'fboxes'
+		for(var i = 0; i < numFilters; i++) {
+			$("#fbox"+i).text('');
+			$("#fbox"+i).val('');
+		}
 
 		// reload the map
-		var colors = [];
-		$.each(jsonCountries, function (index, currentCountry) {
-			colors[currentCountry.Country] = currentCountry.Count;
-		});
+		var colors = generateColorsForTheCountries();
 		reloadMap(colors);
 
 		// add all the markers to the map
-		$.each(jsonMarkers, function (index, currentMarker) {
+		$.each(jsonMarkers, function(index, currentMarker) {
 			map.addMarker(index, {
 				latLng: [currentMarker.Latitude, currentMarker.Longitude],
 				name: currentMarker.desc,
@@ -305,7 +302,7 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 
 	// number of filters to be applied
-	var numFiltersToApply = selectedMultipleFilters.filter(function (value) {
+	var numFiltersToApply = selectedMultipleFilters.filter(function(value) {
 		return value !== undefined
 	}).length;
 
@@ -313,11 +310,11 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 	var markersHaveFilter = [];
 
 	// for each of the countries
-	$.each(jsonCountries, function (countryIndex, currentCountry) {
+	$.each(jsonCountries, function(countryIndex, currentCountry) {
 		// set to 0 the number of filters
 		countriesHaveFilter[countryIndex] = 0;
 		// check if it has the needed values
-		$.each(selectedMultipleFilters, function (index, currentFilterValue) {
+		$.each(selectedMultipleFilters, function(index, currentFilterValue) {
 			var i = 0;
 			do {
 				i++;
@@ -340,7 +337,7 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 	var colors = [];
 
 	// colour only the countris whose countriesHaveFilter[index] == numberFilters
-	$.each(jsonCountries, function (countryIndex, currentCountry) {
+	$.each(jsonCountries, function(countryIndex, currentCountry) {
 		if(countriesHaveFilter[countryIndex] == numFiltersToApply)
 			colors[currentCountry.Country] = currentCountry.Count;
 	});
@@ -356,11 +353,11 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// for each of the markers
-	$.each(jsonMarkers, function (markerIndex, currentMarker) {
+	$.each(jsonMarkers, function(markerIndex, currentMarker) {
 		// set to 0 the number of filters
 		markersHaveFilter[markerIndex] = 0;
 		// check if it has the needed values
-		$.each(selectedMultipleFilters, function (index, currentFilterValue) {
+		$.each(selectedMultipleFilters, function(index, currentFilterValue) {
 			var i = 0;
 			do {
 				i++;
@@ -380,7 +377,7 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
 	});
 
 	// add only the markers who satisfy the criteria
-	$.each(jsonMarkers, function (index, currentMarker) {
+	$.each(jsonMarkers, function(index, currentMarker) {
 		if(markersHaveFilter[index] == numFiltersToApply) {
 			map.addMarker(index, {
 				latLng: [currentMarker.Latitude, currentMarker.Longitude],
