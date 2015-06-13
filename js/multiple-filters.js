@@ -6,25 +6,11 @@ function multiFilter(inputArgs) {
 	var validFilters = 0;
 
 	var countriesByFilter = new Array();
-
+	var markersByFilter = new Array();
 	for(i = 0; i < numberKeys; i++) {
 		countriesByFilter[i] = new Array();
+		markersByFilter[i] = new Array();
 	}
-
-
-	// check if any of the filters is 'all'
-	/*
-	$.each(keys, function(index, filterName) {
-		if(filterName.toLowerCase() == 'all') {
-			console.log('removing all applied filters');
-			// reloads the original markers and countriesByFilter on the map
-			resetFilters();
-			// erase the text from the filters box
-			resetFiltersBox();
-			return;
-		}
-	});
-	*/
 
 	// for every key/filter
 	$.each(keys, function(index, filterName) {
@@ -48,36 +34,66 @@ function multiFilter(inputArgs) {
 				var checkReturn = checkWhatCountriesMarkersToAdd(filterObject, part);
 				var countriesAux = checkReturn[0];
 				var markersAux = checkReturn[1];
-				// add elements to countriesByFilter
-				// console.log(Object.keys(countriesAux));
 				// add every country to the list of countriesByFilter
+				// add every marker to the list of markersByFilter
 				$.each(Object.keys(countriesAux), function(j, currentKey) {
 					// the colors that are returned are in a json format
 					var keyValue = countriesAux[currentKey];
 					countriesByFilter[index][currentKey] = keyValue;
 				});
+				// get the markers
+				$.each(markersAux, function(j, currentMarker) {
+					markersByFilter[index].push(currentMarker);
+				});
 			});
-			console.log(countriesByFilter[index]);
+			console.log(markersByFilter[index]);
 		}
 	});
 
-
+	// get the final countries
 	var finalCountries = [];
-	if(countriesByFilter.length>0)
-	{
+	if(countriesByFilter.length > 0) {
 		finalCountries = countriesByFilter[0];
-		console.log(finalCountries);
-		for(var i = 0; i < countriesByFilter.length -1 ; i++)
-			finalCountries = getCountriesIntersection(finalCountries,countriesByFilter[i+1]);
+		for(var i = 0; i < countriesByFilter.length - 1; i++)
+			finalCountries = getCountriesIntersection(finalCountries, countriesByFilter[i + 1]);
 	}
 
+	// add countries to Map
 	reloadMap(finalCountries);
-	// add markers to Map
+
+
+	// get the final markers
+	var finalMarkers = [];
+	if(markersByFilter.length > 0) {
+		finalMarkers = markersByFilter[0];
+		for(var i = 0; i < markersByFilter.length - 1; i++) {
+			finalMarkers = getMarkersIntersection(finalMarkers, markersByFilter[i + 1]);
+		}
+	}
+
+	// add markers to the map
+	addMarkersToMap(finalMarkers);
 
 }
 
-function getCountriesIntersection(countriesGroup1 ,countriesGroup2)
-{
+function getMarkersIntersection(markersGroup1, markersGroup2) {
+	var markers = [];
+
+	// markers that belong to the two groups
+	$.each(markersGroup1, function(index, marker1) {
+		// check if this marker name is inside the second group
+		var marker1Country = marker1.Country;
+		$.each(markersGroup2, function(index, marker2) {
+			var marker2Country = marker2.Country;
+			if(marker1Country == marker2Country)
+				markers.push(marker1)
+		});
+	});
+
+	return markers;
+}
+
+function getCountriesIntersection(countriesGroup1, countriesGroup2) {
 	// countries that belong to the two groups
 	var countries = [];
 
