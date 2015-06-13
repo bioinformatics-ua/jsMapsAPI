@@ -230,7 +230,6 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 			}
 		}
 		jsonText += '}';
-		console.log(jsonText);
 		var filtersToApply = JSON.parse(jsonText);
 		multiFilter(filtersToApply);
 	});

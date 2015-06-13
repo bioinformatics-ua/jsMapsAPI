@@ -1,57 +1,110 @@
 function multiFilter(inputArgs) {
+	console.log(inputArgs);
 
 	var keys = Object.keys(inputArgs)
 	var numberKeys = keys.length;
 	var validFilters = 0;
-	var countries = [];
 
-	// check if any of the filters is 'all'
+	var countriesByFilter = new Array();
+	var markersByFilter = new Array();
+	for(i = 0; i < numberKeys; i++) {
+		countriesByFilter[i] = new Array();
+		markersByFilter[i] = new Array();
+	}
+
+	// for every key/filter
 	$.each(keys, function(index, filterName) {
-		if(filterName.toLowerCase() == 'all') {
-			console.log('removing all applied filters');
-			// reloads the original markers and countries on the map
-			resetFilters();
-			// erase the text from the filters box
-			resetFiltersBox();
-			return;
-		}
-	});
-
-	// for every key
-	$.each(keys, function(index, filterName) {
-		var filterValue = inputArgs[filterName];
-
 		// check if the filterName is valid
 		if(!checkFilterNameIsValid(filterName)) {
 			// invalid filter name
 			console.log('Invalid filter name!(' + filterName + ')');
 			return;
+
 		} else {
-			// if valid, check the filterValue
+			// get the filter value (can contain enumeration and range)
+			// '2004-2006' , 'F,M', etc
+			var filterValue = inputArgs[filterName];
+			// get all single filter values
 			var finalParts = getAllFilterValues(filterValue);
-			console.log(finalParts);
+			//console.log(finalParts);
 			validFilters++;
 
-			$.each(finalParts, function(index, part) {
+			// for every single value get all the countrues and markers
+			$.each(finalParts, function(i, part) {
 				var checkReturn = checkWhatCountriesMarkersToAdd(filterObject, part);
-				var returnColorsJSON = checkReturn[0];
-				var markersToMap = checkReturn[1];
-				// add elements to countries
-				console.log(Object.keys(checkReturn[0]));
-				$.each(Object.keys(checkReturn[0]), function(index, currentKey) {
+				var countriesAux = checkReturn[0];
+				var markersAux = checkReturn[1];
+				// add every country to the list of countriesByFilter
+				// add every marker to the list of markersByFilter
+				$.each(Object.keys(countriesAux), function(j, currentKey) {
 					// the colors that are returned are in a json format
-					var keyValue = checkReturn[0][currentKey];
-					countries[currentKey] = keyValue;
+					var keyValue = countriesAux[currentKey];
+					countriesByFilter[index][currentKey] = keyValue;
+				});
+				// get the markers
+				$.each(markersAux, function(j, currentMarker) {
+					markersByFilter[index].push(currentMarker);
 				});
 			});
+			console.log(markersByFilter[index]);
 		}
 	});
 
-	console.log(countries);
-	reloadMap(countries);
+	// get the final countries
+	var finalCountries = [];
+	if(countriesByFilter.length > 0) {
+		finalCountries = countriesByFilter[0];
+		for(var i = 0; i < countriesByFilter.length - 1; i++)
+			finalCountries = getCountriesIntersection(finalCountries, countriesByFilter[i + 1]);
+	}
 
-	// add markers to Map
+	// add countries to Map
+	reloadMap(finalCountries);
 
+
+	// get the final markers
+	var finalMarkers = [];
+	if(markersByFilter.length > 0) {
+		finalMarkers = markersByFilter[0];
+		for(var i = 0; i < markersByFilter.length - 1; i++) {
+			finalMarkers = getMarkersIntersection(finalMarkers, markersByFilter[i + 1]);
+		}
+	}
+
+	// add markers to the map
+	addMarkersToMap(finalMarkers);
+
+}
+
+function getMarkersIntersection(markersGroup1, markersGroup2) {
+	var markers = [];
+
+	// markers that belong to the two groups
+	$.each(markersGroup1, function(index, marker1) {
+		// check if this marker name is inside the second group
+		var marker1Country = marker1.Country;
+		$.each(markersGroup2, function(index, marker2) {
+			var marker2Country = marker2.Country;
+			if(marker1Country == marker2Country)
+				markers.push(marker1)
+		});
+	});
+
+	return markers;
+}
+
+function getCountriesIntersection(countriesGroup1, countriesGroup2) {
+	// countries that belong to the two groups
+	var countries = [];
+
+	$.each(Object.keys(countriesGroup1), function(index, countryName1) {
+		// check if this country name is inside the second group
+		$.each(Object.keys(countriesGroup2), function(index, countryName2) {
+			if(countryName1 == countryName2)
+				countries[countryName1] = countriesGroup1[countryName1];
+		});
+	});
+	return countries;
 }
 
 function applyMultipleFiltersProgramattically(filtersToApply) {

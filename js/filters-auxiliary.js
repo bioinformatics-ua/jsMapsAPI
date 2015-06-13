@@ -69,7 +69,7 @@ function checkWhatCountriesToAdd(selectedFilter, filterValue) {
 					// check by value
 					if(currentCountry[currentValue] == filterValue)
 						countries[currentCountry.Country] = currentCountry.Count;
-					
+
 				}
 			} else
 				break;
@@ -133,7 +133,6 @@ function checkFilterValuesAreValid(filter, filterValues) {
 		// check if the current value is valid
 		$.each(filterObject.Values, function(index, currentValue) {
 			if(currentValue == part) {
-				console.log(currentValue + ' valid');
 				valid = true;
 				return;
 			}
@@ -144,4 +143,19 @@ function checkFilterValuesAreValid(filter, filterValues) {
 		}
 	});
 	return valid;
+}
+
+function addMarkersToMap(markers) {
+	$.each(markers, function(index, currentMarker) {
+		map.addMarker(index, {
+			latLng: [currentMarker.Latitude, currentMarker.Longitude],
+			name: currentMarker.desc,
+
+			// set the style for this marker
+			style: {
+				fill: 'green',
+				r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+			}
+		});
+	});
 }
