@@ -3,7 +3,7 @@ function multiFilter(inputArgs) {
 	var keys = Object.keys(inputArgs)
 	var numberKeys = keys.length;
 	var validFilters = 0;
-	var countryColors = [];
+	var countries = [];
 
 	// check if any of the filters is 'all'
 	$.each(keys, function(index, filterName) {
@@ -36,19 +36,19 @@ function multiFilter(inputArgs) {
 				var checkReturn = checkWhatCountriesMarkersToAdd(filterObject, part);
 				var returnColorsJSON = checkReturn[0];
 				var markersToMap = checkReturn[1];
-				// add elements to countryColors
+				// add elements to countries
 				console.log(Object.keys(checkReturn[0]));
 				$.each(Object.keys(checkReturn[0]), function(index, currentKey) {
 					// the colors that are returned are in a json format
 					var keyValue = checkReturn[0][currentKey];
-					countryColors[currentKey] = keyValue;
+					countries[currentKey] = keyValue;
 				});
 			});
 		}
 	});
 
-	console.log(countryColors);
-	reloadMap(countryColors);
+	console.log(countries);
+	reloadMap(countries);
 
 	// add markers to Map
 
@@ -98,9 +98,8 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
 
 	// colour only the countris whose countriesHaveFilter[index] == numberFilters
 	$.each(jsonCountries, function(countryIndex, currentCountry) {
-		if(countriesHaveFilter[countryIndex] == numFiltersToApply) {
+		if(countriesHaveFilter[countryIndex] == numFiltersToApply)
 			colors[currentCountry.Country] = currentCountry.Count;
-		}
 	});
 	reloadMap(colors);
 
