@@ -9,7 +9,7 @@
         width: 200px;
         height: 100%;
     }
-    
+
     button {
         margin-top: 20px;
     }
@@ -44,7 +44,7 @@ Polymer({
             if (vectorMap == undefined)
                 vectorMap = new VectorialMap();
             jsonFiltersArray = readFiltersFromJSON(jsonFilters);
-            setMultipleFilters(jsonFiltersArray);
+            createFiltersBox(jsonFiltersArray);
         });
     },
     properties: {

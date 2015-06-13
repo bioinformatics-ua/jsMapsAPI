@@ -4,11 +4,10 @@
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Marker Filtering</title>
+	<title>bioinformatics-ua/jsMapsAPI</title>
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-	<!-- Place favicon.ico in the root directory -->
 	<link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
 	<!--jVectormap-->
@@ -22,17 +21,22 @@
 	<script src="lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
 	<script src="lib/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
 	<!--Load the Maps API-->
+
 	<script type="text/javascript" src="js/markers.js"></script>
 	<script type="text/javascript" src="js/countries.js"></script>
 	<script type="text/javascript" src="js/multiple-filters.js"></script>
 	<script type="text/javascript" src="js/filters.js"></script>
+	<script type="text/javascript" src="js/filters-auxiliary.js"></script>
+	<script type="text/javascript" src="js/createFilters.js"></script>
 	<script type="text/javascript" src="js/maps-api.js"></script>
 	<!--Polymer-->
 	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
 	<!-- Import custom elements created with Polymer-->
 	<link rel="import" href="vector-map.html">
 	<link rel="import" href="vector-map-filters.html">
-	<link rel="import" href="vector-map-multiple-filters.html"> </head>
+	<link rel="import" href="vector-map-multiple-filters.html">
+	<link rel="import" href="filter-box-enumeration.html">
+</head>
 
 <body>
 	<div class="container-fluid" style="margin-top:10px">
@@ -42,7 +46,10 @@
 		<vector-map id="map" min_color='#0cfff0' max_color="#4C3FFE" min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'></vector-map>
 	</div>
 	<div class="starter-template col-md-2">
+		<!--
 		<filters-box id="filters-box" filters="json/filters.json"></filters-box>
+	-->
+		<filters-box-enumeration id="filters-box-enumeration" filters="json/filters.json"></filters-box-enumeration>
 	</div>
 	</div>
 	<script type="text/javascript">
