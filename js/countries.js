@@ -12,7 +12,7 @@ var Country = function (countryObject) {
 			this[currentNameToCheck] = countryObject[currentNameToCheck];
 			this[currentValue] = countryObject[currentValue];
 		}
-	} while (hasName)
+	} while(hasName);
 
 	this.Country = countryObject.Country;
 	// + is used to assure that a Number is being read
@@ -22,28 +22,29 @@ var Country = function (countryObject) {
 };
 
 function generateColorsForTheCountries() {
-	var colors = [];
+	var countryColors = [];
 	$.each(jsonCountries, function (index, currentCountry) {
-		colors[currentCountry.Country] = currentCountry.Count;
+		countryColors[currentCountry.Country] = currentCountry.Count;
 	});
-	return colors;
+	return countryColors;
 };
 
 function readCountriesFromJSON(markers) {
-	var returnCountries = [];
+
+	var countries = [];
 	var numJSONCountries = markers.length;
 
 	minCount = Infinity;
 	maxCount = -Infinity;
 
 	$.each(markers, function (index, currentCountry) {
-		returnCountries[index] = new Country(currentCountry);
+		countries[index] = new Country(currentCountry);
 
-		if(returnCountries[index].Count > maxCount) {
-			maxCount = returnCountries[index].Count;
-		}
-		if(returnCountries[index].Count < minCount)
-			minCount = returnCountries[index].Count;
+		if(countries[index].Count > maxCount)
+			maxCount = countries[index].Count;
+
+		if(countries[index].Count < minCount)
+			minCount = countries[index].Count;
 	});
-	return returnCountries;
+	return countries;
 }

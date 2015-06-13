@@ -1,49 +1,53 @@
-//var selectedFilterGlobal;
-var selectedCountries;
-var selectedMarkers;
-var selectedName;
 var vectorMap;
 var jsonFilters = [];
 var minColorMap;
 var maxColorMap;
 var mDiv;
 
-var VectorialMap = function () {};
+var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function (inputMarkers, minRadius, maxRadius, mapDiv, minColor, maxColor) {
+VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, mapDiv, minColor, maxColor) {
+	// countries list
 	jsonCountries = [];
+	// markers list
 	jsonMarkers = [];
+	// id of the map
 	mDiv = mapDiv;
-
+	// assign the colors for the range
 	minColorMap = minColor;
 	maxColorMap = maxColor;
 
 	// read markers and jsonFilters from JSON file
 	// try to read the countries
 	jsonCountries = readCountriesFromJSON(inputMarkers.countries);
-	// try to read the markers
+	// try to read the markers - markers aren't mandatory
 	if(!inputMarkers.markers)
 		console.log('There are no markers as input');
-	else
+	else {
 		jsonMarkers = readMarkersFromJSON(inputMarkers.markers);
-	numMarkers = jsonMarkers.length;
+		numMarkers = jsonMarkers.length;
+	}
 
-	// get the Count of each Country
+	// get the Count value for each Country
 	var auxColors = generateColorsForTheCountries();
 
-	// no markers are initially specified
+	// add the map to the div (no markers are initially specified)
 	map = new jvm.Map({
+		// type of map (world, Europe, USA, etc)
 		map: 'world_mill_en',
+		// id of its container
 		container: $('#' + mapDiv),
-		onMarkerTipShow: function (e, label, index) {
+		// triggered when a marker is hovered
+		onMarkerTipShow: function(e, label, index) {
 			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
 		},
-		onRegionTipShow: function (e, countryName, code) {
+		// triggered when a region is hovered
+		onRegionTipShow: function(e, countryName, code) {
 			// code contains the code of the country (i.e., PT, ES, FR, etc)
 			// show the Count associated to that Country - look for the country
 			var selectedCountry = -1;
-			$.each(jsonCountries, function (index, currentCountry) {
+			$.each(jsonCountries, function(index, currentCountry) {
 				if(currentCountry.Country === code) {
 					selectedCountry = currentCountry;
 					return;
@@ -56,28 +60,26 @@ VectorialMap.prototype.createMap = function (inputMarkers, minRadius, maxRadius,
 		},
 		series: {
 			markers: [{
+				// range of values associated with the Count
 				scale: [minColorMap, maxColorMap],
 				values: [minCount, maxCount],
+				// add a legend
 				legend: {
 					vertical: true
 				}
-            }],
+			}],
 			regions: [{
 				// min and max values of count
 				scale: [minColorMap, maxColorMap],
 				attribute: 'fill',
 				values: auxColors
-            }]
+			}]
 		}
 	});
 
-	// generate the slider and set corresponding values and callbacks
-	this.createSlider();
-
 	// draw markers on the map
 	if(inputMarkers.markers) {
-		// draw markers on the map
-		$.each(jsonMarkers, function (index, currentMarker) {
+		$.each(jsonMarkers, function(index, currentMarker) {
 			map.addMarker(index, {
 				latLng: [currentMarker.Latitude, currentMarker.Longitude],
 				name: currentMarker.desc,
@@ -89,23 +91,27 @@ VectorialMap.prototype.createMap = function (inputMarkers, minRadius, maxRadius,
 			});
 		});
 	}
+
+	// generate the slider and set corresponding values and callbacks
+	this.createSlider();
 };
 
+// redraw the map
 function reloadMap(colors) {
 	// erase the map
-	document.getElementById(mDiv).innerHTML = "";
+	$("#" + mDiv).empty();
 
 	map = new jvm.Map({
 		map: 'world_mill_en',
 		container: $('#' + mDiv),
-		onMarkerTipShow: function (e, label, index) {
+		onMarkerTipShow: function(e, label, index) {
 			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
 		},
-		onRegionTipShow: function (e, countryName, code) {
+		onRegionTipShow: function(e, countryName, code) {
 			// code contains the code of the country (i.e., PT, ES, FR, etc)
 			// show the Count associated to that Country - look for the country
 			var selectedCountry = -1;
-			$.each(jsonCountries, function (index, currentCountry) {
+			$.each(jsonCountries, function(index, currentCountry) {
 				if(currentCountry.Country === code) {
 					selectedCountry = currentCountry;
 					return;
@@ -123,14 +129,14 @@ function reloadMap(colors) {
 				legend: {
 					vertical: true
 				}
-            }],
+			}],
 			regions: [{
 				// min and max values of count
 				scale: [minColorMap, maxColorMap],
 				attribute: 'fill',
 				// the colors are 'stretched' to fill the scale
 				values: colors
-            }]
+			}]
 		}
 	});
 }
@@ -140,7 +146,7 @@ function mapRange(value, low1, high1, low2, high2) {
 	return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
-VectorialMap.prototype.createSlider = function () {
+VectorialMap.prototype.createSlider = function() {
 
 	// jQueryUI slider
 	slider = $("#slider").slider();
@@ -156,7 +162,7 @@ VectorialMap.prototype.createSlider = function () {
 	slider.slider("option", "animate", "slow");
 
 	// after selecting a new slider value
-	slider.on("slidechange", function (event, ui) {
+	slider.on("slidechange", function(event, ui) {
 		sliderChanged();
 	});
 

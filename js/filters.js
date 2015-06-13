@@ -1,19 +1,26 @@
-// Filter definition
-var Filter = function (Name, Value, Values) {
+// create a new FIlter object
+var Filter = function(Name, Value, Values) {
 	this.Name = Name;
 	this.Value = Value;
 	this.Values = Values;
 };
 
+// number of filters
+var numFilters;
 var currentFilter;
-var markersToAdd = [];
+var countryValueToCheck;
 
 function filter(filterName, filterValue) {
+
+	var markersToAdd = [];
 
 	// check the filterName
 	if(filterName.toLowerCase() == 'all') {
 		console.log('removing all applied filters')
+			// reloads the original markers and countries on the map
 		resetFilters();
+		// erase the text from the filters box
+		resetFiltersBox();
 		return;
 	}
 
@@ -28,158 +35,21 @@ function filter(filterName, filterValue) {
 	var finalParts = getAllFilterValues(filterValue);
 	console.log('Filter values: ' + finalParts);
 
-	// remove all markers from the map
-	map.removeAllMarkers();
-
 	// apply the filtering
 	countryColors = [];
 	markersToAdd = [];
 
 	// check what countries and markers should be shown on the map
-	$.each(finalParts, function (index, part) {
+	$.each(finalParts, function(index, part) {
 		checkWhatCountriesMarkersToAdd(filterObject, part);
 	});
 
 	// reload the map
 	reloadMap(countryColors);
 
-	/*
-		add the markers
-	this must be done here because reload map erases all the markers
-	*/
+	//add the markers
+	//this must be done here because reload map erases all the markers
 	addMarkersToMap(markersToAdd);
-}
-
-function checkWhatCountriesMarkersToAdd(selectedFilter, filterValue) {
-
-	// check what countries to colour
-	$.each(jsonCountries, function (index, currentCountry) {
-		// check if any of the names is equal to the selected filter
-		// try to read all the names and values
-		var i = 0;
-		do {
-			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
-			// check if the Country has that name
-			if(currentCountry[currentNameToCheck]) {
-				if(currentCountry[currentNameToCheck] === selectedFilter.Name) {
-					// check by value
-					if(currentCountry[currentValue] == filterValue) {
-						countryColors[currentCountry.Country] = currentCountry.Count;
-					}
-				}
-			} else
-				break;
-		} while (true)
-	});
-
-	// add only the markers who have that filter value
-	$.each(jsonMarkers, function (index, currentMarker) {
-		// check if any of the names is equal to the selected filter
-		// try to read all the names and values
-		var i = 0;
-		do {
-			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
-			// check if the Country has that name
-			if(currentMarker[currentNameToCheck]) {
-				if(currentMarker[currentNameToCheck] == selectedFilter.Name) {
-					if(currentMarker[currentValue] == filterValue)
-						markersToAdd.push(currentMarker);
-
-				}
-			} else {
-				break;
-			}
-		} while (true)
-	});
-}
-
-function checkFilterNameIsValid(filterName) {
-	var valid = false;
-	$.each(jsonFiltersArray, function (index, currentFilter) {
-		if(currentFilter.Name.toLowerCase() === filterName.toLowerCase()) {
-			filterObject = currentFilter;
-			valid = true;
-			return;
-		}
-	});
-	return valid;
-}
-
-function checkFilterValuesAreValid(filter, filterValues) {
-	var valid = false;
-	$.each(filterValues, function (index, part) {
-		// check if the current value is valid
-		$.each(filterObject.Values, function (index, currentValue) {
-			if(currentValue == part) {
-				console.log(currentValue + ' valid');
-				valid = true;
-				return;
-			}
-		});
-		if(!valid) {
-			console.log('Invalid value for the filter: ' + part);
-			return;
-		}
-	});
-	return valid;
-}
-
-function getAllFilterValues(filterValue) {
-	var returnParts = [];
-
-	// check if we have an enumeration (comma-separated values and/or ranges)
-	if(String(filterValue).indexOf(",") != -1) {
-
-		// get all the enumerated values (can be singular or range)
-		var enumerationParts = String(filterValue).split(",");
-
-		// check if we have a simple value or a range
-		$.each(enumerationParts, function (index, currentEnumeration) {
-
-			// if we have a range...
-			if(currentEnumeration.indexOf("-") != -1) {
-
-				// all the range parts
-				var rangeParts = String(currentEnumeration).split("-");
-
-				// check if the extreme values are valid
-				checkFilterValuesAreValid(filterObject, rangeParts);
-
-				// get all the values between those two numbers
-				// and add them
-				var min = rangeParts[0];
-				var max = rangeParts[1];
-				for(; min <= max; min++)
-					returnParts.push(min);
-
-			} else {
-				// if we don't have a range
-				// check if the single value is valid
-				returnParts.push(currentEnumeration);
-
-			}
-		});
-	} else {
-		// just a single part
-		if(filterValue.indexOf("-") != -1) {
-			// we have a range
-			var subParts = String(filterValue).split("-");
-			// check if the extreme values are valid
-			checkFilterValuesAreValid(filterObject, subParts);
-			// get all the values between those two numbers
-			var min = subParts[0];
-			var max = subParts[1];
-			for(; min <= max; min++) {
-				returnParts.push(min);
-			}
-		} else
-			returnParts.push(filterValue);
-	}
-	return returnParts;
 }
 
 function resetFilters() {
@@ -188,7 +58,7 @@ function resetFilters() {
 	reloadMap(colors);
 
 	// add only the markers who have that filter value
-	$.each(jsonMarkers, function (index, currentMarker) {
+	$.each(jsonMarkers, function(index, currentMarker) {
 		map.addMarker(index, {
 			latLng: [currentMarker.Latitude, currentMarker.Longitude],
 			name: currentMarker.desc,
@@ -202,116 +72,18 @@ function resetFilters() {
 	});
 }
 
-function setFilters(jsonFilters, filterType) {
-
-	function setMenu() {
-		$.each(jsonFilters, function (index, currentFilter) {
-			var filterName = currentFilter.Name;
-
-			var toAppend = '';
-			toAppend += '<li>' + filterName + '<ul>';
-			// add all the values from the filters
-			$.each(currentFilter.Values, function (i, currentValue) {
-				toAppend += '<li filter_index=' + index + '>' + currentValue + '</li>';
-			});
-			toAppend += '</ul></li>';
-			$('#jquerymenu').append(toAppend);
-		});
-
-		// set the element to behave as a menu
-		$("#jquerymenu").menu();
-
-		// triggered when an item is selected
-		$("#jquerymenu").on("menuselect", function (event, ui) {
-			// selected filter
-			var selectedFilter = jsonFilters[ui.item.attr('filter_index')];
-			// selected value for the filter
-			var filterValue = ui.item.text();
-			// apply filtering
-			filterSelected(selectedFilter, filterValue);
-		});
-	}
-
-	function setRadioButtons() {
-		$.each(jsonFilters, function (index, currentFilter) {
-			var filterName = currentFilter.Name;
-			var toAppend = '';
-			// add all the values from the filters
-			toAppend += '<input type="radio" id="radio' + Number(index + 1) + '" name="radio">';
-			toAppend += '<label for = "radio' + Number(index + 1) + '">' + filterName + ' </label>';
-			$('#radioButtons').append(toAppend);
-		});
-
-		// set the element to behave as a menu
-		$("#radioButtons").buttonset();
-
-		// triggered when an item is selected
-		$("#search_button").click(function () {
-			// check what is on the search box
-			var searchText = $('#search_text').val();
-			if(searchText === '')
-				alert('You must enter a search text');
-			else
-				console.log('searching for ' + searchText);
-
-			// get the selected radio button
-
-		});
-	}
-
-	switch(filterType) {
-	case 'menu':
-		$('#checkboxes_search').hide();
-		setMenu();
-		break;
-	case 'radio':
-		$('#jquerymenu').hide();
-		setRadioButtons();
-		break;
-	default:
-		console.log('not supported filter')
-		break;
-	}
-}
-
-var countryValueToCheck;
-
-function filterSelected(selectedFilter, filterValue) {
+function filterFromMenuSelected(selectedFilter, filterValue) {
 
 	currentFilter = selectedFilter;
-	// check what countries to colour
-	colors = [];
-	selectedCountries = [];
-	map.series.regions[0].setValues([]);
-	$.each(jsonCountries, function (index, currentCountry) {
-		// check if any of the names is equal to the selected filter
-		// try to read all the names and values
-		var i = 0;
-		do {
-			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
-			// check if the Country has that name
-			if(currentCountry[currentNameToCheck]) {
-				if(currentCountry[currentNameToCheck] === selectedFilter.Name) {
-					// check by value
-					if(currentCountry[currentValue] == filterValue) {
-						colors[currentCountry.Country] = currentCountry.Count;
-						selectedCountries.push(currentCountry);
-						countryValueToCheck = currentValue;
-					}
-				}
-			} else
-				break;
-		} while (true)
-	});
-	reloadMap(colors);
 
-	// remove all markers from the map
-	map.removeAllMarkers();
+	// check what countries to add to the map
+	var countries = checkWhatCountriesToAdd(selectedFilter, filterValue);
+
+	// reload the map and add those countries
+	reloadMap(countries);
 
 	// add only the markers who have that filter value
-	$.each(jsonMarkers, function (index, currentMarker) {
+	$.each(jsonMarkers, function(index, currentMarker) {
 		// check if any of the names is equal to the selected filter
 		// try to read all the names and values
 		var i = 0;
@@ -320,7 +92,7 @@ function filterSelected(selectedFilter, filterValue) {
 			var currentNameToCheck = 'Name' + i;
 			var currentValue = 'Value' + i;
 			// check if the Country has that name
-			if(currentMarker[currentNameToCheck] !== undefined) {
+			if(currentMarker[currentNameToCheck]) {
 				if(currentMarker[currentNameToCheck] === selectedFilter.Name) {
 					if(currentMarker[currentValue] === filterValue) {
 						map.addMarker(index, {
@@ -380,24 +152,34 @@ function sliderChanged() {
 	$('#minSlider').text(min);
 	$('#maxSlider').text(max);
 
-
-
 	// filter the Countries
-	colors = [];
-	$.each(jsonCountries, function (index, currentCountry) {
+	var countries = [];
+	$.each(jsonCountries, function(index, currentCountry) {
 		var filterValueForCountry = +currentCountry[countryValueToCheck];
 		if(filterValueForCountry >= min && filterValueForCountry <= max)
-			colors[currentCountry.Country] = currentCountry.Count;
+			countries[currentCountry.Country] = currentCountry.Count;
 	});
 
 	// draw the countries on the map
-	reloadMap(colors);
+	reloadMap(countries);
 
-	// filter the Markers - first, remove all markers
-	map.removeAllMarkers();
+	// filter the Markers
+	var currentCountry = jsonCountries[0];
+	var selectedName;
+	var i = 0;
+	do {
+		i++;
+		var currentNameToCheck = 'Name' + i;
+		var currentValue = 'Value' + i;
+		// check if the Country has that name
+		if(currentCountry[currentNameToCheck] === currentFilterName) {
+			selectedName = currentValue;
+			break;
+		}
+	} while (true);
 
 	// add only the markers who have that filter value
-	$.each(jsonMarkers, function (index, currentMarker) {
+	$.each(jsonMarkers, function(index, currentMarker) {
 		// check if the Country has that name
 		if(currentMarker[selectedName] >= min && currentMarker[selectedName] <= max) {
 			map.addMarker(index, {
@@ -415,9 +197,8 @@ function sliderChanged() {
 };
 
 function readFiltersFromJSON(inputFilters) {
-	var filtersReturn = [];
+	var filters = [];
 
-	// read filters from JSON
 	for(var i = 0; i < inputFilters.values.length; i++) {
 		// read the current filter
 		currentFilter = inputFilters.values[i];
@@ -428,7 +209,8 @@ function readFiltersFromJSON(inputFilters) {
 
 		for(var j = 0; j < currentFilter.values.length; j++)
 			values.push(currentFilter.values[j]);
-		filtersReturn[i] = new Filter(name, value, values);
+		filters[i] = new Filter(name, value, values);
 	}
-	return filtersReturn;
+	numFilters = filters.length;
+	return filters;
 };
