@@ -16,6 +16,7 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
     "jquery-ui": "~1.11.4",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "components-font-awesome": "~4.3.0"
   }
 }
