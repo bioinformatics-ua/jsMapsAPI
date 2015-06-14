@@ -172,15 +172,14 @@ VectorialMap.prototype.createSlider = function() {
 	$('#maxSlider').hide();
 }
 
-function filterOnServer(filters) {
-	var json;
-	$.getJSON("../json/serverFilter.json", function(data) {
-		json = data;
-		var jsonString = JSON.stringify(json);
+VectorialMap.prototype.filterOnServer = function(filters) {
+	$.getJSON("../json/serverFilter.json", function(filtersJSON) {
+		var filtersString = JSON.stringify(filtersJSON);
 		// build the url to send to the server
-		var url = 'http://serverFiltering/?data=' + encodeURIComponent(jsonString);
+		var url = 'http://serverFiltering/?data=' + encodeURIComponent(filtersString);
 		// for testing purposes
 		url = '../json/countries_plus_markers2.json';
+		// send request to the server to get the markers and countries
 		$.getJSON(url, function(json) {
 			// get the response from the server
 			/*
@@ -190,7 +189,6 @@ function filterOnServer(filters) {
 			console.log(JSON.parse(returnJSON));
 			*/
 
-			// send request to the server to get the markers and countries
 			// parse the JSON to get the countries and markers
 			jsonCountries = readCountriesFromJSON(json.countries);
 			// display the result on the map
