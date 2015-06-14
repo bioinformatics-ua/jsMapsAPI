@@ -3,6 +3,6 @@
 	"Count": "number",
 	"Name1": "ano",
 	"Name2": "gender",
-	"Latitude": "lat",
-	"Longitude": "long"
+	"Latitude": "latitude",
+	"Longitude": "longitude"
 }
