@@ -35,7 +35,7 @@ function jsonMapMarkers(json) {
 			WHAT ARE THE NAMES???
 			*/
 			// create a new marker
-			markers.push('index');
+			markers[index] = new Marker('',name, count, latitude, longitude);
 		});
 		mappingMarkers = markers;
 		console.log(mappingMarkers);
