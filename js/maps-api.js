@@ -7,7 +7,7 @@ var mDiv;
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, mapDiv, minColor, maxColor) {
+VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor) {
 	// countries list
 	jsonCountries = [];
 	// markers list
@@ -20,12 +20,12 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
 
 	// read markers and jsonFilters from JSON file
 	// try to read the countries
-	jsonCountries = readCountriesFromJSON(inputMarkers.countries);
+	jsonCountries = readCountriesFromJSON(inputJSON.countries);
 	// try to read the markers - markers aren't mandatory
-	if(!inputMarkers.markers)
+	if(!inputJSON.markers)
 		console.log('There are no markers as input');
 	else {
-		jsonMarkers = readMarkersFromJSON(inputMarkers.markers);
+		jsonMarkers = readMarkersFromJSON(inputJSON.markers);
 		numMarkers = jsonMarkers.length;
 	}
 
@@ -78,7 +78,7 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
 	});
 
 	// draw markers on the map
-	if(inputMarkers.markers) {
+	if(inputJSON.markers) {
 		$.each(jsonMarkers, function(index, currentMarker) {
 			map.addMarker(index, {
 				latLng: [currentMarker.Latitude, currentMarker.Longitude],
@@ -170,4 +170,35 @@ VectorialMap.prototype.createSlider = function() {
 	$('#slider').hide();
 	$('#minSlider').hide();
 	$('#maxSlider').hide();
+}
+
+function filterOnServer(filters) {
+	var json;
+	$.getJSON("../json/serverFilter.json", function(data) {
+		json = data;
+		var jsonString = JSON.stringify(json);
+		// build the url to send to the server
+		var url = 'http://serverFiltering/?data=' + encodeURIComponent(jsonString);
+		// for testing purposes
+		url = '../json/countries_plus_markers2.json';
+		$.getJSON(url, function(json) {
+			// get the response from the server
+			/*
+			THIS CODE IS SERVER SIDE
+			var myParam = url.split('data=')[1];
+			var returnJSON = decodeURIComponent(myParam);
+			console.log(JSON.parse(returnJSON));
+			*/
+
+			// send request to the server to get the markers and countries
+			// parse the JSON to get the countries and markers
+			jsonCountries = readCountriesFromJSON(json.countries);
+			// display the result on the map
+			reloadMap(generateColorsForTheCountries(jsonCountries));
+
+			jsonMarkers = readMarkersFromJSON(json.markers);
+			// add markers
+			addMarkersToMap(jsonMarkers);
+		});
+	});
 }

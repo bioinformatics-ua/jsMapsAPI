@@ -21,9 +21,11 @@ var Country = function (countryObject) {
 	this.desc = 'abc';
 };
 
-function generateColorsForTheCountries() {
+function generateColorsForTheCountries(countries) {
+	if(!countries)
+		countries = jsonCountries;
 	var countryColors = [];
-	$.each(jsonCountries, function (index, currentCountry) {
+	$.each(countries, function (index, currentCountry) {
 		countryColors[currentCountry.Country] = currentCountry.Count;
 	});
 	return countryColors;
