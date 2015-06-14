@@ -55,12 +55,12 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 			});
 			if(selectedCountry != -1)
 			{
-				/*
+
 				var htm = '';
 				htm += '<div style="color:#bf2727; background-color: yellow">';
 				htm += '<h3>This is a heading in a div element</h3>';
 				htm += '<p>This is some text in a div element.</p></div>';
-				*/
+				
 				//countryName.html(countryName.html() + ' (' + selectedCountry.Count + ') ');
 				countryName.html(htm);
 
