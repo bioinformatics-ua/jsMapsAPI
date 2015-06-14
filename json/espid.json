@@ -1,0 +1,2521 @@
+[{
+	"id": 1,
+	"name": "University Medical Centre",
+	"country": "Slovenia",
+	"suburb": "Ljubljana",
+	"address": "Dept of Infectious Diseases",
+	"postcode": "SI-1525",
+	"state": "",
+	"latitude": "46.0569465",
+	"longitude": "14.5057515",
+	"authors": [{
+		"id": 1,
+		"name": "Marko Pokorn",
+		"email": "marko.pokorn@mf.uni-lj.si",
+		"phone": "+386 1 522 2110",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 2,
+			"name": "Soft Tissue Infections"
+		}, {
+			"id": 3,
+			"name": "Bone, Joint"
+		}, {
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 8,
+			"name": "Coronavirus"
+		}, {
+			"id": 9,
+			"name": "Metapneumovirus"
+		}, {
+			"id": 10,
+			"name": "Clostridium Spp."
+		}, {
+			"id": 11,
+			"name": "Staphylococcus Spp."
+		}]
+	}],
+	"fullAddress": "University Medical Centre, Dept of Infectious Diseases, SI-1525, Ljubljana, Slovenia"
+}, {
+	"id": 2,
+	"name": "Vilnius University",
+	"country": "Lithuania",
+	"suburb": "Vilnius",
+	"address": "Centre of Paediatrics",
+	"postcode": "LT-08406",
+	"state": "",
+	"latitude": "54.7526816",
+	"longitude": "25.2982015",
+	"authors": [{
+		"id": 2,
+		"name": "Vytautas Usonis",
+		"email": "vytautas.usonis@mf.vu.lt",
+		"phone": "+370 52492414",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}]
+	}],
+	"fullAddress": "Vilnius University, Centre of Paediatrics, LT-08406, Vilnius, Lithuania"
+}, {
+	"id": 3,
+	"name": "Not Applicable",
+	"country": "Brasil",
+	"suburb": "Sao Paulo",
+	"address": "Alameda dos Indigenas, 228.",
+	"postcode": "04059-060",
+	"state": "",
+	"latitude": "-23.6081358",
+	"longitude": "-46.6504607",
+	"authors": [{
+		"id": 3,
+		"name": "Marco  Safadi",
+		"email": "masafadi@uol.com.br",
+		"phone": "+55 11 30533005",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 14,
+			"name": "Neisseria Spp."
+		}, {
+			"id": 15,
+			"name": "Toxoplasma Spp."
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 28,
+			"name": "Parainfluenza Virus"
+		}, {
+			"id": 29,
+			"name": "Influenza"
+		}, {
+			"id": 34,
+			"name": "Rotavirus"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}]
+	}],
+	"fullAddress": "Not Applicable, Alameda dos Indigenas, 228., 04059-060, Sao Paulo, Brasil"
+}, {
+	"id": 4,
+	"name": "Monash Childrens Hospital",
+	"country": "Australia",
+	"suburb": "Melbourne",
+	"address": "246 Clayton Rd",
+	"postcode": "3124",
+	"state": "",
+	"latitude": "-37.9206385",
+	"longitude": "145.1233329",
+	"authors": [{
+		"id": 4,
+		"name": "Jim Buttery",
+		"email": "jim.buttery@monash.edu",
+		"phone": "61395946320",
+		"areas": [{
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 34,
+			"name": "Rotavirus"
+		}]
+	}],
+	"fullAddress": "Monash Childrens Hospital, 246 Clayton Rd, 3124, Melbourne, Australia"
+}, {
+	"id": 6,
+	"name": "Not Applicable",
+	"country": "Netherlands",
+	"suburb": "Utrecht",
+	"address": "Oudwijkerlaan 24",
+	"postcode": "3581 TD",
+	"state": "",
+	"latitude": "52.0929124",
+	"longitude": "5.1390913",
+	"authors": [{
+		"id": 6,
+		"name": "Louis Bont",
+		"email": "l.bont@umcutrecht.nl",
+		"phone": "+31 30 2504001",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}]
+	}],
+	"fullAddress": "Not Applicable, Oudwijkerlaan 24, 3581 TD, Utrecht, Netherlands"
+}, {
+	"id": 7,
+	"name": "Children'S Hospital, University Of Freiburg",
+	"country": "Germany",
+	"suburb": "Freiburg",
+	"address": "Kinderklinik der Albert-Ludiwigs ",
+	"postcode": "79106",
+	"state": "",
+	"latitude": "48.00445819999999",
+	"longitude": "7.8374651",
+	"authors": [{
+		"id": 7,
+		"name": "Philipp Henneke",
+		"email": "philipp.henneke@uniklinik-freiburg.de",
+		"phone": "+49 761 270 77640",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 11,
+			"name": "Staphylococcus Spp."
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}]
+	}],
+	"fullAddress": "Children'S Hospital, University Of Freiburg, Kinderklinik der Albert-Ludiwigs , 79106, Freiburg, Germany"
+}, {
+	"id": 8,
+	"name": "Not Applicceble",
+	"country": "Sweden",
+	"suburb": "Stockholm",
+	"address": "Norlindsvägen 17",
+	"postcode": "168 59",
+	"state": "",
+	"latitude": "59.3557838",
+	"longitude": "17.9156784",
+	"authors": [{
+		"id": 8,
+		"name": "Joachim Luthander",
+		"email": "joachim.luthander@karolinska.se",
+		"phone": "46851777288",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}]
+	}],
+	"fullAddress": "Not Applicceble, Norlindsvägen 17, 168 59, Stockholm, Sweden"
+}, {
+	"id": 9,
+	"name": "University Medical Centre Nijmegen",
+	"country": "Netherlands",
+	"suburb": "Nijmegen",
+	"address": "PO Box 9101",
+	"postcode": "6500 HB",
+	"state": "",
+	"latitude": "51.8125626",
+	"longitude": "5.8372264",
+	"authors": [{
+		"id": 9,
+		"name": "Ronald De Groot",
+		"email": "r.degroot@cukz.umcn.nl",
+		"phone": "+31 24 3614430",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 31,
+			"name": "Genetics of Microorganisms"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}, {
+			"id": 43,
+			"name": "Measles Virus"
+		}, {
+			"id": 44,
+			"name": "Bordetella Spp."
+		}]
+	}],
+	"fullAddress": "University Medical Centre Nijmegen, PO Box 9101, 6500 HB, Nijmegen, Netherlands"
+}, {
+	"id": 10,
+	"name": "Turku University Hospital",
+	"country": "Finland",
+	"suburb": "Turku",
+	"address": "Dept. of Pediatrics",
+	"postcode": "FI-20520",
+	"state": "",
+	"latitude": "60.44697319999999",
+	"longitude": "22.3052001",
+	"authors": [{
+		"id": 10,
+		"name": "Terho Heikkinen",
+		"email": "terho.heikkinen@utu.fi",
+		"phone": "+358 2 313 2434",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 9,
+			"name": "Metapneumovirus"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 28,
+			"name": "Parainfluenza Virus"
+		}, {
+			"id": 29,
+			"name": "Influenza"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 45,
+			"name": "Rhinovirus"
+		}]
+	}],
+	"fullAddress": "Turku University Hospital, Dept. of Pediatrics, FI-20520, Turku, Finland"
+}, {
+	"id": 11,
+	"name": "Not Applicable",
+	"country": "Greece",
+	"suburb": "Perea Thermaikou",
+	"address": "Ionias 23",
+	"postcode": "57019",
+	"state": "",
+	"latitude": "40.5004933",
+	"longitude": "22.9246383",
+	"authors": [{
+		"id": 11,
+		"name": "Emmanuel Roilides",
+		"email": "roilides@med.auth.gr",
+		"phone": "+30 2310 89 24 44",
+		"areas": [{
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 46,
+			"name": "Other Molds"
+		}, {
+			"id": 47,
+			"name": "Aspergillus Spp."
+		}, {
+			"id": 48,
+			"name": "Candidida Spp."
+		}]
+	}],
+	"fullAddress": "Not Applicable, Ionias 23, 57019, Perea Thermaikou, Greece"
+}, {
+	"id": 12,
+	"name": "Radboud Umc Nijmegen",
+	"country": "Netherlands",
+	"suburb": "Nijmegen",
+	"address": "PO Box 9101, internal mail 224",
+	"postcode": "6500 HB",
+	"state": "",
+	"latitude": "51.8125626",
+	"longitude": "5.8372264",
+	"authors": [{
+		"id": 12,
+		"name": "Marien De Jonge",
+		"email": "marien.dejonge@radboudumc.nl ",
+		"phone": "+31 243666406",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 44,
+			"name": "Bordetella Spp."
+		}, {
+			"id": 49,
+			"name": "Haemophilus Spp."
+		}]
+	}],
+	"fullAddress": "Radboud Umc Nijmegen, PO Box 9101, internal mail 224, 6500 HB, Nijmegen, Netherlands"
+}, {
+	"id": 14,
+	"name": "Universitäts-Kinderspital Beider Basel - Ukbb",
+	"country": "Switzerland",
+	"suburb": "Basel",
+	"address": "Spitalstrasse 33",
+	"postcode": "4031",
+	"state": "",
+	"latitude": "47.5674422",
+	"longitude": "7.597550699999999",
+	"authors": [{
+		"id": 14,
+		"name": "Ulrich Heininger",
+		"email": "Ulrich.Heininger@ukbb.ch",
+		"phone": "+41 61 704 29 09",
+		"areas": [{
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 44,
+			"name": "Bordetella Spp."
+		}, {
+			"id": 52,
+			"name": "Varicella Virus"
+		}]
+	}, {
+		"id": 38,
+		"name": "Nicole Ritz",
+		"email": "nicole.ritz@ukbb.ch",
+		"phone": "+41 61 704 29 94",
+		"areas": [{
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}, {
+			"id": 67,
+			"name": "Mycoplasma Spp."
+		}]
+	}],
+	"fullAddress": "Universitäts-Kinderspital Beider Basel - Ukbb, Spitalstrasse 33, 4031, Basel, Switzerland"
+}, {
+	"id": 15,
+	"name": "Not Applicable",
+	"country": "Spain",
+	"suburb": "Madrid",
+	"address": "C/Viento, 5, 5ºA. Tres Cantos",
+	"postcode": "28760",
+	"state": "",
+	"latitude": "40.5984399",
+	"longitude": "-3.715644199999999",
+	"authors": [{
+		"id": 15,
+		"name": "Cristina Calvo",
+		"email": "ccalvorey@ono.com",
+		"phone": "34914818460",
+		"areas": [{
+			"id": 2,
+			"name": "Soft Tissue Infections"
+		}, {
+			"id": 3,
+			"name": "Bone, Joint"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 9,
+			"name": "Metapneumovirus"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 45,
+			"name": "Rhinovirus"
+		}, {
+			"id": 53,
+			"name": "Bocavirus"
+		}]
+	}],
+	"fullAddress": "Not Applicable, C/Viento, 5, 5ºA. Tres Cantos, 28760, Madrid, Spain"
+}, {
+	"id": 16,
+	"name": "St. George'S Hospital",
+	"country": "United Kingdom",
+	"suburb": "London",
+	"address": "Paediatric Infectious Diseases Unt,5 flr",
+	"postcode": "SW17 0QT",
+	"state": "",
+	"latitude": "51.4267274",
+	"longitude": "-0.1757459",
+	"authors": [{
+		"id": 16,
+		"name": "Mike Sharland",
+		"email": "mike.sharland@stgeorges.nhs.uk",
+		"phone": "+44 208 725 3262",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}]
+	}],
+	"fullAddress": "St. George'S Hospital, Paediatric Infectious Diseases Unt,5 flr, SW17 0QT, London, United Kingdom"
+}, {
+	"id": 17,
+	"name": "St. Georges University Of London",
+	"country": "United Kingdom",
+	"suburb": "London",
+	"address": "Institute of Infection and Immunity",
+	"postcode": "SW17 0RE",
+	"state": "",
+	"latitude": "51.4279855",
+	"longitude": "-0.1733797",
+	"authors": [{
+		"id": 17,
+		"name": "Paul Heath",
+		"email": "pheath@sgul.ac.uk",
+		"phone": "+44 208 7255980",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 35,
+			"name": "Central Nervous System Infections"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 54,
+			"name": "Herpes Virus (including Cmv, Ebv)"
+		}, {
+			"id": 55,
+			"name": "Enterobacteriaceae Incl. Escherichia Spp."
+		}, {
+			"id": 56,
+			"name": "Listeria Spp."
+		}]
+	}],
+	"fullAddress": "St. Georges University Of London, Institute of Infection and Immunity, SW17 0RE, London, United Kingdom"
+}, {
+	"id": 18,
+	"name": "Great North Children'S Hospital",
+	"country": "United Kingdom",
+	"suburb": "Newcastle Upon Tyne",
+	"address": "Old children's outpatients building",
+	"postcode": "NE4 1LP ",
+	"state": "",
+	"latitude": "54.978252",
+	"longitude": "-1.61778",
+	"authors": [{
+		"id": 18,
+		"name": "Marieke Emonts",
+		"email": "marieke.emonts@ncl.ac.uk",
+		"phone": "+44 1912336161",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 2,
+			"name": "Soft Tissue Infections"
+		}, {
+			"id": 3,
+			"name": "Bone, Joint"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 11,
+			"name": "Staphylococcus Spp."
+		}, {
+			"id": 14,
+			"name": "Neisseria Spp."
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 54,
+			"name": "Herpes Virus (including Cmv, Ebv)"
+		}, {
+			"id": 57,
+			"name": "Urinary Tract Infections"
+		}]
+	}],
+	"fullAddress": "Great North Children'S Hospital, Old children's outpatients building, NE4 1LP , Newcastle Upon Tyne, United Kingdom"
+}, {
+	"id": 19,
+	"name": "Univ Of Tartu",
+	"country": "Estonia",
+	"suburb": "Tartu",
+	"address": "Department of Microbiology",
+	"postcode": "50411",
+	"state": "",
+	"latitude": "58.3647181",
+	"longitude": "26.6893001",
+	"authors": [{
+		"id": 19,
+		"name": "Irja Lutsar",
+		"email": "irja.lutsar@ut.ee",
+		"phone": "+372 737 4171",
+		"areas": [{
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 34,
+			"name": "Rotavirus"
+		}, {
+			"id": 35,
+			"name": "Central Nervous System Infections"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 44,
+			"name": "Bordetella Spp."
+		}, {
+			"id": 46,
+			"name": "Other Molds"
+		}, {
+			"id": 47,
+			"name": "Aspergillus Spp."
+		}, {
+			"id": 51,
+			"name": "Hiv"
+		}]
+	}],
+	"fullAddress": "Univ Of Tartu, Department of Microbiology, 50411, Tartu, Estonia"
+}, {
+	"id": 20,
+	"name": "Children´s Hospital",
+	"country": "Spain",
+	"suburb": "Malaga",
+	"address": "C/Almogia, nº 14, bloque 4, 4ºD",
+	"postcode": "29007",
+	"state": "",
+	"latitude": "36.7166948",
+	"longitude": "-4.445223299999999",
+	"authors": [{
+		"id": 20,
+		"name": "David Moreno Perez",
+		"email": "dmp.malaga@gmail.com",
+		"phone": "0034 951292393",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 28,
+			"name": "Parainfluenza Virus"
+		}, {
+			"id": 29,
+			"name": "Influenza"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 35,
+			"name": "Central Nervous System Infections"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 44,
+			"name": "Bordetella Spp."
+		}, {
+			"id": 52,
+			"name": "Varicella Virus"
+		}]
+	}],
+	"fullAddress": "Children´s Hospital, C/Almogia, nº 14, bloque 4, 4ºD, 29007, Malaga, Spain"
+}, {
+	"id": 21,
+	"name": "Academic Children Hospitla Queen Fabiola",
+	"country": "Belgium",
+	"suburb": "Bruxelles",
+	"address": "Av JJ Crocq 15",
+	"postcode": "B - 1020 ",
+	"state": "",
+	"latitude": "50.884218",
+	"longitude": "4.3580002",
+	"authors": [{
+		"id": 22,
+		"name": "Pierre Smeesters",
+		"email": "psmeeste@ulb.ac.be",
+		"phone": "0",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 31,
+			"name": "Genetics of Microorganisms"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 70,
+			"name": "Computer Models"
+		}]
+	}],
+	"fullAddress": "Academic Children Hospitla Queen Fabiola, Av JJ Crocq 15, B - 1020 , Bruxelles, Belgium"
+}, {
+	"id": 22,
+	"name": "Not Applicable",
+	"country": "Belgium",
+	"suburb": "Wemmel",
+	"address": "Vijverslaan 127",
+	"postcode": "1780",
+	"state": "",
+	"latitude": "50.9020112",
+	"longitude": "4.3049566",
+	"authors": [{
+		"id": 23,
+		"name": "Alexandra Dreesman",
+		"email": "Alexandra.Dreesman@vub.ac.be",
+		"phone": "3225556231",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}]
+	}],
+	"fullAddress": "Not Applicable, Vijverslaan 127, 1780, Wemmel, Belgium"
+}, {
+	"id": 24,
+	"name": "Not Applicable",
+	"country": "United Kingdom",
+	"suburb": "North Baddesley, Hants",
+	"address": "4A Merry Gardens",
+	"postcode": "SO52 9JJ",
+	"state": "",
+	"latitude": "50.9780149",
+	"longitude": "-1.4439739",
+	"authors": [{
+		"id": 25,
+		"name": "Marc Tebruegge",
+		"email": "m.tebruegge@soton.ac.uk",
+		"phone": "44238079688",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}, {
+			"id": 71,
+			"name": "Adenovirus"
+		}, {
+			"id": 72,
+			"name": "Enterovirus"
+		}]
+	}],
+	"fullAddress": "Not Applicable, 4A Merry Gardens, SO52 9JJ, North Baddesley, Hants, United Kingdom"
+}, {
+	"id": 25,
+	"name": "Not Applicable",
+	"country": "United Kingdom",
+	"suburb": "London",
+	"address": "31, Ringwood Avenue",
+	"postcode": "N 29 NT",
+	"state": "",
+	"latitude": "51.5073509",
+	"longitude": "-0.1277583",
+	"authors": [{
+		"id": 26,
+		"name": "Beate Kampmann",
+		"email": "b.kampmann@imperial.ac.uk",
+		"phone": "+44 207 594 6990",
+		"areas": [{
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}]
+	}, {
+		"id": 47,
+		"name": "Michael Levin",
+		"email": "m.levin@imperial.ac.uk",
+		"phone": "4,48E+11",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 11,
+			"name": "Staphylococcus Spp."
+		}, {
+			"id": 14,
+			"name": "Neisseria Spp."
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}]
+	}],
+	"fullAddress": "Not Applicable, 31, Ringwood Avenue, N 29 NT, London, United Kingdom"
+}, {
+	"id": 26,
+	"name": "Not Applicable",
+	"country": "United Kingdom",
+	"suburb": "Exeter, Devon",
+	"address": "3 The Orchard, Brampford Speke, ",
+	"postcode": "EX5 5HW",
+	"state": "",
+	"latitude": "50.718412",
+	"longitude": "-3.533899",
+	"authors": [{
+		"id": 27,
+		"name": "Anna Seale",
+		"email": "anna.seale@gmail.com",
+		"phone": "7786733659",
+		"areas": [{
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}]
+	}],
+	"fullAddress": "Not Applicable, 3 The Orchard, Brampford Speke, , EX5 5HW, Exeter, Devon, United Kingdom"
+}, {
+	"id": 27,
+	"name": "Lady Cilento Childrens Hospital ",
+	"country": "Australia",
+	"suburb": "Brisbane",
+	"address": "IMPS, Level 12",
+	"postcode": "4101",
+	"state": "QLD",
+	"latitude": "-27.4799195",
+	"longitude": "153.0118145",
+	"authors": [{
+		"id": 28,
+		"name": "Julia Clark",
+		"email": "juliac@doctors.org.uk",
+		"phone": "+61 (0)7 30681558",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 54,
+			"name": "Herpes Virus (including Cmv, Ebv)"
+		}]
+	}],
+	"fullAddress": "Lady Cilento Childrens Hospital , IMPS, Level 12, 4101, Brisbane, QLD, Australia"
+}, {
+	"id": 28,
+	"name": "Not Applicable",
+	"country": "Belgium",
+	"suburb": "Leuze-En-Hainaut",
+	"address": "rue de l'arbre à l'écaille 8",
+	"postcode": "7900",
+	"state": "",
+	"latitude": "50.5971918",
+	"longitude": "3.6241539",
+	"authors": [{
+		"id": 29,
+		"name": "Delphine Laho",
+		"email": "delplaho@ulb.ac.be",
+		"phone": "32498639108",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}]
+	}],
+	"fullAddress": "Not Applicable, rue de l'arbre à l'écaille 8, 7900, Leuze-En-Hainaut, Belgium"
+}, {
+	"id": 29,
+	"name": "Sheffield Childrens Hospital",
+	"country": "United Kingdom",
+	"suburb": "Sheffield",
+	"address": "Dept Immunology & Infectious Disease ",
+	"postcode": "S10 2TH",
+	"state": "",
+	"latitude": "53.3805481",
+	"longitude": "-1.4912306",
+	"authors": [{
+		"id": 30,
+		"name": "Catherine Waruiru",
+		"email": "cmwaruiru@doctors.org.uk",
+		"phone": "+44 0114 271 7000",
+		"areas": [{
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 59,
+			"name": "Plasmodium Spp."
+		}]
+	}],
+	"fullAddress": "Sheffield Childrens Hospital, Dept Immunology & Infectious Disease , S10 2TH, Sheffield, United Kingdom"
+}, {
+	"id": 30,
+	"name": "The Hospital For Sick Children",
+	"country": "Canada",
+	"suburb": "Toronto",
+	"address": "555 University avenue",
+	"postcode": "M5G1X8",
+	"state": "ON",
+	"latitude": "43.6576229",
+	"longitude": "-79.3870307",
+	"authors": [{
+		"id": 31,
+		"name": "Sandra Asner",
+		"email": "sandra.asner@sickkids.ca",
+		"phone": "001/416/8136458",
+		"areas": [{
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 45,
+			"name": "Rhinovirus"
+		}, {
+			"id": 72,
+			"name": "Enterovirus"
+		}]
+	}],
+	"fullAddress": "The Hospital For Sick Children, 555 University avenue, M5G1X8, Toronto, ON, Canada"
+}, {
+	"id": 31,
+	"name": "Not Applicable",
+	"country": "Greece",
+	"suburb": "Thessaloniki",
+	"address": "Ptolemeon 15 str.",
+	"postcode": "555 35",
+	"state": "",
+	"latitude": "40.5913928",
+	"longitude": "22.9851404",
+	"authors": [{
+		"id": 32,
+		"name": "Aspasia Katragkou",
+		"email": "akatrag@med.auth.gr",
+		"phone": "+30 31 892446",
+		"areas": [{
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 35,
+			"name": "Central Nervous System Infections"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 46,
+			"name": "Other Molds"
+		}, {
+			"id": 47,
+			"name": "Aspergillus Spp."
+		}, {
+			"id": 48,
+			"name": "Candidida Spp."
+		}, {
+			"id": 73,
+			"name": "Hepatitis Virus A, B, C, E"
+		}]
+	}],
+	"fullAddress": "Not Applicable, Ptolemeon 15 str., 555 35, Thessaloniki, Greece"
+}, {
+	"id": 32,
+	"name": "University Hospital Dresden",
+	"country": "Germany",
+	"suburb": "Dresden",
+	"address": "University Children's Hospital",
+	"postcode": "1307",
+	"state": "",
+	"latitude": "51.0504088",
+	"longitude": "13.7372621",
+	"authors": [{
+		"id": 41,
+		"name": "Reinhard Berner",
+		"email": "reinhard.berner@uniklinikum-dresden.de",
+		"phone": "+49 351 458 4080",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 11,
+			"name": "Staphylococcus Spp."
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 31,
+			"name": "Genetics of Microorganisms"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 74,
+			"name": "Moraxella Spp."
+		}]
+	}],
+	"fullAddress": "University Hospital Dresden, University Children's Hospital, 1307, Dresden, Germany"
+}, {
+	"id": 33,
+	"name": "Pediatric Emergency Room, Chu Nord",
+	"country": "France",
+	"suburb": "Marseille",
+	"address": "chemin des bourrelly",
+	"postcode": "13015",
+	"state": "",
+	"latitude": "43.3628362",
+	"longitude": "5.3677844",
+	"authors": [{
+		"id": 33,
+		"name": "Philippe Minodier",
+		"email": "philippe.minodier@ap-hm.fr",
+		"phone": "33 4 91 96 88 13",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 15,
+			"name": "Toxoplasma Spp."
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}, {
+			"id": 54,
+			"name": "Herpes Virus (including Cmv, Ebv)"
+		}, {
+			"id": 58,
+			"name": "Parasitic Infections"
+		}, {
+			"id": 59,
+			"name": "Plasmodium Spp."
+		}]
+	}],
+	"fullAddress": "Pediatric Emergency Room, Chu Nord, chemin des bourrelly, 13015, Marseille, France"
+}, {
+	"id": 34,
+	"name": "Not Applicable",
+	"country": "Poland",
+	"suburb": "Wroclaw",
+	"address": "Brossa 39",
+	"postcode": "53-134",
+	"state": "",
+	"latitude": "51.0823364",
+	"longitude": "17.0144701",
+	"authors": [{
+		"id": 34,
+		"name": "Ernest Kuchar",
+		"email": "ernest.kuchar@gmail.com",
+		"phone": "487703156",
+		"areas": [{
+			"id": 2,
+			"name": "Soft Tissue Infections"
+		}, {
+			"id": 3,
+			"name": "Bone, Joint"
+		}, {
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 28,
+			"name": "Parainfluenza Virus"
+		}, {
+			"id": 29,
+			"name": "Influenza"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 35,
+			"name": "Central Nervous System Infections"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 51,
+			"name": "Hiv"
+		}, {
+			"id": 52,
+			"name": "Varicella Virus"
+		}, {
+			"id": 58,
+			"name": "Parasitic Infections"
+		}, {
+			"id": 60,
+			"name": "Borrelia Spp."
+		}]
+	}],
+	"fullAddress": "Not Applicable, Brossa 39, 53-134, Wroclaw, Poland"
+}, {
+	"id": 35,
+	"name": "University Hospital, Department Of Paediatrics",
+	"country": "Germany",
+	"suburb": "Wuerzburg",
+	"address": "University Childrens Hospital ",
+	"postcode": "97080",
+	"state": "",
+	"latitude": "49.8158268",
+	"longitude": "9.9102608",
+	"authors": [{
+		"id": 35,
+		"name": "Johannes Liese",
+		"email": "Liese_j@ukw.de",
+		"phone": "-20128607",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 9,
+			"name": "Metapneumovirus"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 28,
+			"name": "Parainfluenza Virus"
+		}, {
+			"id": 29,
+			"name": "Influenza"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 44,
+			"name": "Bordetella Spp."
+		}, {
+			"id": 52,
+			"name": "Varicella Virus"
+		}]
+	}],
+	"fullAddress": "University Hospital, Department Of Paediatrics, University Childrens Hospital , 97080, Wuerzburg, Germany"
+}, {
+	"id": 36,
+	"name": "Schneider Children''S Medical Center Of Israel",
+	"country": "Israel",
+	"suburb": "Petah Tikva ",
+	"address": "Dept of Paediatrics  A.",
+	"postcode": "49202",
+	"state": "",
+	"latitude": "32.084041",
+	"longitude": "34.887762",
+	"authors": [{
+		"id": 36,
+		"name": "Shai Ashkenazi",
+		"email": "sashkenazi@clalit.org.il",
+		"phone": "+972 3 925 3680",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 34,
+			"name": "Rotavirus"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 57,
+			"name": "Urinary Tract Infections"
+		}, {
+			"id": 65,
+			"name": "Campylobacter Spp."
+		}, {
+			"id": 66,
+			"name": "Ameba Spp."
+		}]
+	}],
+	"fullAddress": "Schneider Children''S Medical Center Of Israel, Dept of Paediatrics  A., 49202, Petah Tikva , Israel"
+}, {
+	"id": 37,
+	"name": "Dep Pediatrics/ Leiden Univ Medical Center",
+	"country": "Netherlands",
+	"suburb": "Leiden",
+	"address": "Albinusdreef 2",
+	"postcode": "2300 RC",
+	"state": "",
+	"latitude": "52.1601144",
+	"longitude": "4.4970097",
+	"authors": [{
+		"id": 37,
+		"name": "Arjan Lankester",
+		"email": "a.lankester@lumc.nl",
+		"phone": "-5264171",
+		"areas": [{
+			"id": 32,
+			"name": "Immunodeficiency"
+		}]
+	}],
+	"fullAddress": "Dep Pediatrics/ Leiden Univ Medical Center, Albinusdreef 2, 2300 RC, Leiden, Netherlands"
+}, {
+	"id": 38,
+	"name": "University Of Padova",
+	"country": "Italy",
+	"suburb": "Padova",
+	"address": "Department of Pediatrics",
+	"postcode": "35124",
+	"state": "",
+	"latitude": "45.3613933",
+	"longitude": "11.8892788",
+	"authors": [{
+		"id": 39,
+		"name": "Ezia Ruga",
+		"email": "ruga@pediatria.unipd.it",
+		"phone": "3,90E+11",
+		"areas": [{
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 11,
+			"name": "Staphylococcus Spp."
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 54,
+			"name": "Herpes Virus (including Cmv, Ebv)"
+		}, {
+			"id": 68,
+			"name": "Stenotrophomonas Spp."
+		}, {
+			"id": 69,
+			"name": "Pseudomonas, Burkholderia"
+		}]
+	}],
+	"fullAddress": "University Of Padova, Department of Pediatrics, 35124, Padova, Italy"
+}, {
+	"id": 40,
+	"name": "Kinder- Und Jugendarzt-Praxis",
+	"country": "Germany",
+	"suburb": "Tegernsee",
+	"address": "Hauptstrasse 11",
+	"postcode": "D-83684",
+	"state": "",
+	"latitude": "47.7106235",
+	"longitude": "11.7527679",
+	"authors": [{
+		"id": 21,
+		"name": "Andreas Busse",
+		"email": "kinderbusse@doctor.com",
+		"phone": "+49 8022 937687",
+		"areas": [{
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}]
+	}],
+	"fullAddress": "Kinder- Und Jugendarzt-Praxis, Hauptstrasse 11, D-83684, Tegernsee, Germany"
+}, {
+	"id": 41,
+	"name": "National And Kapodistrian University Of Athens",
+	"country": "Greece",
+	"suburb": "Athens",
+	"address": "25 Fidiou St.",
+	"postcode": "15562",
+	"state": "",
+	"latitude": "37.983917",
+	"longitude": "23.7293599",
+	"authors": [{
+		"id": 42,
+		"name": "Ioanna Pavlopoulou",
+		"email": "idpavlop@yahoo.gr",
+		"phone": "+30 210 7461466",
+		"areas": [{
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}]
+	}],
+	"fullAddress": "National And Kapodistrian University Of Athens, 25 Fidiou St., 15562, Athens, Greece"
+}, {
+	"id": 42,
+	"name": "Lille Nord-De-France University Hospital",
+	"country": "France",
+	"suburb": "Lille",
+	"address": "Urgences pédiatriques & mal infectieuses",
+	"postcode": "59000",
+	"state": "",
+	"latitude": "50.6138111",
+	"longitude": "3.0423599",
+	"authors": [{
+		"id": 43,
+		"name": "François Dubos",
+		"email": "francois.dubos@chru-lille.fr",
+		"phone": "33320445575",
+		"areas": [{
+			"id": 2,
+			"name": "Soft Tissue Infections"
+		}, {
+			"id": 3,
+			"name": "Bone, Joint"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 57,
+			"name": "Urinary Tract Infections"
+		}]
+	}],
+	"fullAddress": "Lille Nord-De-France University Hospital, Urgences pédiatriques & mal infectieuses, 59000, Lille, France"
+}, {
+	"id": 43,
+	"name": "Minimed Children'S Health Care Center",
+	"country": "Turkey",
+	"suburb": "Istanbul",
+	"address": "MINIMED Cocuk Sagligi Merkezi",
+	"postcode": "34728",
+	"state": "",
+	"latitude": "40.9663676",
+	"longitude": "29.0634479",
+	"authors": [{
+		"id": 44,
+		"name": "Bilge Kayiran",
+		"email": "bilgekayiran@yahoo.com",
+		"phone": "9,02E+11",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 28,
+			"name": "Parainfluenza Virus"
+		}, {
+			"id": 29,
+			"name": "Influenza"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 34,
+			"name": "Rotavirus"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 57,
+			"name": "Urinary Tract Infections"
+		}, {
+			"id": 58,
+			"name": "Parasitic Infections"
+		}, {
+			"id": 66,
+			"name": "Ameba Spp."
+		}]
+	}],
+	"fullAddress": "Minimed Children'S Health Care Center, MINIMED Cocuk Sagligi Merkezi, 34728, Istanbul, Turkey"
+}, {
+	"id": 44,
+	"name": "Not Applicable",
+	"country": "Germany",
+	"suburb": "Munich",
+	"address": "Bruderhofstrasse 7",
+	"postcode": "81371",
+	"state": "",
+	"latitude": "48.11143",
+	"longitude": "11.55077",
+	"authors": [{
+		"id": 45,
+		"name": "Ulrich Von Both",
+		"email": "uvb9@gmx.de",
+		"phone": "+49 4400 53120",
+		"areas": [{
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 22,
+			"name": "In Vitro Models"
+		}, {
+			"id": 23,
+			"name": "Animal"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}, {
+			"id": 51,
+			"name": "Hiv"
+		}, {
+			"id": 56,
+			"name": "Listeria Spp."
+		}, {
+			"id": 70,
+			"name": "Computer Models"
+		}]
+	}],
+	"fullAddress": "Not Applicable, Bruderhofstrasse 7, 81371, Munich, Germany"
+}, {
+	"id": 45,
+	"name": "Iran University Of Medical Science",
+	"country": "Iran",
+	"suburb": "Tehran",
+	"address": "Iran mehr Hospital,Pediatric Ward ",
+	"postcode": "194991341",
+	"state": "",
+	"latitude": "35.696111",
+	"longitude": "51.423056",
+	"authors": [{
+		"id": 46,
+		"name": "Khadijeh Mahlouji",
+		"email": "kh_mahlooji@yahoo.com",
+		"phone": "0098/21/22009071",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 18,
+			"name": "Neonatal Infections"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 55,
+			"name": "Enterobacteriaceae Incl. Escherichia Spp."
+		}]
+	}],
+	"fullAddress": "Iran University Of Medical Science, Iran mehr Hospital,Pediatric Ward , 194991341, Tehran, Iran"
+}, {
+	"id": 46,
+	"name": "Merck & Co., Inc",
+	"country": "Usa",
+	"suburb": "West Point",
+	"address": "Sumneytown Pike",
+	"postcode": "19486",
+	"state": "PA",
+	"latitude": "40.206625",
+	"longitude": "-75.2984702",
+	"authors": [{
+		"id": 48,
+		"name": "Barbara Kuter",
+		"email": "barbara_kuter@merck.com",
+		"phone": "215 652 4090",
+		"areas": [{
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 34,
+			"name": "Rotavirus"
+		}, {
+			"id": 52,
+			"name": "Varicella Virus"
+		}, {
+			"id": 75,
+			"name": "Papillomavirus"
+		}]
+	}],
+	"fullAddress": "Merck & Co., Inc, Sumneytown Pike, 19486, West Point, PA, Usa"
+}, {
+	"id": 47,
+	"name": "Not Applicable",
+	"country": "Portugal",
+	"suburb": "Coimbra",
+	"address": "Rua Humberto Delgado 127A4º",
+	"postcode": "3030-327",
+	"state": "",
+	"latitude": "40.2050437",
+	"longitude": "-8.4075942",
+	"authors": [{
+		"id": 49,
+		"name": "Graca  Rocha",
+		"email": "grmgdrocha29@gmail.com",
+		"phone": "3,51E+11",
+		"areas": [{
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 50,
+			"name": "Sexually Transmitted Infections"
+		}, {
+			"id": 51,
+			"name": "Hiv"
+		}]
+	}],
+	"fullAddress": "Not Applicable, Rua Humberto Delgado 127A4º, 3030-327, Coimbra, Portugal"
+}, {
+	"id": 48,
+	"name": "Not Applicable",
+	"country": "Spain",
+	"suburb": "Santiago De Compostela",
+	"address": "Avenida de la Coruña nº 6 2D",
+	"postcode": "15701",
+	"state": "",
+	"latitude": "42.8735641",
+	"longitude": "-8.5487552",
+	"authors": [{
+		"id": 50,
+		"name": "Federico Martinon-Torres",
+		"email": "federico.martinon.torres@sergas.es",
+		"phone": "+34 981950615",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 14,
+			"name": "Neisseria Spp."
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 31,
+			"name": "Genetics of Microorganisms"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 34,
+			"name": "Rotavirus"
+		}, {
+			"id": 35,
+			"name": "Central Nervous System Infections"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 50,
+			"name": "Sexually Transmitted Infections"
+		}]
+	}],
+	"fullAddress": "Not Applicable, Avenida de la Coruña nº 6 2D, 15701, Santiago De Compostela, Spain"
+}, {
+	"id": 49,
+	"name": "Department Of Child Health, Dr. Soetomo Hospital, Surabaya, Indonesia",
+	"country": "Indonesia",
+	"suburb": "Surabaya",
+	"address": "Kertajaya Indah VII / 9 ( G-121 )",
+	"postcode": "60116",
+	"state": "",
+	"latitude": "-7.2826822",
+	"longitude": "112.7777795",
+	"authors": [{
+		"id": 51,
+		"name": "Dominicus Husada",
+		"email": "dominicushusada@yahoo.com",
+		"phone": "+62 31 5501697",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 16,
+			"name": "Antimicrobial Stewardship"
+		}, {
+			"id": 17,
+			"name": "Infection Control"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 41,
+			"name": "Tropical"
+		}, {
+			"id": 42,
+			"name": "Neglected Diseases"
+		}, {
+			"id": 51,
+			"name": "Hiv"
+		}, {
+			"id": 76,
+			"name": "Corynebacteria"
+		}]
+	}],
+	"fullAddress": "Department Of Child Health, Dr. Soetomo Hospital, Surabaya, Indonesia, Kertajaya Indah VII / 9 ( G-121 ), 60116, Surabaya, Indonesia"
+}, {
+	"id": 50,
+	"name": "Aglaia Kyriakou Children'S Hospital",
+	"country": "Greece",
+	"suburb": "Athens",
+	"address": "University of Athens",
+	"postcode": "11527",
+	"state": "",
+	"latitude": "37.9837928",
+	"longitude": "23.7629689",
+	"authors": [{
+		"id": 52,
+		"name": "Maria Tsolia",
+		"email": "matsolia@ath.forthnet.gr",
+		"phone": "+30  210 7793000",
+		"areas": [{
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 11,
+			"name": "Staphylococcus Spp."
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 28,
+			"name": "Parainfluenza Virus"
+		}, {
+			"id": 29,
+			"name": "Influenza"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 45,
+			"name": "Rhinovirus"
+		}]
+	}],
+	"fullAddress": "Aglaia Kyriakou Children'S Hospital, University of Athens, 11527, Athens, Greece"
+}, {
+	"id": 51,
+	"name": "Not Applicable",
+	"country": "Italy",
+	"suburb": "Fiesole (florence)",
+	"address": "via delle Palazzine 2",
+	"postcode": "50014",
+	"state": "",
+	"latitude": "43.8044296",
+	"longitude": "11.2827879",
+	"authors": [{
+		"id": 53,
+		"name": "Elisabetta Venturini",
+		"email": "elisabetta.venturini@conted.ox.ac.uk",
+		"phone": "3,93E+11",
+		"areas": [{
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}]
+	}],
+	"fullAddress": "Not Applicable, via delle Palazzine 2, 50014, Fiesole (florence), Italy"
+}]
