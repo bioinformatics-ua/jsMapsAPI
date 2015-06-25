@@ -72,6 +72,16 @@ Markers are used to convey information on a map. Some attributes about them can 
 
 JSON files are used to feed information to the vector-map component. They need to follow a certain format that is specified in the /json section
 
+You can use JSON files from any external source. For that you jst need to apply the following function to the _map_ object:
+
+    vectorMap.registerTransformer(jsonLocation, countriesMappingJson, markersMappingJson)
+
+- jsonLocation - location of the external JSON file containing info about countries and/or markers
+- countriesMappingJson - JSON with the countries mapping
+- markersMappingJson - - JSON with the markers mapping
+For information regarding the format of the countriesMappingJson and markersMappingJson files please consult the /mappingJSON section.
+
+
 ## Example
 
 You can consult a live example of the API in http://bioinformatics-ua.github.io/jsMapsAPI/.
