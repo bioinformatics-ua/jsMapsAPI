@@ -40,6 +40,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 		container: $('#' + mapDiv),
 		// triggered when a marker is hovered
 		onMarkerTipShow: function(e, label, index) {
+			// select what tetx to display when marker is hovered
 			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
 		},
 		// triggered when a region is hovered
@@ -55,15 +56,11 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 			});
 			if(selectedCountry != -1)
 			{
-
 				var htm = '';
-				htm += '<div style="color:#bf2727; background-color: yellow">';
-				htm += '<h3>This is a heading in a div element</h3>';
-				htm += '<p>This is some text in a div element.</p></div>';
-				
-				//countryName.html(countryName.html() + ' (' + selectedCountry.Count + ') ');
+				htm += '<div style="color:#bf2727;">';
+				htm += '<h3>' + countryName.html() + ' (' + selectedCountry.Count + ') ' + '</h3>';
+				htm += '</div>';
 				countryName.html(htm);
-
 			}
 			else
 				countryName.html(countryName.html());
