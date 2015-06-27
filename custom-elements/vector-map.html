@@ -3,6 +3,7 @@
 <dom-module id="vector-map">
 	<style>
 		/* CSS rules for the custom element */
+
 		#my_map {
 			height: 500px;
 		}
@@ -19,9 +20,7 @@
 			display: inline-block;
 		}
 
-		#slider {
-
-		}
+		#slider {}
 	</style>
 	<template>
 		<div class="col-md-12" id="my_map"></div>
@@ -32,19 +31,22 @@
 	Polymer({
 		// name of the element
 		is: "vector-map",
-		alertFunc: function () {},
+		alertFunc: function() {},
 		//Lifecycle callbacks
-		created: function () {
-			var jsonMarkers = $('#' + this.id).attr('markers');
+		created: function() {
+			// attr containing the json file with the markers and countries
+			var vMap = $(this);
+			var jsonFile = vMap.attr('markers');
 
 			// check if all the mandatory fields are present
-			if (!jsonMarkers)
-				console.log('You must input a JSON with the markers');
+			if (!jsonFile)
+			{
+				console.error('You must input a JSON with the markers');
+				return;
+			}
 
-			// two simultaneous JSON requests
-			$.when($.getJSON(jsonMarkers)).then(function (jsonMarkers) {
-				// the arguments are on the format: [response, state, jqxhr]
-				var vMap = $('#map');
+			// get the json file (Ajax request)
+			$.when($.getJSON(jsonFile)).then(function(jsonFile) {
 				minRadius = +vMap.attr('min_radius');
 				maxRadius = +vMap.attr('max_radius');
 				minColor = vMap.attr('min_color');
@@ -52,7 +54,7 @@
 
 				// create a new VectorialMap
 				vectorMap = new VectorialMap();
-				vectorMap.createMap(jsonMarkers, minRadius, maxRadius, 'my_map', minColor, maxColor);
+				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor);
 			});
 		},
 		properties: {
