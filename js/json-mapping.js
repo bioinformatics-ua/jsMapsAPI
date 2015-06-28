@@ -9,12 +9,12 @@ VectorialMap.prototype.registerTransformer = function(jsonLocation, countriesMap
 	var markersMappingJson = "../mappingJSON/mappingMarkersSample.json";
 
 	if(!countriesMappingJson) {
-		console.log('you must specify a countries mapping json');
-		//return;
+		console.error('you must specify a countries mapping json');
+		return;
 	}
 	if(!markersMappingJson) {
-		console.log('you must specify a markers mapping json');
-		//return;
+		console.error('you must specify a markers mapping json');
+		return;
 	}
 
 	// get the JSON

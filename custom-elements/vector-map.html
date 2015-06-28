@@ -51,14 +51,23 @@
 				maxRadius = +vMap.attr('max_radius');
 				minColor = vMap.attr('min_color');
 				maxColor = vMap.attr('max_color');
+				// get the map type (world, europe, usa, etc)
+				mapType = vMap.attr('map_type');
+				console.log(mapType);
+				if(!mapType)
+					mapType = 'world_mill_en';
 
 				// create a new VectorialMap
 				vectorMap = new VectorialMap();
-				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor);
+				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor, mapType);
 			});
 		},
 		properties: {
 			// declare properties for the element's public API
+			map_type: {
+				type: String,
+				value: 'world_mill_en'
+			},
 			min_radius: {
 				type: Number,
 				value: 2
