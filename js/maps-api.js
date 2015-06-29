@@ -64,10 +64,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 		// triggered when a marker is hovered
 		onMarkerTipShow: function(e, label, index) {
 			// select what text to display when marker is hovered
-			var finalTooltip = markerTooltip;
-			finalTooltip = finalTooltip.replace('description', jsonMarkers[index].desc);
-			finalTooltip = finalTooltip.replace('latitude', jsonMarkers[index].Latitude);
-			finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
+			var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
 			label.html(finalTooltip);
 		},
 		// triggered when a region is hovered
@@ -83,11 +80,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 			});
 			if(selectedCountry != -1) {
 				// find occurrence of several strings inside the template
-				var finalTooltip = countryTooltip;
-
-				finalTooltip = finalTooltip.replace('name', countryName.html());
-				finalTooltip = finalTooltip.replace('count', selectedCountry.Count);
-
+				var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
 				countryName.html(finalTooltip);
 			} else
 				countryName.html(countryName.html());
@@ -130,6 +123,23 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 	this.createSlider();
 };
 
+function buildCountryTooltip(countryName, selectedCountry)
+{
+	var finalTooltip = countryTooltip;
+	finalTooltip = finalTooltip.replace('name', countryName.html());
+	finalTooltip = finalTooltip.replace('count', selectedCountry.Count);
+	return finalTooltip;
+}
+
+function buildMarkerTooltip(jsonMarkers, index)
+{
+	var finalTooltip = markerTooltip;
+	finalTooltip = finalTooltip.replace('description', jsonMarkers[index].desc);
+	finalTooltip = finalTooltip.replace('latitude', jsonMarkers[index].Latitude);
+	finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
+	return finalTooltip;
+}
+
 // redraw the map
 function reloadMap(colors) {
 	// erase the map
@@ -139,7 +149,8 @@ function reloadMap(colors) {
 		map: mType,
 		container: $('#' + mDiv),
 		onMarkerTipShow: function(e, label, index) {
-			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
+			var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+			label.html(finalTooltip);
 		},
 		onRegionTipShow: function(e, countryName, code) {
 			// code contains the code of the country (i.e., PT, ES, FR, etc)
@@ -152,7 +163,10 @@ function reloadMap(colors) {
 				}
 			});
 			if(selectedCountry != -1)
-				countryName.html(countryName.html() + ' (' + selectedCountry.Count + ') ');
+			{
+				var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
+				countryName.html(finalTooltip);				
+			}
 			else
 				countryName.html(countryName.html());
 		},
