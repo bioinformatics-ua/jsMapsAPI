@@ -34,6 +34,27 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 	// get the Count value for each Country
 	var auxColors = generateColorsForTheCountries();
 
+	// get the tooltip templates
+	// COUNTRY tooltip
+	jQuery.ajax({
+		url: '../tooltips/country_tooltip.html',
+		success: function(result) {
+			countryTooltip = result;
+		},
+		async: false
+	});
+	console.log(countryTooltip);
+
+	// MARKER tooltip
+	jQuery.ajax({
+		url: '../tooltips/marker_tooltip.html',
+		success: function(result) {
+			markerTooltip = result;
+		},
+		async: false
+	});
+	console.log(markerTooltip);
+
 	// add the map to the div (no markers are initially specified)
 	map = new jvm.Map({
 		// type of map (world, Europe, USA, etc)
@@ -56,15 +77,13 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 					return;
 				}
 			});
-			if(selectedCountry != -1)
-			{
+			if(selectedCountry != -1) {
 				var countryTooltip = '';
 				countryTooltip += '<div style="color:#bf2727;">';
 				countryTooltip += '<h3>' + countryName.html() + ' (' + selectedCountry.Count + ') ' + '</h3>';
 				countryTooltip += '</div>';
 				countryName.html(countryTooltip);
-			}
-			else
+			} else
 				countryName.html(countryName.html());
 		},
 		series: {
@@ -209,8 +228,7 @@ VectorialMap.prototype.filterOnServer = function(filters) {
 			reloadMap(countryColors);
 
 			// in case we also have markers
-			if(json.markers)
-			{
+			if(json.markers) {
 				// read the markers from the JSON file
 				jsonMarkers = readMarkersFromJSON(json.markers);
 				// add markers to the map
