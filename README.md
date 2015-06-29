@@ -26,7 +26,7 @@ The supported maps for the API can be found on the [jvectormap site](http://jvec
 There is the possibility to use the Miller(_world-mill-en_) or Mercator(_world-merc-en_) projection, it's up to you to choose which one suits you the best.
 
 As previously mentioned, you specify your map on the __vector-map__ tag by specifying the __map_type__ attribue. Possible values are:
-- world_mill_en (World)
+- world_mill_en (World - default)
 - europe_mill_en (Europe)
 - pt_mill_en (Portugal)
 - it_mill_en (Italy)
