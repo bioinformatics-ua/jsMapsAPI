@@ -34,6 +34,27 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 	// get the Count value for each Country
 	var auxColors = generateColorsForTheCountries();
 
+	// get the tooltip templates
+	// COUNTRY tooltip
+	jQuery.ajax({
+		url: '../tooltip-templates/country_tooltip.html',
+		success: function(result) {
+			countryTooltip = result;
+		},
+		async: false
+	});
+
+	// MARKER tooltip
+	jQuery.ajax({
+		url: '../tooltip-templates/marker_tooltip.html',
+		success: function(result) {
+			markerTooltip = result;
+		},
+		async: false
+	});
+
+
+
 	// add the map to the div (no markers are initially specified)
 	map = new jvm.Map({
 		// type of map (world, Europe, USA, etc)
@@ -42,8 +63,9 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 		container: $('#' + mapDiv),
 		// triggered when a marker is hovered
 		onMarkerTipShow: function(e, label, index) {
-			// select what tetx to display when marker is hovered
-			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
+			// select what text to display when marker is hovered
+			var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+			label.html(finalTooltip);
 		},
 		// triggered when a region is hovered
 		onRegionTipShow: function(e, countryName, code) {
@@ -56,15 +78,11 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 					return;
 				}
 			});
-			if(selectedCountry != -1)
-			{
-				var countryTooltip = '';
-				countryTooltip += '<div style="color:#bf2727;">';
-				countryTooltip += '<h3>' + countryName.html() + ' (' + selectedCountry.Count + ') ' + '</h3>';
-				countryTooltip += '</div>';
-				countryName.html(countryTooltip);
-			}
-			else
+			if(selectedCountry != -1) {
+				// find occurrence of several strings inside the template
+				var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
+				countryName.html(finalTooltip);
+			} else
 				countryName.html(countryName.html());
 		},
 		series: {
@@ -105,6 +123,23 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 	this.createSlider();
 };
 
+function buildCountryTooltip(countryName, selectedCountry)
+{
+	var finalTooltip = countryTooltip;
+	finalTooltip = finalTooltip.replace('name', countryName.html());
+	finalTooltip = finalTooltip.replace('count', selectedCountry.Count);
+	return finalTooltip;
+}
+
+function buildMarkerTooltip(jsonMarkers, index)
+{
+	var finalTooltip = markerTooltip;
+	finalTooltip = finalTooltip.replace('description', jsonMarkers[index].desc);
+	finalTooltip = finalTooltip.replace('latitude', jsonMarkers[index].Latitude);
+	finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
+	return finalTooltip;
+}
+
 // redraw the map
 function reloadMap(colors) {
 	// erase the map
@@ -114,7 +149,8 @@ function reloadMap(colors) {
 		map: mType,
 		container: $('#' + mDiv),
 		onMarkerTipShow: function(e, label, index) {
-			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
+			var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+			label.html(finalTooltip);
 		},
 		onRegionTipShow: function(e, countryName, code) {
 			// code contains the code of the country (i.e., PT, ES, FR, etc)
@@ -127,7 +163,10 @@ function reloadMap(colors) {
 				}
 			});
 			if(selectedCountry != -1)
-				countryName.html(countryName.html() + ' (' + selectedCountry.Count + ') ');
+			{
+				var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
+				countryName.html(finalTooltip);				
+			}
 			else
 				countryName.html(countryName.html());
 		},
@@ -209,8 +248,7 @@ VectorialMap.prototype.filterOnServer = function(filters) {
 			reloadMap(countryColors);
 
 			// in case we also have markers
-			if(json.markers)
-			{
+			if(json.markers) {
 				// read the markers from the JSON file
 				jsonMarkers = readMarkersFromJSON(json.markers);
 				// add markers to the map
