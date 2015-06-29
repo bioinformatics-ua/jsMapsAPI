@@ -53,7 +53,8 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 		},
 		async: false
 	});
-	console.log(markerTooltip);
+
+
 
 	// add the map to the div (no markers are initially specified)
 	map = new jvm.Map({
@@ -78,11 +79,11 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 				}
 			});
 			if(selectedCountry != -1) {
-				var countryTooltip = '';
-				countryTooltip += '<div style="color:#bf2727;">';
-				countryTooltip += '<h3>' + countryName.html() + ' (' + selectedCountry.Count + ') ' + '</h3>';
-				countryTooltip += '</div>';
-				countryName.html(countryTooltip);
+
+				// find occurrence of several strings inside the template
+				var finalTooltip = countryTooltip.replace('name', countryName.html());
+				finalTooltip = finalTooltip.replace('count', selectedCountry.Count);
+				countryName.html(finalTooltip);
 			} else
 				countryName.html(countryName.html());
 		},
