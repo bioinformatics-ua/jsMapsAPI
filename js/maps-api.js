@@ -3,11 +3,13 @@ var jsonFilters = [];
 var minColorMap;
 var maxColorMap;
 var mDiv;
+var mType;
 
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, mapDiv, minColor, maxColor) {
+VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType) {
+	mType = mapType;
 	// countries list
 	jsonCountries = [];
 	// markers list
@@ -20,12 +22,12 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
 
 	// read markers and jsonFilters from JSON file
 	// try to read the countries
-	jsonCountries = readCountriesFromJSON(inputMarkers.countries);
+	jsonCountries = readCountriesFromJSON(inputJSON.countries);
 	// try to read the markers - markers aren't mandatory
-	if(!inputMarkers.markers)
+	if(!inputJSON.markers)
 		console.log('There are no markers as input');
 	else {
-		jsonMarkers = readMarkersFromJSON(inputMarkers.markers);
+		jsonMarkers = readMarkersFromJSON(inputJSON.markers);
 		numMarkers = jsonMarkers.length;
 	}
 
@@ -35,11 +37,12 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
 	// add the map to the div (no markers are initially specified)
 	map = new jvm.Map({
 		// type of map (world, Europe, USA, etc)
-		map: 'world_mill_en',
+		map: mType,
 		// id of its container
 		container: $('#' + mapDiv),
 		// triggered when a marker is hovered
 		onMarkerTipShow: function(e, label, index) {
+			// select what tetx to display when marker is hovered
 			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
 		},
 		// triggered when a region is hovered
@@ -54,7 +57,13 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
 				}
 			});
 			if(selectedCountry != -1)
-				countryName.html(countryName.html() + ' (' + selectedCountry.Count + ') ');
+			{
+				var countryTooltip = '';
+				countryTooltip += '<div style="color:#bf2727;">';
+				countryTooltip += '<h3>' + countryName.html() + ' (' + selectedCountry.Count + ') ' + '</h3>';
+				countryTooltip += '</div>';
+				countryName.html(countryTooltip);
+			}
 			else
 				countryName.html(countryName.html());
 		},
@@ -78,7 +87,7 @@ VectorialMap.prototype.createMap = function(inputMarkers, minRadius, maxRadius, 
 	});
 
 	// draw markers on the map
-	if(inputMarkers.markers) {
+	if(inputJSON.markers) {
 		$.each(jsonMarkers, function(index, currentMarker) {
 			map.addMarker(index, {
 				latLng: [currentMarker.Latitude, currentMarker.Longitude],
@@ -102,7 +111,7 @@ function reloadMap(colors) {
 	$("#" + mDiv).empty();
 
 	map = new jvm.Map({
-		map: 'world_mill_en',
+		map: mType,
 		container: $('#' + mDiv),
 		onMarkerTipShow: function(e, label, index) {
 			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
@@ -170,4 +179,43 @@ VectorialMap.prototype.createSlider = function() {
 	$('#slider').hide();
 	$('#minSlider').hide();
 	$('#maxSlider').hide();
+}
+
+VectorialMap.prototype.filterOnServer = function(filters) {
+	// read the filters from a JSON file (just for testing)
+	$.getJSON("../json/serverFilter.json", function(filtersJSON) {
+		// convert the filtersJSON to a string
+		var filtersString = JSON.stringify(filtersJSON);
+		// build the url to send to the server
+		var url = 'http://serverFiltering.com/?data=' + encodeURIComponent(filtersString);
+		// FOR TESTING PURPOSES - this file contains a different set
+		// of countries and markers
+		url = '../json/countries_plus_markers2.json';
+		// send request to the server to get the markers and countries
+		$.getJSON(url, function(json) {
+			// get the response from the server
+			/*
+			THIS CODE IS SERVER SIDE
+			var myParam = url.split('data=')[1];
+			var returnJSON = decodeURIComponent(myParam);
+			console.log(JSON.parse(returnJSON));
+			*/
+
+			// parse the JSON to get the countries and markers
+			jsonCountries = readCountriesFromJSON(json.countries);
+			// get the colours for the countries
+			var countryColors = generateColorsForTheCountries(jsonCountries);
+			// display the countries on the map
+			reloadMap(countryColors);
+
+			// in case we also have markers
+			if(json.markers)
+			{
+				// read the markers from the JSON file
+				jsonMarkers = readMarkersFromJSON(json.markers);
+				// add markers to the map
+				addMarkersToMap(jsonMarkers);
+			}
+		});
+	});
 }

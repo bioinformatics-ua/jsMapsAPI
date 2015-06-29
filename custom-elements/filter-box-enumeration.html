@@ -1,4 +1,4 @@
-<link href="bower_components/polymer/polymer.html" rel="import">
+<link href="../bower_components/polymer/polymer.html" rel="import">
 <!--id - name of the custom component-->
 <dom-module id="filters-box-enumeration">
 	<style>
@@ -33,7 +33,10 @@
 
 			// check if all the mandatory fields are present
 			if (!jsonFilters)
-				console.log('You must input a JSON with the filters');
+			{
+				console.error('You must input a JSON with the filters');
+				return;
+			}
 
 			$.when($.getJSON(jsonFilters)).then(function (jsonFilters) {
 				jsonFiltersArray = readFiltersFromJSON(jsonFilters);

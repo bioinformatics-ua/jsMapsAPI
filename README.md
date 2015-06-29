@@ -6,17 +6,18 @@ Javascript API that makes use of the [jvectormap](http://jvectormap.com/) lib to
 
 To display a map on a webpage just include the **vector-map** tag in your HTML with the following attributes:
 
-- id = "map"
+- id - "map"
+- map_type - map location to display. Possible values are 'world_mill_en' (world map), 'europe_mill_en' (Europe map), etc. By default the world map is displayed. Available maps can be found [here](http://jvectormap.com/maps/), with the possibility of creating your own maps with the tools available in [jvectormap](http://jvectormap.com/documentation/gis-converter/)
 - min_color - color that represents the country with lowest Count
 - max_color - color that represents the country with the highest Count
 - min_radius - min radius for the markers
 - max_radius - max radius for the markers
 - filters - path to the file/page that contains the JSON of the map filters
 - markers - path to the file/page that contains the JSON of the countries (and markers if present)
-
+ 
 Here is an example:
 
-    <vector-map id="map" min_color='#ffffff' max_color="#000000" min_radius=2 max_radius=8 filters='json/filters.json' markers='json/countries.json'></vector-map>
+    <vector-map id="map" map_type='world_mill_en' min_color='#ffffff' max_color="#000000" min_radius=2 max_radius=8 filters='json/filters.json' markers='json/countries.json'></vector-map>
 
 ## Filters
 
@@ -71,6 +72,16 @@ Markers are used to convey information on a map. Some attributes about them can 
 ## JSON files for input
 
 JSON files are used to feed information to the vector-map component. They need to follow a certain format that is specified in the /json section
+
+You can use JSON files from any external source. For that you jst need to apply the following function to the _map_ object:
+
+    vectorMap.registerTransformer(jsonLocation, countriesMappingJson, markersMappingJson)
+
+- jsonLocation - location of the external JSON file containing info about countries and/or markers
+- countriesMappingJson - JSON with the countries mapping
+- markersMappingJson - - JSON with the markers mapping
+For information regarding the format of the countriesMappingJson and markersMappingJson files please consult the /mappingJSON section.
+
 
 ## Example
 
