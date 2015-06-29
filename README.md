@@ -5,7 +5,7 @@ Javascript API that makes use of the [jvectormap](http://jvectormap.com/) lib to
 ## How to use the API
 
 To display a map on a webpage just include the **vector-map** tag in your HTML with the following attributes:
- 
+
 - id - "map"
 - map_type - map location to display. Possible values are 'world_mill_en' (world map), 'europe_mill_en' (Europe map), etc. By default the world map is displayed. Available maps can be found [here](http://jvectormap.com/maps/), with the possibility of creating your own maps with the tools available in [jvectormap](http://jvectormap.com/documentation/gis-converter/)
 - min_color - color that represents the country with lowest Count
@@ -14,7 +14,7 @@ To display a map on a webpage just include the **vector-map** tag in your HTML w
 - max_radius - max radius for the markers
 - filters - path to the file/page that contains the JSON of the map filters
 - markers - path to the file/page that contains the JSON of the countries (and markers if present)
-
+ 
 Here is an example:
 
     <vector-map id="map" map_type='world_mill_en' min_color='#ffffff' max_color="#000000" min_radius=2 max_radius=8 filters='json/filters.json' markers='json/countries.json'></vector-map>
