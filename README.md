@@ -14,10 +14,28 @@ To display a map on a webpage just include the **vector-map** tag in your HTML w
 - max_radius - max radius for the markers
 - filters - path to the file/page that contains the JSON of the map filters
 - markers - path to the file/page that contains the JSON of the countries (and markers if present)
-  
+
 Here is an example:
 
     <vector-map id="map" map_type='world_mill_en' min_color='#ffffff' max_color="#000000" min_radius=2 max_radius=8 filters='json/filters.json' markers='json/countries.json'></vector-map>
+
+## Supported maps
+
+The supported maps for the API can be found on the [jvectormap site](http://jvectormap.com/maps/). In order to use a map you must add a script tag which imports the map you want to use, i.e., in case you which to use the world map you must add a script tag similar to the next on your file:
+    <script src="path/to/maps/folder/world-mill-en.js"></script>
+There is the possibility to use the Miller(_world-mill-en_) or Mercator(_world-merc-en_) projection, it's up to you to choose which one suits you the best.
+
+As previously mentioned, you specify your map on the __vector-map__ tag by specifying the __map_type__ attribue. Possible values are:
+- world_mill_en (World - default)
+- europe_mill_en (Europe)
+- pt_mill_en (Portugal)
+- it_mill_en (Italy)
+- etc...
+
+Please pay attention to the use of underscores delimiting the words. To switch from the Miller to the Mercator projection just replace __mill__ with __merc__.
+
+There is also the possibility for you to create your own maps and use them with this API; all the required steps are described in [jvectormap documentation](http://jvectormap.com/documentation/gis-converter/).
+
 
 ## Filters
 
