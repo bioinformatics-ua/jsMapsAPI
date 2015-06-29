@@ -2,6 +2,15 @@
 
 Javascript API that makes use of the [jvectormap](http://jvectormap.com/) lib to create a world map to display data related to countries and other places.
 
+## Countries
+
+Countries appear on the map with different colours according to the Count attribute associated with them.
+
+
+## Markers
+
+Markers are used to convey information on a map. Some attributes about them can be specified like the radius, fill color, label associated with them, hover and click callback, etc.
+
 ## How to use the API
 
 To display a map on a webpage just include the **vector-map** tag in your HTML with the following attributes:
@@ -35,6 +44,35 @@ As previously mentioned, you specify your map on the __vector-map__ tag by speci
 Please pay attention to the use of underscores delimiting the words. To switch from the Miller to the Mercator projection just replace __mill__ with __merc__.
 
 There is also the possibility for you to create your own maps and use them with this API; all the required steps are described in [jvectormap documentation](http://jvectormap.com/documentation/gis-converter/).
+
+## Tooltips
+
+When a country or a marker is hovered, you get a tooltip with some kind of information relative to it. You can specify the template for this tooltip on the **country_tooltip.html** and **marker_tooltip.html** files inside the **tooltip-templates** folder.
+
+### Tooltip examples
+
+- country_tooltip.html (country's name and count will be displayed)
+```html
+<div style="color:#bf2727;">
+    <h3>
+        name - count </h3>
+</div>
+```
+
+- marker_tooltip.html (marker's description, latitude and longitude are displayed)
+
+```html
+<b>description</b>
+<br>
+
+<b>Latitude:
+</b> latitude
+
+<br>
+
+<b>Longitude:
+</b> longitude
+```
 
 
 ## Filters
@@ -75,16 +113,6 @@ Enumeration and range can be combined, i.e., you can use _filter('YEAR','2003,20
 In case you want to apply multiple filters you use the _multiFilter_ function:
 
     multiFilter({"Year":'2005','Gender':'F'})
-
-
-## Countries
-
-Countries appear on the map with different colours according to the Count attribute associated with them.
-
-
-## Markers
-
-Markers are used to convey information on a map. Some attributes about them can be specified like the radius, fill color, label associated with them, hover and click callback, etc.
 
 
 ## JSON files for input

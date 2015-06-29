@@ -37,17 +37,16 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 	// get the tooltip templates
 	// COUNTRY tooltip
 	jQuery.ajax({
-		url: '../tooltips/country_tooltip.html',
+		url: '../tooltip-templates/country_tooltip.html',
 		success: function(result) {
 			countryTooltip = result;
 		},
 		async: false
 	});
-	console.log(countryTooltip);
 
 	// MARKER tooltip
 	jQuery.ajax({
-		url: '../tooltips/marker_tooltip.html',
+		url: '../tooltip-templates/marker_tooltip.html',
 		success: function(result) {
 			markerTooltip = result;
 		},
@@ -64,8 +63,12 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 		container: $('#' + mapDiv),
 		// triggered when a marker is hovered
 		onMarkerTipShow: function(e, label, index) {
-			// select what tetx to display when marker is hovered
-			map.tip.text(jsonMarkers[index].Latitude + ', ' + jsonMarkers[index].Longitude + '-' + jsonMarkers[index].desc);
+			// select what text to display when marker is hovered
+			var finalTooltip = markerTooltip;
+			finalTooltip = finalTooltip.replace('description', jsonMarkers[index].desc);
+			finalTooltip = finalTooltip.replace('latitude', jsonMarkers[index].Latitude);
+			finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
+			label.html(finalTooltip);
 		},
 		// triggered when a region is hovered
 		onRegionTipShow: function(e, countryName, code) {
@@ -79,10 +82,12 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 				}
 			});
 			if(selectedCountry != -1) {
-
 				// find occurrence of several strings inside the template
-				var finalTooltip = countryTooltip.replace('name', countryName.html());
+				var finalTooltip = countryTooltip;
+
+				finalTooltip = finalTooltip.replace('name', countryName.html());
 				finalTooltip = finalTooltip.replace('count', selectedCountry.Count);
+
 				countryName.html(finalTooltip);
 			} else
 				countryName.html(countryName.html());
