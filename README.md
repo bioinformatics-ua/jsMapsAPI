@@ -26,10 +26,10 @@ The supported maps for the API can be found on the [jvectormap site](http://jvec
 There is the possibility to use the Miller(_world-mill-en_) or Mercator(_world-merc-en_) projection, it's up to you to choose which one suits you the best.
 
 As previously mentioned, you specify your map on the __vector-map__ tag by specifying the __map_type__ attribue. Possible values are:
-- world_mill_en
-- europe_mill_en
-- pt_mill_en
-- it_mill_en
+- world_mill_en (World)
+- europe_mill_en (Europe)
+- pt_mill_en (Portugal)
+- it_mill_en (Italy)
 - etc...
 
 Please pay attention to the use of underscores delimiting the words. To switch from the Miller to the Mercator projection just replace __mill__ with __merc__.
