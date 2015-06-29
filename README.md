@@ -14,7 +14,7 @@ To display a map on a webpage just include the **vector-map** tag in your HTML w
 - max_radius - max radius for the markers
 - filters - path to the file/page that contains the JSON of the map filters
 - markers - path to the file/page that contains the JSON of the countries (and markers if present)
- 
+  
 Here is an example:
 
     <vector-map id="map" map_type='world_mill_en' min_color='#ffffff' max_color="#000000" min_radius=2 max_radius=8 filters='json/filters.json' markers='json/countries.json'></vector-map>
