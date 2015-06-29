@@ -70,7 +70,7 @@ function jsonMapMarkers(json, markersMappingJson) {
 			var latitude = currentJSON[jsonMapping.Latitude];
 			// get the longitude
 			var longitude = currentJSON[jsonMapping.Longitude];
-			//get the description - WHT IS THE DESCRIPTION OF A MARKER?
+			//get the description - WHAT IS THE DESCRIPTION OF A MARKER?
 			var description = '';
 			/*
 			WHAT ARE THE NAMES???

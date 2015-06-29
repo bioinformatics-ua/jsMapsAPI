@@ -58,11 +58,11 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 			});
 			if(selectedCountry != -1)
 			{
-				var htm = '';
-				htm += '<div style="color:#bf2727;">';
-				htm += '<h3>' + countryName.html() + ' (' + selectedCountry.Count + ') ' + '</h3>';
-				htm += '</div>';
-				countryName.html(htm);
+				var countryTooltip = '';
+				countryTooltip += '<div style="color:#bf2727;">';
+				countryTooltip += '<h3>' + countryName.html() + ' (' + selectedCountry.Count + ') ' + '</h3>';
+				countryTooltip += '</div>';
+				countryName.html(countryTooltip);
 			}
 			else
 				countryName.html(countryName.html());
