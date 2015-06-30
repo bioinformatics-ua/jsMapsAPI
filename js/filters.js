@@ -10,7 +10,8 @@ var numFilters;
 var currentFilter;
 var countryValueToCheck;
 
-function filter(filterName, filterValue) {
+/*
+function filter2(filterName, filterValue) {
 
 	var markersToAdd = [];
 
@@ -33,7 +34,6 @@ function filter(filterName, filterValue) {
 
 	// get all the filter values
 	var finalParts = getAllFilterValues(filterValue);
-	console.log('Filter values: ' + finalParts);
 
 	// apply the filtering
 	countryColors = [];
@@ -51,6 +51,7 @@ function filter(filterName, filterValue) {
 	//this must be done here because reload map erases all the markers
 	addMarkersToMap(markersToAdd);
 }
+*/
 
 function resetFilters() {
 	// color the original map

@@ -105,14 +105,10 @@ Here is an example:
 
 You can programmatically filter the applied filters by invoking the _filter_ function. Here are some examples of its use:
 
-    filter('YEAR','2005-2007') // range
-    filter('YEAR','2003,2004,2005') // enumeration
+    filter({"Year":'2005','Gender':'F'})
 
-Enumeration and range can be combined, i.e., you can use _filter('YEAR','2003,2004-2008')_. In case you want to cancel all the applied filters you just use _filter('ALL','')_.
+Enumeration and range can be combined, i.e., you can use _filter({"Year":'2005-2007','Gender':'F,M'})_. In case you want to cancel all the applied filters you just use _filter('ALL','')???_.
 
-In case you want to apply multiple filters you use the _multiFilter_ function:
-
-    multiFilter({"Year":'2005','Gender':'F'})
 
 
 ## JSON files for input

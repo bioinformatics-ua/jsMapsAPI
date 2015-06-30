@@ -53,6 +53,7 @@ function getAllFilterValues(filterValue) {
 }
 
 function checkWhatCountriesToAdd(selectedFilter, filterValue) {
+
 	var countries = [];
 	$.each(jsonCountries, function(index, currentCountry) {
 		// check if any of the names is equal to the selected filter
@@ -64,12 +65,11 @@ function checkWhatCountriesToAdd(selectedFilter, filterValue) {
 			var currentValue = 'Value' + i;
 			// check if the Country has that name
 			if(currentCountry[currentNameToCheck]) {
-				if(currentCountry[currentNameToCheck] === selectedFilter.Name) {
+				if(currentCountry[currentValue] == filterValue) {
 					countryValueToCheck = currentValue;
 					// check by value
 					if(currentCountry[currentValue] == filterValue)
 						countries[currentCountry.Country] = currentCountry.Count;
-
 				}
 			} else
 				break;
