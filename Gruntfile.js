@@ -5,13 +5,13 @@ module.exports = function(grunt){
     grunt.config.init({
         concat: {
             options: {
-                javascripts: ['js/*.js'],
+                javascripts: ['js/main.js','js/*.js'],
                 dest: 'finalJs/jsMapsApi.js'
             }
         },
         uglify:{
             js:{
-                src:['js/*.js'],
+                src:['js/main.js','js/*.js'],
                 dest:'finalJs/jsMapsApi.min.js'
             }
         }
