@@ -156,7 +156,6 @@ function createFiltersBox(jsonFilters) {
 }
 
 var resetFiltersBox = function() {
-	console.log('resetting filter box (enumeration)');
 
 	// reset all the 'fboxes'
 	for(var i = 0; i < numFilters; i++) {

@@ -1,5 +1,4 @@
 function filter(inputArgs) {
-	console.log(inputArgs);
 
 	var keys = Object.keys(inputArgs)
 	var numberKeys = keys.length;
@@ -11,6 +10,21 @@ function filter(inputArgs) {
 		countriesByFilter[i] = new Array();
 		markersByFilter[i] = new Array();
 	}
+
+	// check if any of the names is all (reset all applied filters	)
+	var exit = false;
+	$.each(keys, function(index, filterName) {
+		if(filterName.toLowerCase() == 'all') {
+			exit = true;
+			// reloads the original markers and countries on the map
+			resetFilters();
+			// erase the text from the filters box
+			resetFiltersBox();
+			return;
+		}
+	});
+	if(exit)
+		return;
 
 	// for every key/filter
 	$.each(keys, function(index, filterName) {
@@ -46,7 +60,6 @@ function filter(inputArgs) {
 					markersByFilter[index].push(currentMarker);
 				});
 			});
-			console.log(markersByFilter[index]);
 		}
 	});
 
