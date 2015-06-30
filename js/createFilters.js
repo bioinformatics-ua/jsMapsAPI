@@ -156,7 +156,6 @@ function createFiltersBox(jsonFilters) {
 }
 
 var resetFiltersBox = function() {
-	console.log('resetting filter box (enumeration)');
 
 	// reset all the 'fboxes'
 	for(var i = 0; i < numFilters; i++) {
@@ -199,7 +198,10 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 		// filter text
 		toAppend += '<p><b>' + filterName + ':</b></p>';
 		toAppend += '<div class="form-group">';
-		toAppend += '<input type="text" class="form-control" id="fbox' + index + '">';
+		toAppend += '<input type="text" class="form-control" id="fbox' + index + '"';
+		// build the placeholder
+		var placeholder = currentFilter.Values
+		toAppend += 'placeholder="'+ placeholder+'" +>';
 		toAppend += '</div>';
 
 		$('#filters_box_enumeration').prepend(toAppend);

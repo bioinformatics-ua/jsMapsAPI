@@ -1,0 +1,89 @@
+<link rel="import" href="../bower_components/polymer/polymer.html">
+<!--id - name of the custom component-->
+<dom-module id="vector-map-filters">
+    <style>
+    /* CSS rules for the custom element */
+
+    .dropdown {
+        margin-bottom: 10px;
+    }
+
+    .btn {
+        width: 120px;
+    }
+
+    form {
+        display: inline-block;
+    }
+    </style>
+    <template>
+        <!--Bootstrap dropdown menu-->
+        <div class="col-md-6">
+            <ul id="jquerymenu">
+            </ul>
+            <div id="checkboxes_search">
+                <form id="checkboxes">
+                    <div id="radioButtons">
+                    </div>
+                </form>
+                <form id="search" role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" id="search_text">
+                    </div>
+                </form>
+                <button type="button" id="search_button" class="btn btn-primary">Search</button>
+            </div>
+        </div>
+        <!--jQueryUi slider-->
+        <div class="col-md-6">
+            <div class="col-md-2" id="minSlider">
+                <p>abc</p>
+            </div>
+            <div class="col-md-8" id="slider" style="margin-top:10px;"></div>
+            <div class="col-md-2" id="maxSlider">
+                <p>abc</p>
+            </div>
+        </div>
+    </template>
+</dom-module>
+<script>
+// element registration
+Polymer({
+    // name of the element
+    is: "vector-map-filters",
+    //Lifecycle callbacks
+    created: function() {
+        var jsonFilters = $('#' + this.id).attr('filters');
+        var filterType = $('#' + this.id).attr('filter_type');
+
+        // check if all the mandatory fields are present
+        if (!jsonFilters)
+            console.log('You must input a JSON with the filters');
+
+        // two simultaneous JSON requests
+        $.when(
+            $.getJSON(jsonFilters)
+        ).then(function(jsonFilters) {
+            // the arguments are on the format: [response, state, jqxhr]
+            // create a new Filter ???
+            // set the filters for the vector map
+            // in case the filters element show up before the vector-map element
+            if (vectorMap == undefined)
+                vectorMap = new VectorialMap();
+            jsonFiltersArray = readFiltersFromJSON(jsonFilters);
+            setFilters(jsonFiltersArray, filterType)
+        });
+    },
+    properties: {
+        // declare properties for the element's public API
+        filters: {
+            type: String,
+            value: ''
+        },
+        filter_type: {
+            type: String,
+            value: "menu"
+        }
+    }
+});
+</script>

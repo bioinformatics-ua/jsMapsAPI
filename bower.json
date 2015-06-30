@@ -1,0 +1,22 @@
+{
+  "name": "polymer",
+  "version": "0.0.0",
+  "homepage": "https://github.com/bioinformatics-ua/jsMapsAPI",
+  "authors": [
+    "Felgueiras <rafaelfelgueiras@ua.pt>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "Polymer/polymer#^1.0.0",
+    "jquery-ui": "~1.11.4",
+    "bootstrap": "~3.3.4",
+    "components-font-awesome": "~4.3.0"
+  }
+}

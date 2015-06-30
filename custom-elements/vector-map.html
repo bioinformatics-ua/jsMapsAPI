@@ -1,0 +1,92 @@
+<link href="../bower_components/polymer/polymer.html" rel="import">
+<!--id - name of the custom component-->
+<dom-module id="vector-map">
+	<style>
+		/* CSS rules for the custom element */
+
+		#my_map {
+			height: 500px;
+		}
+
+		.dropdown {
+			margin-bottom: 10px;
+		}
+
+		.btn {
+			width: 120px;
+		}
+
+		form {
+			display: inline-block;
+		}
+
+		#slider {}
+	</style>
+	<template>
+		<div class="col-md-12" id="my_map"></div>
+	</template>
+</dom-module>
+<script>
+	// element registration
+	Polymer({
+		// name of the element
+		is: "vector-map",
+		alertFunc: function() {},
+		//Lifecycle callbacks
+		created: function() {
+			// attr containing the json file with the markers and countries
+			var vMap = $(this);
+			var jsonFile = vMap.attr('markers');
+
+			// check if all the mandatory fields are present
+			if (!jsonFile)
+			{
+				console.error('You must input a JSON with the markers');
+				return;
+			}
+
+			// get the json file (Ajax request)
+			$.when($.getJSON(jsonFile)).then(function(jsonFile) {
+				minRadius = +vMap.attr('min_radius');
+				maxRadius = +vMap.attr('max_radius');
+				minColor = vMap.attr('min_color');
+				maxColor = vMap.attr('max_color');
+				// get the map type (world, europe, usa, etc)
+				mapType = vMap.attr('map_type');
+				if(!mapType)
+					mapType = 'world_mill_en';
+
+				// create a new VectorialMap
+				vectorMap = new VectorialMap();
+				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor, mapType);
+			});
+		},
+		properties: {
+			// declare properties for the element's public API
+			map_type: {
+				type: String,
+				value: 'world_mill_en'
+			},
+			min_radius: {
+				type: Number,
+				value: 2
+			},
+			max_radius: {
+				type: Number,
+				value: 10
+			},
+			min_color: {
+				type: String,
+				value: "#C8EEFF"
+			},
+			max_color: {
+				type: String,
+				value: "#0071A4"
+			},
+			markers: {
+				type: String,
+				value: ''
+			}
+		}
+	});
+</script>

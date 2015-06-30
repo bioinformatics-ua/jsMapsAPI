@@ -1,0 +1,54 @@
+<link href="../bower_components/polymer/polymer.html" rel="import">
+<!--id - name of the custom component-->
+<dom-module id="filters-box-enumeration">
+	<style>
+		#filters_box_enumeration {
+			border-radius: 25px;
+			background: #9a9a9a;
+			padding: 20px;
+			width: 200px;
+			height: 100%;
+			margin-top: 20px;
+		}
+
+		button {
+			margin-top: 20px;
+		}
+	</style>
+	<template>
+		<div id="filters_box_enumeration">
+			<button class="btn btn-primary" id="filters_box_enum_apply_filters" type="button">Filter</button>
+			<button class="btn btn-primary" id="filters_box_enum_reset_filters" type="button">Reset</button>
+		</div>
+	</template>
+</dom-module>
+<script type="text/javascript">
+	// element registration
+	Polymer({
+		// name of the element
+		is: "filters-box-enumeration",
+		//Lifecycle callbacks
+		created: function () {
+			var jsonFilters = $('#' + this.id).attr('filters');
+
+			// check if all the mandatory fields are present
+			if (!jsonFilters)
+			{
+				console.error('You must input a JSON with the filters');
+				return;
+			}
+
+			$.when($.getJSON(jsonFilters)).then(function (jsonFilters) {
+				jsonFiltersArray = readFiltersFromJSON(jsonFilters);
+				createFiltersBoxWithEnumeration(jsonFiltersArray);
+			});
+		},
+		properties: {
+			// declare properties for the element's public API
+			filters: {
+				type: String,
+				value: ''
+			}
+		}
+	});
+</script>
