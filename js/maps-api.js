@@ -165,7 +165,7 @@ function reloadMap(colors) {
 			if(selectedCountry != -1)
 			{
 				var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
-				countryName.html(finalTooltip);				
+				countryName.html(finalTooltip);
 			}
 			else
 				countryName.html(countryName.html());

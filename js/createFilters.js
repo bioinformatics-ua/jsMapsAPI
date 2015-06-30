@@ -195,11 +195,15 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 		var buttonId = 'dropdown' + index + 'button';
 		var ulId = 'dropdown' + index;
 		var toAppend = '';
+		console.log(currentFilter.Values);
 
 		// filter text
 		toAppend += '<p><b>' + filterName + ':</b></p>';
 		toAppend += '<div class="form-group">';
-		toAppend += '<input type="text" class="form-control" id="fbox' + index + '">';
+		toAppend += '<input type="text" class="form-control" id="fbox' + index + '"';
+		// build the placeholder
+		var placeholder = currentFilter.Values
+		toAppend += 'placeholder="'+ placeholder+'" +>';
 		toAppend += '</div>';
 
 		$('#filters_box_enumeration').prepend(toAppend);
