@@ -195,7 +195,6 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 		var buttonId = 'dropdown' + index + 'button';
 		var ulId = 'dropdown' + index;
 		var toAppend = '';
-		console.log(currentFilter.Values);
 
 		// filter text
 		toAppend += '<p><b>' + filterName + ':</b></p>';

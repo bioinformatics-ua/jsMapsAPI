@@ -1,4 +1,4 @@
-function multiFilter(inputArgs) {
+function filter(inputArgs) {
 	console.log(inputArgs);
 
 	var keys = Object.keys(inputArgs)
