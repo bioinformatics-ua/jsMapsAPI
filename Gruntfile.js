@@ -1,48 +1,18 @@
 var grunt = require('grunt');
 
-// taskname + description + task function
-grunt.registerTask('world', 'world task description', function(){
-    console.log('hello world');
-});
-
-grunt.registerTask('hello', 'say hello', function(name, age){
-    if(!name || !name.length)
-    grunt.warn('you need to provide a name.');
-
-    console.log('hello ' + name +' I am '+age+' years old');
-});
-
-// tasklist - multiple tasks associated with it
-// grunt.registerTask('default', ['world', 'hello:world:12']);
-
-// Multi tasks
-grunt.initConfig({
-    print: {
-        target1: ['index.html', 'src/styles.css', 2],
-        target2: 'data',
-        hello: 'world'
-    }
-});
-
-grunt.registerMultiTask('print', 'print targets', function() {
-    grunt.log.writeln(this.target + ': ' + this.data);
-});
-
 // Combine multiple files
 module.exports = function(grunt){
     grunt.config.init({
         concat: {
             options: {
-                dest: 'tmp',
-                templates: ['templates/header.html', 'templates/footer.html'],
-                javascripts: ['javascripts/*.js'],
-                stylesheets: ['stylesheets']
+                javascripts: ['js/*.js'],
+                dest: 'finalJs/jsMapsApi.js'
             }
         },
         uglify:{
             js:{
-                src:['javascripts/*'],
-                dest:'tmp/javascripts'
+                src:['js/*.js'],
+                dest:'finalJs/jsMapsApi.min.js'
             }
         }
     });
@@ -70,11 +40,11 @@ module.exports = function(grunt){
         concatenated = recursiveConcat(files, '');
 
         grunt.log.writeln('Writing ' + concatenated.length + ' chars to ' + 'tmp/' + type);
-        grunt.file.write(dest + '/' + type, concatenated);
+        grunt.file.write(dest, concatenated);
     });
 
-    grunt.registerTask('concatAll', ['concat:templates', 'concat:javascripts', 'concat:stylesheets']);
-    grunt.registerTask('default', ['concatAll']);
+    grunt.registerTask('concatAll', ['concat:javascripts']);
+    grunt.registerTask('default', ['concatAll','uglify']);
 }
 
 grunt.loadNpmTasks('grunt-contrib-uglify');
