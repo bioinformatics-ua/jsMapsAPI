@@ -87,8 +87,8 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 		},
 		series: {
 			markers: [{
-				// range of values associated with the Count
 				scale: [minColorMap, maxColorMap],
+				// range of values associated with the Count
 				values: [minCount, maxCount],
 				// add a legend
 				legend: {
@@ -142,6 +142,9 @@ function buildMarkerTooltip(jsonMarkers, index)
 
 // redraw the map
 function reloadMap(colors) {
+
+	readMinMax(colors);
+
 	// erase the map
 	$("#" + mDiv).empty();
 
@@ -172,6 +175,7 @@ function reloadMap(colors) {
 		},
 		series: {
 			markers: [{
+				// change the scale to fit the current min and max values
 				scale: [minColorMap, maxColorMap],
 				values: [minCount, maxCount],
 				legend: {

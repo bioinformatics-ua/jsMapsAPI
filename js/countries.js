@@ -60,3 +60,47 @@ function readCountriesFromJSON(markers) {
 	});
 	return countries;
 }
+
+// return the country whose name is passed as an argument
+function findCountryByName(countryName)
+{
+	var returnCountry = null;
+	$.each(jsonCountries, function(index, currentCountry) {
+		if(currentCountry.Country == countryName)
+		{
+			returnCountry = currentCountry;
+			return returnCountry;
+		}
+	});
+	return returnCountry;
+}
+
+// read the min and max count of the countris
+function readMinMax(countriesNames)
+{
+	minCount = Infinity;
+	maxCount = -Infinity;
+
+	// countries names is a JSON object
+	// read keys to an array
+	var keys = [];
+	for (var key in countriesNames) {
+	  if (countriesNames.hasOwnProperty(key)) {
+	    keys.push(key);
+	  }
+	}
+
+	// find country by name
+	$.each(keys, function(index, currentCountryName) {
+		// find the country by its name
+		var currentCountry = findCountryByName(currentCountryName);
+		if(currentCountry.Count > maxCount)
+			maxCount = currentCountry.Count;
+
+		if(currentCountry.Count < minCount)
+			minCount = currentCountry.Count;
+	});
+
+	console.log(minCount);
+	console.log(maxCount);
+}
