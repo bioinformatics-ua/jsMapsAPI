@@ -6,6 +6,7 @@ The locations can be filtered by any field previuosly specified by the user.
 ## How to use the API
 
 To use the API you need to follow the next steps:
+
 1. Install every dependency through bower (bower install)
 2. Link to the bower_components generated on the previous steps
 3. Link to the **jsMapsAPI.min.js**
