@@ -100,7 +100,4 @@ function readMinMax(countriesNames)
 		if(currentCountry.Count < minCount)
 			minCount = currentCountry.Count;
 	});
-
-	console.log(minCount);
-	console.log(maxCount);
 }
