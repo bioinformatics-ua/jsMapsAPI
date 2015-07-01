@@ -4,11 +4,13 @@ var minColorMap;
 var maxColorMap;
 var mDiv;
 var mType;
+var background;
 
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType) {
+VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius,mapDiv, minColor, maxColor, mapType, backgroundColor) {
+	background = backgroundColor;
 	mType = mapType;
 	// countries list
 	jsonCountries = [];
@@ -53,12 +55,11 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 		async: false
 	});
 
-
-
 	// add the map to the div (no markers are initially specified)
 	map = new jvm.Map({
 		// type of map (world, Europe, USA, etc)
 		map: mType,
+		backgroundColor:  background,
 		// id of its container
 		container: $('#' + mapDiv),
 		// triggered when a marker is hovered
@@ -142,7 +143,6 @@ function buildMarkerTooltip(jsonMarkers, index)
 
 // redraw the map
 function reloadMap(colors) {
-
 	readMinMax(colors);
 
 	// erase the map
@@ -150,6 +150,7 @@ function reloadMap(colors) {
 
 	map = new jvm.Map({
 		map: mType,
+		backgroundColor:  background,
 		container: $('#' + mDiv),
 		onMarkerTipShow: function(e, label, index) {
 			var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
