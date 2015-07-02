@@ -1,19 +1,20 @@
 # jsMapsAPI
 
-Javascript API that makes use of the [jvectormap](http://jvectormap.com/) lib to create a world map to display data related to countries and other places.
-
-## Countries
-
-Countries appear on the map with different colours according to the Count attribute associated with them.
-
-
-## Markers
-
-Markers are used to convey information on a map. Some attributes about them can be specified like the radius, fill color, label associated with them, hover and click callback, etc.
+Javascript API that makes use of [jvectormap](http://jvectormap.com/)  to create a map that display data related to countries and other places (markers). The user defines the data he wants to visualize in a certain format and it is displayed on the kind of map he chooses (wordl, Europe, USA, etc) with the possibility of adding custom tooltips to be shown when a country or marker is hovered.
+The locations can be filtered by any field previuosly specified by the user.
 
 ## How to use the API
 
-To display a map on a webpage just include the **vector-map** tag in your HTML with the following attributes:
+To use the API you need to follow the next steps:
+
+1. Install every dependency through bower (bower install)
+2. Link to the bower_components generated on the previous steps
+3. Link to the **jsMapsAPI.min.js**
+4. Include the maps you want to use (further documentation on the _Supported maps_ section)
+5. Import all the files on the **custom-elements folder**
+6. Specifty the tooltips for the countris and the other markers (to see an explained example go to the _Tooltips_ section)
+
+Now that you have done the previous steps, you are ready to display a map on your page. You just have to include the **vector-map** tag where you want to place the map component on your HTML; the tag attributes are as follows:
 
 - id - "map"
 - map_type - map location to display. Possible values are 'world_mill_en' (world map), 'europe_mill_en' (Europe map), etc. By default the world map is displayed. Available maps can be found [here](http://jvectormap.com/maps/), with the possibility of creating your own maps with the tools available in [jvectormap](http://jvectormap.com/documentation/gis-converter/)
@@ -23,10 +24,14 @@ To display a map on a webpage just include the **vector-map** tag in your HTML w
 - max_radius - max radius for the markers
 - filters - path to the file/page that contains the JSON of the map filters
 - markers - path to the file/page that contains the JSON of the countries (and markers if present)
+- background_color - color of the map background in hex format (has a default value of #666666 )
 
 Here is an example:
-
-    <vector-map id="map" map_type='world_mill_en' min_color='#ffffff' max_color="#000000" min_radius=2 max_radius=8 filters='json/filters.json' markers='json/countries.json'></vector-map>
+```html
+<vector-map id="map" min_color='#34a219' max_color="#fe3f3f"
+min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'
+background_color="#666666"></vector-map>
+```
 
 ## Supported maps
 

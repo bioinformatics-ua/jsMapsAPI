@@ -14,28 +14,26 @@
 	<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
 	<!--jVectormap-->
 	<link rel="stylesheet" href="lib/jvectormap/jquery-jvectormap-2.0.2.css">
-	<!--jQuery+ jquery-UI-->
+	<!--jQuery + jquery-UI-->
 	<link rel="stylesheet" href="bower_components/jquery-ui/themes/smoothness/jquery-ui.min.css">
 	<script src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-	<!-- Scripts -->
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
-	<!-- world map-->
-	<script src="lib/jvectormap/maps/world-mill-en.js"></script>
-	<!-- europe map-->
-	<script src="lib/jvectormap/maps/world-mill-en.js"></script>
-	<!--Load the Maps API-->
-	<script type="text/javascript" src="js/markers.js"></script>
+	<!--jsMapsApi API + maps-->
+	<!--<script type="text/javascript" src="finalJs/jsMapsApi.min.js"></script>-->
+	<script type="text/javascript" src="js/main.js"></script>
 	<script type="text/javascript" src="js/countries.js"></script>
-	<script type="text/javascript" src="js/multiple-filters.js"></script>
-	<script type="text/javascript" src="js/filters.js"></script>
-	<script type="text/javascript" src="js/filters-auxiliary.js"></script>
 	<script type="text/javascript" src="js/createFilters.js"></script>
-	<script type="text/javascript" src="js/maps-api.js"></script>
+	<script type="text/javascript" src="js/filters-auxiliary.js"></script>
+	<script type="text/javascript" src="js/filters.js"></script>
 	<script type="text/javascript" src="js/json-mapping.js"></script>
+	<script type="text/javascript" src="js/markers.js"></script>
+	<script type="text/javascript" src="js/multiple-filters.js"></script>
+	<script src="lib/jvectormap/maps/world-mill-en.js"></script>
+	<script src="lib/jvectormap/maps/world-mill-en.js"></script>
 	<!--Polymer-->
-	<script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 	<!-- Import custom elements created with Polymer-->
 	<link rel="import" href="custom-elements/vector-map.html">
 	<link rel="import" href="custom-elements/vector-map-filters.html">
@@ -48,7 +46,9 @@
 		<div class="starter-template col-md-2" /> </div>
 	<div class="starter-template col-md-8">
 		<!--<vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>-->
-		<vector-map id="map" map_type='world_mill_en' min_color='#0cfff0' max_color="#4C3FFE" min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'></vector-map>
+		<vector-map id="map" min_color='#34a219' max_color="#fe3f3f"
+		min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'
+		background_color="#666666"></vector-map>
 	</div>
 	<div class="starter-template col-md-2">
 		<filters-box-enumeration id="filters-box-enumeration" filters="json/filters.json"></filters-box-enumeration>
