@@ -56,7 +56,6 @@ function readMarkersFromJSON(jsonMarkers) {
 	return markers;
 }
 
-
 function addMarkersToMap(markers) {
 	$.each(markers, function (index, currentMarker) {
 		map.addMarker(index, {

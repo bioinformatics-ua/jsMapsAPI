@@ -6,6 +6,7 @@ The locations can be filtered by any field previuosly specified by the user.
 ## How to use the API
 
 To use the API you need to follow the next steps:
+
 1. Install every dependency through bower (bower install)
 2. Link to the bower_components generated on the previous steps
 3. Link to the **jsMapsAPI.min.js**
@@ -23,10 +24,14 @@ Now that you have done the previous steps, you are ready to display a map on you
 - max_radius - max radius for the markers
 - filters - path to the file/page that contains the JSON of the map filters
 - markers - path to the file/page that contains the JSON of the countries (and markers if present)
+- background_color - color of the map background in hex format (has a default value of #666666 )
 
 Here is an example:
-
-    <vector-map id="map" map_type='world_mill_en' min_color='#ffffff' max_color="#000000" min_radius=2 max_radius=8 filters='json/filters.json' markers='json/countries.json'></vector-map>
+```html
+<vector-map id="map" min_color='#34a219' max_color="#fe3f3f"
+min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'
+background_color="#666666"></vector-map>
+```
 
 ## Supported maps
 

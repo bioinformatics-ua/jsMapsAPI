@@ -31,12 +31,11 @@
 	Polymer({
 		// name of the element
 		is: "vector-map",
-		alertFunc: function() {},
 		//Lifecycle callbacks
-		created: function() {
+		attached: function() {
 			// attr containing the json file with the markers and countries
-			var vMap = $(this);
-			var jsonFile = vMap.attr('markers');
+			var vMap = this;
+			var jsonFile = this.markers;
 
 			// check if all the mandatory fields are present
 			if (!jsonFile)
@@ -47,18 +46,17 @@
 
 			// get the json file (Ajax request)
 			$.when($.getJSON(jsonFile)).then(function(jsonFile) {
-				minRadius = +vMap.attr('min_radius');
-				maxRadius = +vMap.attr('max_radius');
-				minColor = vMap.attr('min_color');
-				maxColor = vMap.attr('max_color');
+				minRadius = +vMap.min_radius;
+				maxRadius = +vMap.max_radius;
+				minColor = vMap.min_color;
+				maxColor = vMap.max_color;
+				backgroundColor = vMap.background_color;
 				// get the map type (world, europe, usa, etc)
-				mapType = vMap.attr('map_type');
-				if(!mapType)
-					mapType = 'world_mill_en';
+				mapType = vMap.map_type;
 
 				// create a new VectorialMap
 				vectorMap = new VectorialMap();
-				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor, mapType);
+				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor, mapType, backgroundColor);
 			});
 		},
 		properties: {
@@ -86,6 +84,10 @@
 			markers: {
 				type: String,
 				value: ''
+			},
+			background_color: {
+				type: String,
+				value: '#666666'
 			}
 		}
 	});

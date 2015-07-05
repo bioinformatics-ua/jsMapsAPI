@@ -233,7 +233,7 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 		}
 		jsonText += '}';
 		var filtersToApply = JSON.parse(jsonText);
-		multiFilter(filtersToApply);
+		filter(filtersToApply);
 	});
 
 	// triggered when the reset button is clicked
