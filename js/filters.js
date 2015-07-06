@@ -10,49 +10,6 @@ var numFilters;
 var currentFilter;
 var countryValueToCheck;
 
-/*
-function filter2(filterName, filterValue) {
-
-	var markersToAdd = [];
-
-	// check the filterName
-	if(filterName.toLowerCase() == 'all') {
-		console.log('removing all applied filters')
-			// reloads the original markers and countries on the map
-		resetFilters();
-		// erase the text from the filters box
-		resetFiltersBox();
-		return;
-	}
-
-	// check if the filterName is valid
-	if(!checkFilterNameIsValid(filterName)) {
-		// invalid filter name
-		console.log('Invalid filter name!');
-		return;
-	}
-
-	// get all the filter values
-	var finalParts = getAllFilterValues(filterValue);
-
-	// apply the filtering
-	countryColors = [];
-	markersToAdd = [];
-
-	// check what countries and markers should be shown on the map
-	$.each(finalParts, function(index, part) {
-		checkWhatCountriesMarkersToAdd(filterObject, part);
-	});
-
-	// reload the map
-	reloadMap(countryColors);
-
-	//add the markers
-	//this must be done here because reload map erases all the markers
-	addMarkersToMap(markersToAdd);
-}
-*/
-
 function resetFilters() {
 	// color the original map
 	var colors = generateColorsForTheCountries();
