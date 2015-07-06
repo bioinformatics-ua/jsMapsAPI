@@ -4,10 +4,14 @@ var grunt = require('grunt');
 module.exports = function(grunt) {
     grunt.config.init({
         concat: {
-            options: {
-                javascripts: ['js/main.js', 'js/*.js'],
+            javascripts: {
+                files: ['js/main.js', 'js/*.js'],
                 dest: 'finalJs/jsMapsApi.js'
-            }
+            },
+            maps: {
+                files: ['./lib/jvectormap/maps/*.js'],
+                dest: 'finalJs/maps.js'
+            },
         },
         'jsmin-sourcemap': {
             all: {
@@ -43,11 +47,11 @@ module.exports = function(grunt) {
     };
 
     grunt.registerTask('concat', 'concatenates files', function(type) {
-        grunt.config.requires('concat.options.' + type); // fail the task if this property is missing.
-        grunt.config.requires('concat.options.dest');
+        grunt.config.requires('concat.'+type); // fail the task if this property is missing.
+        grunt.config.requires('concat.'+type+'.dest');
 
-        var files = grunt.config.get('concat.options.' + type),
-            dest = grunt.config.get('concat.options.dest'),
+        var files = grunt.config.get('concat.'+type+'.files'),
+            dest = grunt.config.get('concat.'+type+'.dest'),
             concatenated = recursiveConcat(files, '');
 
         grunt.log.writeln('Writing ' + concatenated.length + ' chars to ' + 'tmp/' + type);
@@ -55,7 +59,7 @@ module.exports = function(grunt) {
     });
 
     grunt.registerTask('default', ['concatAll', 'jsmin-sourcemap']);
-    grunt.registerTask('concatAll', ['concat:javascripts']);
+    grunt.registerTask('concatAll', ['concat:maps']);
 }
 
 // load uglify and watch plugins

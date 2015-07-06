@@ -63,7 +63,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         // configuration of the main map
         main: {
             // type of map (world, Europe, USA, etc)
-            map: mType,
+            map: 'pt_mill_en',
             backgroundColor: background,
             // id of its container
             container: $('#' + mapDiv),
@@ -152,7 +152,7 @@ function buildMarkerTooltip(jsonMarkers, index) {
     finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
     return finalTooltip;
 }
-
+ 
 // redraw the map
 function reloadMap(colors) {
     // update min and max Count of the countries
