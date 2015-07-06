@@ -14,6 +14,16 @@ module.exports = function(grunt) {
                 src: ['finalJs/jsMapsApi.js'],
                 dest: 'finalJs/jsMapsApi.min.js'
             }
+        },
+        watch: {
+            scripts: {
+                files: './js/*.js',
+                tasks: ['default'],
+                options: {
+                    spawn: false,
+                    event: ['all']
+                },
+            },
         }
     });
 
@@ -47,4 +57,6 @@ module.exports = function(grunt) {
     grunt.registerTask('concatAll', ['concat:javascripts']);
 }
 
+// load uglify and watch plugins
 grunt.loadNpmTasks('grunt-contrib-uglify');
+grunt.loadNpmTasks('grunt-contrib-watch');
