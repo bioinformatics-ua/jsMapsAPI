@@ -6,19 +6,14 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 javascripts: ['js/main.js', 'js/*.js'],
-                dest: 'finalJs/jsMapsApi.js',
-                sourceMap: true
+                dest: 'finalJs/jsMapsApi.js'
             }
         },
-        uglify: {
-            options: {
-                sourceMap: true,
-                sourceMapIncludeSources: true,
-                sourceMapIn: '.tmp/main.js.map'
-            },
-            js: {
-                src: ['finalJs/jsMapsApi.js'],
-                dest: 'finalJs/jsMapsApi.min.js'
+        'jsmin-sourcemap': {
+            all: {
+                src: ['js/main.js', 'js/*.js'],
+                dest: 'finalJs/jsMapsApi.min.js',
+                destMap: 'finalJs/jsMapsApi.min.js.map'
             }
         },
         watch: {
@@ -59,10 +54,10 @@ module.exports = function(grunt) {
         grunt.file.write(dest, concatenated);
     });
 
-    grunt.registerTask('default', ['concatAll', 'uglify']);
+    grunt.registerTask('default', ['concatAll', 'jsmin-sourcemap']);
     grunt.registerTask('concatAll', ['concat:javascripts']);
 }
 
 // load uglify and watch plugins
-grunt.loadNpmTasks('grunt-contrib-uglify');
 grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.loadNpmTasks('grunt-jsmin-sourcemap');
