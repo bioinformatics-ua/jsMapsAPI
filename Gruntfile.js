@@ -6,10 +6,16 @@ module.exports = function(grunt) {
         concat: {
             options: {
                 javascripts: ['js/main.js', 'js/*.js'],
-                dest: 'finalJs/jsMapsApi.js'
+                dest: 'finalJs/jsMapsApi.js',
+                sourceMap: true
             }
         },
         uglify: {
+            options: {
+                sourceMap: true,
+                sourceMapIncludeSources: true,
+                sourceMapIn: '.tmp/main.js.map'
+            },
             js: {
                 src: ['finalJs/jsMapsApi.js'],
                 dest: 'finalJs/jsMapsApi.min.js'

@@ -803,7 +803,7 @@ var Filter = function(Name, Value, Values) {
 var numFilters;
 var currentFilter;
 var countryValueToCheck;
-
+ 
 /*
 function filter2(filterName, filterValue) {
 
