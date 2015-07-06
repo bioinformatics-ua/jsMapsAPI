@@ -128,20 +128,10 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         }
     });
 
-
     // draw markers on the map
+
     if (inputJSON.markers) {
-        $.each(jsonMarkers, function(index, currentMarker) {
-            map.addMarker(index, {
-                latLng: [currentMarker.Latitude, currentMarker.Longitude],
-                name: currentMarker.desc,
-                // set the style for this marker
-                style: {
-                    fill: 'green',
-                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                }
-            });
-        });
+        addMarkersToMultiMap(jsonMarkers);
     }
 
     // generate the slider and set corresponding values and callbacks
@@ -162,7 +152,7 @@ function buildMarkerTooltip(jsonMarkers, index) {
     finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
     return finalTooltip;
 }
- 
+
 // redraw the map
 function reloadMap(colors) {
     // update min and max Count of the countries
@@ -222,32 +212,6 @@ function mapRange(value, low1, high1, low2, high2) {
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
-VectorialMap.prototype.createSlider = function() {
-
-    // jQueryUI slider
-    slider = $("#slider").slider();
-
-    // set max and min value for the slider
-    slider.slider("option", "min", minRadius);
-    slider.slider("option", "max", maxRadius);
-
-    // allow the user to select a range
-    slider.slider("option", "range", true);
-
-    // when user clicks the slider, it will animate to the clicked position
-    slider.slider("option", "animate", "slow");
-
-    // after selecting a new slider value
-    slider.on("slidechange", function(event, ui) {
-        sliderChanged();
-    });
-
-    // hide all the components until they are hidden
-    $('#slider').hide();
-    $('#minSlider').hide();
-    $('#maxSlider').hide();
-}
-
 VectorialMap.prototype.filterOnServer = function(filters) {
     // read the filters from a JSON file (just for testing)
     $.getJSON("../json/serverFilter.json", function(filtersJSON) {
@@ -283,6 +247,26 @@ VectorialMap.prototype.filterOnServer = function(filters) {
                 addMarkersToMap(jsonMarkers);
             }
         });
+    });
+}
+
+function addMarkersToMultiMap(jsonMarkers) {
+    availableMaps = maps.maps;
+    $.each(jsonMarkers, function(index, currentMarker) {
+        // the marker must be added to all the existing maps
+        for (var key in availableMaps) {
+            //console.log(availableMaps[key]);
+            // add a marker to every map
+            maps.maps[key].addMarker(index, {
+                latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                name: currentMarker.desc,
+                // set the style for this marker
+                style: {
+                    fill: 'green',
+                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                }
+            });
+        }
     });
 }
 var Country = function(countryObject, name, count) {
@@ -823,6 +807,32 @@ function resetFilters() {
 		});
 	});
 }
+
+VectorialMap.prototype.createSlider = function() {
+
+    // jQueryUI slider
+    slider = $("#slider").slider();
+
+    // set max and min value for the slider
+    slider.slider("option", "min", minRadius);
+    slider.slider("option", "max", maxRadius);
+
+    // allow the user to select a range
+    slider.slider("option", "range", true);
+
+    // when user clicks the slider, it will animate to the clicked position
+    slider.slider("option", "animate", "slow");
+
+    // after selecting a new slider value
+    slider.on("slidechange", function(event, ui) {
+        sliderChanged();
+    });
+
+    // hide all the components until they are hidden
+    $('#slider').hide();
+    $('#minSlider').hide();
+    $('#maxSlider').hide();
+} 
 
 function filterFromMenuSelected(selectedFilter, filterValue) {
 
