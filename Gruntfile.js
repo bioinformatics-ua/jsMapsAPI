@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         },
         watch: {
             scripts: {
-                files: './js/*.js',
+                files: ['./js/*.js','./lib/jvectormap/maps/*.js'],
                 tasks: ['default'],
                 options: {
                     spawn: false,
