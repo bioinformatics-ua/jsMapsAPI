@@ -122,9 +122,9 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         },
         mapUrlByCode: function(code, multiMap) {
             // access a new map by drilldown
-            var countryCode = code.toLowerCase();
+            countryCode = code.toLowerCase();
+            waitToAddMarkers(100);
             var mapName = countryCode + '_' + multiMap.defaultProjection + '_en';
-            waitAndList(500);
             return '/lib/jvectormap/maps/' + countryCode + '-' + multiMap.defaultProjection + '-en.js';
         }
     });
@@ -138,22 +138,34 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     this.createSlider();
 };
 
-function waitAndList(waitingTime)
-{
+function waitToAddMarkers(waitingTime) {
     // wait some time
-    setTimeout(function () {
-        listMaps();
+    setTimeout(function() {
+        // check if the country code already belongs to the maps object
+        availableMaps = maps.maps;
+        //console.log(availableMaps);
+        // add the markers to the map
+        var found = false;
+        // the marker must be added to all the existing maps
+        for (var key in availableMaps) {
+            if (key == countryCode + '_mill_en')
+                found = true;
+        };
+        // if it does, add the markers
+        if (found)
+            addMarkersToAllMaps();
+        // if it doesn't, wait more time
+        else
+            waitToAddMarkers(100);
     }, waitingTime);
 }
 
-function listMaps() {
+function addMarkersToAllMaps() {
     availableMaps = maps.maps;
-    console.log(availableMaps);
     // add the markers to the map
     $.each(jsonMarkers, function(index, currentMarker) {
         // the marker must be added to all the existing maps
         for (var key in availableMaps) {
-            //console.log(availableMaps[key]);
             // add a marker to every map
             maps.maps[key].addMarker(index, {
                 latLng: [currentMarker.Latitude, currentMarker.Longitude],
