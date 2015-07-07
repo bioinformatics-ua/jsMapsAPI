@@ -124,12 +124,12 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
             // access a new map by drilldown
             var countryCode = code.toLowerCase();
             var mapName = countryCode + '_' + multiMap.defaultProjection + '_en';
+            waitAndList(500);
             return '/lib/jvectormap/maps/' + countryCode + '-' + multiMap.defaultProjection + '-en.js';
         }
     });
 
     // draw markers on the map
-
     if (inputJSON.markers) {
         addMarkersToMultiMap(jsonMarkers);
     }
@@ -137,6 +137,36 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     // generate the slider and set corresponding values and callbacks
     this.createSlider();
 };
+
+function waitAndList(waitingTime)
+{
+    // wait some time
+    setTimeout(function () {
+        listMaps();
+    }, waitingTime);
+}
+
+function listMaps() {
+    availableMaps = maps.maps;
+    console.log(availableMaps);
+    // add the markers to the map
+    $.each(jsonMarkers, function(index, currentMarker) {
+        // the marker must be added to all the existing maps
+        for (var key in availableMaps) {
+            //console.log(availableMaps[key]);
+            // add a marker to every map
+            maps.maps[key].addMarker(index, {
+                latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                name: currentMarker.desc,
+                // set the style for this marker
+                style: {
+                    fill: 'green',
+                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                }
+            });
+        }
+    });
+}
 
 function buildCountryTooltip(countryName, selectedCountry) {
     var finalTooltip = countryTooltip;
@@ -158,7 +188,6 @@ function reloadMap(colors) {
     // update min and max Count of the countries
     if (jsonCountries.length > 0)
         readMinMax(colors);
-
 
     // erase the map
     $("#" + mDiv).empty();
