@@ -206,6 +206,7 @@ function waitToAddMarkers(waitingTime) {
         if (found) {
             addMarkersToThisMap(key);
             addMarkersTooltip(key);
+            addRegionsToMap(key);
         }
         // if it doesn't, wait more time
         else
