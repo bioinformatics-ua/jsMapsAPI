@@ -138,6 +138,21 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     this.createSlider();
 };
 
+function addMarkersTooltip() {
+    var onMarkerFunction = function(e, label, index) {
+        // select what text to display when marker is hovered
+        var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+        label.html(finalTooltip);
+    };
+
+    availableMaps = maps.maps;
+    for (var key in availableMaps) {
+        console.log(key);
+        maps.maps[key].params.onMarkerTipShow = onMarkerFunction;
+        console.log(maps.maps[key].params.onMarkerTipShow);
+    }
+}
+
 function waitToAddMarkers(waitingTime) {
     // wait some time
     setTimeout(function() {
@@ -152,31 +167,30 @@ function waitToAddMarkers(waitingTime) {
                 found = true;
         };
         // if it does, add the markers
-        if (found)
-            addMarkersToAllMaps();
+        if (found) {
+            addMarkersToThisMap(key);
+            addMarkersTooltip();
+        }
         // if it doesn't, wait more time
         else
             waitToAddMarkers(100);
     }, waitingTime);
 }
 
-function addMarkersToAllMaps() {
-    availableMaps = maps.maps;
+function addMarkersToThisMap(currentMap) {
     // add the markers to the map
     $.each(jsonMarkers, function(index, currentMarker) {
         // the marker must be added to all the existing maps
-        for (var key in availableMaps) {
-            // add a marker to every map
-            maps.maps[key].addMarker(index, {
-                latLng: [currentMarker.Latitude, currentMarker.Longitude],
-                name: currentMarker.desc,
-                // set the style for this marker
-                style: {
-                    fill: 'green',
-                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                }
-            });
-        }
+        // add a marker to every map
+        maps.maps[currentMap].addMarker(index, {
+            latLng: [currentMarker.Latitude, currentMarker.Longitude],
+            name: currentMarker.desc,
+            // set the style for this marker
+            style: {
+                fill: 'green',
+                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+            }
+        });
     });
 }
 
@@ -200,6 +214,7 @@ function reloadMap(colors) {
     // update min and max Count of the countries
     if (jsonCountries.length > 0)
         readMinMax(colors);
+
 
     // erase the map
     $("#" + mDiv).empty();
@@ -253,6 +268,26 @@ function mapRange(value, low1, high1, low2, high2) {
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
+function addMarkersToMultiMap(jsonMarkers) {
+    availableMaps = maps.maps;
+    $.each(jsonMarkers, function(index, currentMarker) {
+        // the marker must be added to all the existing maps
+        for (var key in availableMaps) {
+            //console.log(availableMaps[key]);
+            // add a marker to every map
+            maps.maps[key].addMarker(index, {
+                latLng: [currentMarker.Latitude, currentMarker.Longitude],
+                name: currentMarker.desc,
+                // set the style for this marker
+                style: {
+                    fill: 'green',
+                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                }
+            });
+        }
+    });
+}
+
 VectorialMap.prototype.filterOnServer = function(filters) {
     // read the filters from a JSON file (just for testing)
     $.getJSON("../json/serverFilter.json", function(filtersJSON) {
@@ -288,25 +323,5 @@ VectorialMap.prototype.filterOnServer = function(filters) {
                 addMarkersToMap(jsonMarkers);
             }
         });
-    });
-}
-
-function addMarkersToMultiMap(jsonMarkers) {
-    availableMaps = maps.maps;
-    $.each(jsonMarkers, function(index, currentMarker) {
-        // the marker must be added to all the existing maps
-        for (var key in availableMaps) {
-            //console.log(availableMaps[key]);
-            // add a marker to every map
-            maps.maps[key].addMarker(index, {
-                latLng: [currentMarker.Latitude, currentMarker.Longitude],
-                name: currentMarker.desc,
-                // set the style for this marker
-                style: {
-                    fill: 'green',
-                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                }
-            });
-        }
     });
 }

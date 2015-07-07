@@ -74,7 +74,6 @@ function filter(inputArgs) {
 	// add countries to Map
 	reloadMap(finalCountries);
 
-
 	// get the final markers
 	var finalMarkers = [];
 	if(markersByFilter.length > 0) {
