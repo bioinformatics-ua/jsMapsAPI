@@ -138,19 +138,58 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     this.createSlider();
 };
 
-function addMarkersTooltip() {
-    var onMarkerFunction = function(e, label, index) {
-        // select what text to display when marker is hovered
-        var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
-        label.html(finalTooltip);
-    };
+function addMarkersTooltip(currentMap) {
+    var jvmMapMain = new jvm.Map({
+        map: mType,
+        backgroundColor: background,
+        container: $('#nada'),
+        onMarkerTipShow: function(e, label, index) {
+            var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+            label.html(finalTooltip);
+        },
+        onRegionTipShow: function(e, countryName, code) {
+            // code contains the code of the country (i.e., PT, ES, FR, etc)
+            // show the Count associated to that Country - look for the country
+            var selectedCountry = -1;
+            $.each(jsonCountries, function(index, currentCountry) {
+                if (currentCountry.Country === code) {
+                    selectedCountry = currentCountry;
+                    return;
+                }
+            });
+            if (selectedCountry != -1) {
+                var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
+                countryName.html(finalTooltip);
+            } else
+                countryName.html(countryName.html());
+        },
+        series: {
+            markers: [{
+                // change the scale to fit the current min and max values
+                scale: [minColorMap, maxColorMap],
+                values: [minCount, maxCount],
+                legend: {
+                    vertical: true
+                }
+            }],
+            regions: [{
+                // min and max values of count
+                scale: [minColorMap, maxColorMap],
+                attribute: 'fill',
+                // the colors are 'stretched' to fill the scale
+                values: []
+            }]
+        }
+    });
 
-    availableMaps = maps.maps;
-    for (var key in availableMaps) {
-        console.log(key);
-        maps.maps[key].params.onMarkerTipShow = onMarkerFunction;
-        console.log(maps.maps[key].params.onMarkerTipShow);
-    }
+    console.log('Adding markers tooltip to ' + currentMap);
+    // get the onMarkerFunction of the main map (world map)
+    var onMarkerFunction = maps.maps[mapType].params.onMarkerTipShow;
+    maps.maps[currentMap].params.onMarkerTipShow = jvmMapMain.params.onMarkerTipShow;
+    maps.maps[currentMap].params.series = jvmMapMain.params.series;
+    maps.maps[currentMap].params.onRegionTipShow = jvmMapMain.params.onRegionTipShow;
+    console.log(maps.maps[currentMap].params);
+    console.log(jvmMapMain.params);
 }
 
 function waitToAddMarkers(waitingTime) {
@@ -169,7 +208,7 @@ function waitToAddMarkers(waitingTime) {
         // if it does, add the markers
         if (found) {
             addMarkersToThisMap(key);
-            addMarkersTooltip();
+            addMarkersTooltip(key);
         }
         // if it doesn't, wait more time
         else
@@ -219,7 +258,7 @@ function reloadMap(colors) {
     // erase the map
     $("#" + mDiv).empty();
 
-    map = new jvm.Map({
+    jvmMapMain = new jvm.Map({
         map: mType,
         backgroundColor: background,
         container: $('#' + mDiv),
