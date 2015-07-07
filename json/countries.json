@@ -9,12 +9,7 @@
         "perc25": "",
         "SD": "",
         "Mean": "",
-        "Country": "PT",
-        "Regions": [{
-            "name": "PT-01"
-        }, {
-            "name": "PT-02"
-        }]
+        "Country": "PT"
     }, {
         "Count": "17.00",
         "Name2": "Gender",
@@ -25,7 +20,12 @@
         "perc25": "",
         "SD": "",
         "Mean": "",
-        "Country": "ES"
+        "Country": "ES",
+        "Regions": [{
+            "name": "ES-SE"
+        }, {
+            "name": "ES-M"
+        }]
     }, {
         "Count": "14.00",
         "Name2": "Gender",

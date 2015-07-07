@@ -182,14 +182,11 @@ function addMarkersTooltip(currentMap) {
         }
     });
 
-    console.log('Adding markers tooltip to ' + currentMap);
     // get the onMarkerFunction of the main map (world map)
     var onMarkerFunction = maps.maps[mapType].params.onMarkerTipShow;
     maps.maps[currentMap].params.onMarkerTipShow = jvmMapMain.params.onMarkerTipShow;
     maps.maps[currentMap].params.series = jvmMapMain.params.series;
     maps.maps[currentMap].params.onRegionTipShow = jvmMapMain.params.onRegionTipShow;
-    console.log(maps.maps[currentMap].params);
-    console.log(jvmMapMain.params);
 }
 
 function waitToAddMarkers(waitingTime) {
