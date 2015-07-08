@@ -125,12 +125,11 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 };
 
 window.addEventListener("keydown", checkKeyPressed, false);
-function checkKeyPressed(e) {
 
+function checkKeyPressed(e) {
     if (e.keyCode == "37") {
         // erase the previous map
         $('#' + mDiv).empty();
-
         // when the left button is clicked
         // return to the main map
         maps = new jvm.Map({
@@ -197,8 +196,23 @@ function checkKeyPressed(e) {
 }
 
 function switchMap(newMap) {
+    // this function gets called when a country on the world map is clicked
     // erase the previous map
     $('#' + mDiv).empty();
+
+    var palette = ['#66C2A5', '#FC8D62', '#8DA0CB', '#E78AC3', '#A6D854'];
+
+    function generateColors() {
+        var colors = {},
+            key;
+        colors[maps.region]
+
+        for (key in maps.regions) {
+            colors[key] = palette[Math.floor(Math.random() * palette.length)];
+        }
+        return colors;
+    };
+    console.log(generateColors());
 
     maps = new jvm.Map({
         map: newMap,
@@ -238,39 +252,23 @@ function switchMap(newMap) {
                 scale: [minColorMap, maxColorMap],
                 attribute: 'fill',
                 // the colors are 'stretched' to fill the scale
-                values: auxColors
+                values: generateColors()
             }]
         }
     });
 
     // add the markers
-    addMarkersToMainMap(jsonMarkers);
+    if (jsonMarkers) {
+        addMarkersToMainMap(jsonMarkers);
+    }
+
+    if(jsonCountries)
+    {
+        // check if the selected map has any region to highlight
+        // addRegionsToMap(newMap)
+    }
 }
 
-function waitToAddMarkers(waitingTime) {
-    // wait some time
-    setTimeout(function() {
-        // check if the country code already belongs to the maps object
-        availableMaps = maps.maps;
-        //console.log(availableMaps);
-        // add the markers to the map
-        var found = false;
-        // the marker must be added to all the existing maps
-        for (var key in availableMaps) {
-            if (key == countryCode + '_mill_en')
-                found = true;
-        };
-        // if it does, add the markers
-        if (found) {
-            addMarkersToThisMap(key);
-            addMarkersTooltip(key);
-            addRegionsToMap(key);
-        }
-        // if it doesn't, wait more time
-        else
-            waitToAddMarkers(100);
-    }, waitingTime);
-}
 
 function buildCountryTooltip(countryName, selectedCountry) {
     var finalTooltip = countryTooltip;
