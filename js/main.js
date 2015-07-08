@@ -114,19 +114,10 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
             }]
         }
     });
-    /*
-        mapUrlByCode: function(code, multiMap) {
-            // access a new map by drilldown
-            countryCode = code.toLowerCase();
-            waitToAddMarkers(100);
-            var mapName = countryCode + '_' + multiMap.defaultProjection + '_en';
-            return '/lib/jvectormap/maps/' + countryCode + '-' + multiMap.defaultProjection + '-en.js';
-        }
-        */
 
     // draw markers on the map
     if (inputJSON.markers) {
-        addMarkersToMultiMap(jsonMarkers);
+        addMarkersToMainMap(jsonMarkers);
     }
 
     // generate the slider and set corresponding values and callbacks
@@ -139,7 +130,7 @@ function switchMap(newMap) {
     // erase the previous map
     $('#' + mDiv).empty();
 
-    jvmMapMain = new jvm.Map({
+    maps = new jvm.Map({
         map: newMap,
         backgroundColor: background,
         container: $('#' + mDiv),
@@ -181,57 +172,9 @@ function switchMap(newMap) {
             }]
         }
     });
-}
 
-function addMarkersTooltip(currentMap) {
-    var jvmMapMain = new jvm.Map({
-        map: mType,
-        backgroundColor: background,
-        container: $('#nada'),
-        onMarkerTipShow: function(e, label, index) {
-            var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
-            label.html(finalTooltip);
-        },
-        onRegionTipShow: function(e, countryName, code) {
-            // code contains the code of the country (i.e., PT, ES, FR, etc)
-            // show the Count associated to that Country - look for the country
-            var selectedCountry = -1;
-            $.each(jsonCountries, function(index, currentCountry) {
-                if (currentCountry.Country === code) {
-                    selectedCountry = currentCountry;
-                    return;
-                }
-            });
-            if (selectedCountry != -1) {
-                var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
-                countryName.html(finalTooltip);
-            } else
-                countryName.html(countryName.html());
-        },
-        series: {
-            markers: [{
-                // change the scale to fit the current min and max values
-                scale: [minColorMap, maxColorMap],
-                values: [minCount, maxCount],
-                legend: {
-                    vertical: true
-                }
-            }],
-            regions: [{
-                // min and max values of count
-                scale: [minColorMap, maxColorMap],
-                attribute: 'fill',
-                // the colors are 'stretched' to fill the scale
-                values: []
-            }]
-        }
-    });
-
-    // get the onMarkerFunction of the main map (world map)
-    var onMarkerFunction = maps.maps[mapType].params.onMarkerTipShow;
-    maps.maps[currentMap].params.onMarkerTipShow = jvmMapMain.params.onMarkerTipShow;
-    maps.maps[currentMap].params.series = jvmMapMain.params.series;
-    maps.maps[currentMap].params.onRegionTipShow = jvmMapMain.params.onRegionTipShow;
+    // add the markers
+    addMarkersToMainMap(jsonMarkers);
 }
 
 function waitToAddMarkers(waitingTime) {
@@ -257,23 +200,6 @@ function waitToAddMarkers(waitingTime) {
         else
             waitToAddMarkers(100);
     }, waitingTime);
-}
-
-function addMarkersToThisMap(currentMap) {
-    // add the markers to the map
-    $.each(jsonMarkers, function(index, currentMarker) {
-        // the marker must be added to all the existing maps
-        // add a marker to every map
-        maps.maps[currentMap].addMarker(index, {
-            latLng: [currentMarker.Latitude, currentMarker.Longitude],
-            name: currentMarker.desc,
-            // set the style for this marker
-            style: {
-                fill: 'green',
-                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-            }
-        });
-    });
 }
 
 function buildCountryTooltip(countryName, selectedCountry) {
@@ -350,23 +276,20 @@ function mapRange(value, low1, high1, low2, high2) {
     return low2 + (high2 - low2) * (value - low1) / (high1 - low1);
 }
 
-function addMarkersToMultiMap(jsonMarkers) {
-    availableMaps = maps.maps;
+function addMarkersToMainMap(jsonMarkers) {
+    console.log(jsonMarkers);
     $.each(jsonMarkers, function(index, currentMarker) {
-        // the marker must be added to all the existing maps
-        for (var key in availableMaps) {
-            //console.log(availableMaps[key]);
-            // add a marker to every map
-            maps.maps[key].addMarker(index, {
-                latLng: [currentMarker.Latitude, currentMarker.Longitude],
-                name: currentMarker.desc,
-                // set the style for this marker
-                style: {
-                    fill: 'green',
-                    r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-                }
-            });
-        }
+        //console.log(availableMaps[key]);
+        // add a marker to every map
+        maps.addMarker(index, {
+            latLng: [currentMarker.Latitude, currentMarker.Longitude],
+            name: currentMarker.desc,
+            // set the style for this marker
+            style: {
+                fill: 'green',
+                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+            }
+        });
     });
 }
 
