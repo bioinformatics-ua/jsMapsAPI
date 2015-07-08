@@ -225,9 +225,9 @@ function buildMarkerTooltip(jsonMarkers, index) {
     return finalTooltip;
 }
 
-function buildRegionTooltip(region, index) {
+function buildRegionTooltip(region) {
     var finalTooltip = regionTooltip;
-    finalTooltip = finalTooltip.replace('name', region.html());
+    finalTooltip = finalTooltip.replace('name', region.name);
     return finalTooltip;
 }
 

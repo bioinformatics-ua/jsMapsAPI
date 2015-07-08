@@ -138,21 +138,33 @@ function switchMap(newMap) {
             var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
             label.html(finalTooltip);
         },
-        onRegionTipShow: function(e, countryName, code) {
-            // code contains the code of the country (i.e., PT, ES, FR, etc)
-            // show the Count associated to that Country - look for the country
+        onRegionTipShow: function(e, regionName, code) {
+            var currentMap = newMap.split('_')[0].toUpperCase()
+            // code contains the code of the region (i.e., PT-1, ES-M, etc)
+            // show the Count associated to that Region - look for the Region
             var selectedCountry = -1;
+            // find the corresponding country
             $.each(jsonCountries, function(index, currentCountry) {
-                if (currentCountry.Country === code) {
+                if (currentCountry.Country ==currentMap) {
                     selectedCountry = currentCountry;
                     return;
                 }
             });
-            if (selectedCountry != -1) {
-                var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
-                countryName.html(finalTooltip);
+            // check if the selected region has any data inside that country
+            var regionFound = false;
+            var selectedRegion;
+            $.each(selectedCountry.Regions, function(index, currentRegion) {
+                if (currentRegion.name == code) {
+                    console.log('+');
+                    selectedRegion = currentRegion;
+                    regionFound = true;
+                    return;
+                }
+            });
+            if (regionFound) {
+                regionName.html(buildRegionTooltip(selectedRegion));
             } else
-                countryName.html(countryName.html());
+                regionName.html(regionName.html());
         },
         series: {
             markers: [{
