@@ -30,7 +30,6 @@ function generateColorsForTheRegions(country){
             }
         }
     });
-    console.log(regionColors);
 	return regionColors;
 }
 

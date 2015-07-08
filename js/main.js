@@ -6,6 +6,7 @@ var mDiv;
 var mType;
 var background;
 var filteredMarkers;
+var thereAreMarkers = false;
 
 var VectorialMap = function() {};
 
@@ -32,6 +33,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         jsonCountries = readCountriesFromJSON(inputJSON.countries);
     }
     if (inputJSON.markers) {
+        thereAreMarkers = true;
         jsonMarkers = readMarkersFromJSON(inputJSON.markers);
         filteredMarkers = jsonMarkers;
         numMarkers = jsonMarkers.length;
@@ -71,7 +73,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
             countryCode = code.toLowerCase();
             // waitToAddMarkers(100);
             var newMap = countryCode + '_mill_en';
-            console.log(newMap);
             // swith to new map
             switchMap(newMap);
         },
@@ -128,6 +129,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 };
 
 window.addEventListener("keydown", checkKeyPressed, false);
+
 function checkKeyPressed(e) {
     if (e.keyCode == "37") {
         // erase the previous map
@@ -147,7 +149,6 @@ function checkKeyPressed(e) {
                 countryCode = code.toLowerCase();
                 // waitToAddMarkers(100);
                 var newMap = countryCode + '_mill_en';
-                console.log(newMap);
                 // swith to new map
                 switchMap(newMap);
             },
@@ -194,7 +195,9 @@ function checkKeyPressed(e) {
         });
 
         // add the markes to the map
-        addMarkersToMap();
+        if (thereAreMarkers) {
+            addMarkersToMap();
+        }
     }
 }
 

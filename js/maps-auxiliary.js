@@ -174,7 +174,8 @@ function switchMap(newMap) {
     });
 
     // add the markers
-    if (jsonMarkers) {
+    if (thereAreMarkers) {
+        console.log('there are markers');
         addMarkersToMap();
     }
 
@@ -185,7 +186,6 @@ function switchMap(newMap) {
 }
 
 function addMarkersToMap() {
-
     $.each(filteredMarkers, function(index, currentMarker) {
         //console.log(availableMaps[key]);
         // add a marker to every map
