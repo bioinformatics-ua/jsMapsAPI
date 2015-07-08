@@ -130,6 +130,7 @@ function checkKeyPressed(e) {
     if (e.keyCode == "37") {
         // erase the previous map
         $('#' + mDiv).empty();
+        removeTooltip();
         // when the left button is clicked
         // return to the main map
         maps = new jvm.Map({
@@ -195,12 +196,17 @@ function checkKeyPressed(e) {
     }
 }
 
+function removeTooltip()
+{
+    // erase the previous map tooltip
+    $('.jvectormap-tip').remove();
+}
+
 function switchMap(newMap) {
     // this function gets called when a country on the world map is clicked
     // erase the previous map
     $('#' + mDiv).empty();
-    // erase the previous map tooltip
-    $('.jvectormap-tip').remove();
+    removeTooltip();
 
     var palette = ['#66C2A5', '#FC8D62', '#8DA0CB', '#E78AC3', '#A6D854'];
 
