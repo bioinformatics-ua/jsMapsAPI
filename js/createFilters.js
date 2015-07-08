@@ -167,20 +167,8 @@ var resetFiltersBox = function() {
 	var colors = generateColorsForTheCountries();
 	reloadMap(colors);
 
-	// add all the markers to the map
-	$.each(jsonMarkers, function(index, currentMarker) {
-		map.addMarker(index, {
-			latLng: [currentMarker.Latitude, currentMarker.Longitude],
-			name: currentMarker.desc,
-
-			// set the style for this marker
-			style: {
-				fill: 'green',
-				r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
-			}
-		});
-
-	});
+	filteredMarkers = jsonMarkers;
+	addMarkersToMap();
 };
 
 function createFiltersBoxWithEnumeration(jsonFilters) {

@@ -75,17 +75,16 @@ function filter(inputArgs) {
     reloadMap(finalCountries);
 
     // get the final markers
-    var finalMarkers = [];
+    filteredMarkers = [];
     if (markersByFilter.length > 0) {
-        finalMarkers = markersByFilter[0];
+        filteredMarkers = markersByFilter[0];
         for (var i = 0; i < markersByFilter.length - 1; i++) {
-            finalMarkers = getMarkersIntersection(finalMarkers, markersByFilter[i + 1]);
+            filteredMarkers = getMarkersIntersection(filteredMarkers, markersByFilter[i + 1]);
         }
     }
 
     // add markers to the map
-    addMarkersToMap(finalMarkers);
-
+    addMarkersToMap();
 }
 
 function getMarkersIntersection(markersGroup1, markersGroup2) {
