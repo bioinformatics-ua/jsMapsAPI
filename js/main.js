@@ -37,6 +37,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 
     // get the Count value for each Country
     auxColors = generateColorsForTheCountries();
+    console.log(auxColors);
 
     // get the tooltip templates
     // COUNTRY tooltip
@@ -208,19 +209,7 @@ function switchMap(newMap) {
     $('#' + mDiv).empty();
     removeTooltip();
 
-    var palette = ['#66C2A5', '#FC8D62', '#8DA0CB', '#E78AC3', '#A6D854'];
-
-    function generateColors() {
-        var colors = {},
-            key;
-        colors[maps.region]
-
-        for (key in maps.regions) {
-            colors[key] = palette[Math.floor(Math.random() * palette.length)];
-        }
-        return colors;
-    };
-    console.log(generateColors());
+    var regionColors = generateColorsForTheRegions(newMap);
 
     maps = new jvm.Map({
         map: newMap,
@@ -260,7 +249,7 @@ function switchMap(newMap) {
                 scale: [minColorMap, maxColorMap],
                 attribute: 'fill',
                 // the colors are 'stretched' to fill the scale
-                values: generateColors()
+                values: regionColors
             }]
         }
     });

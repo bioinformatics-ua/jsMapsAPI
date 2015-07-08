@@ -14,6 +14,26 @@ function readRegionsFromJSON(regions, country) {
     return regions;
 }
 
+function generateColorsForTheRegions(country){
+    var isoCode = country.split("_")[0].toUpperCase();
+    // find the country with that isoCode
+    var regionColors = [];
+    $.each(jsonCountries, function(index, currentCountry) {
+        if (currentCountry.Country == isoCode) {
+            // country was found, check if it has any region
+            if (currentCountry.Regions) {
+                var regions = currentCountry.Regions;
+                // get the regions of the country
+            	$.each(regions, function(index, currentRegion) {
+            		regionColors[currentRegion.name] = 100;
+            	});
+            }
+        }
+    });
+    console.log(regionColors);
+	return regionColors;
+}
+
 function addRegionsToMap(key) {
     // check if the highlighted country has any region
     var isoCode = key.split("_")[0].toUpperCase();
