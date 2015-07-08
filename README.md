@@ -1,7 +1,6 @@
 # jsMapsAPI
 
-Javascript API that makes use of [jvectormap](http://jvectormap.com/)  to create a map that display data related to countries and other places (markers). The user defines the data he wants to visualize in a certain format and it is displayed on the kind of map he chooses (wordl, Europe, USA, etc) with the possibility of adding custom tooltips to be shown when a country or marker is hovered.
-The locations can be filtered by any field previuosly specified by the user.
+Javascript API that makes use of [jvectormap](http://jvectormap.com/)  to create a map that displays data related to countries, their regions and other places (markers). The user defines the data he wants to visualize in a certain format and it is displayed on the kind of map he chooses (World, Europe, USA, etc) with the possibility of adding custom tooltips to be shown when a country, region or marker is hovered. Data can be filtered by any field specified by the user.
 
 ## How to use the API
 
@@ -57,10 +56,18 @@ When a country or a marker is hovered, you get a tooltip with some kind of infor
 ### Tooltip examples
 
 - country_tooltip.html (country's name and count will be displayed)
+
 ```html
 <div style="color:#bf2727;">
-    <h3>
-        name - count </h3>
+    <h3> name - count </h3>
+</div>
+```
+
+- region_tooltip.html (region's name)
+
+```html
+<div style="color:#bf2727;">
+    <h3> name </h3>
 </div>
 ```
 
@@ -91,8 +98,9 @@ You can filter the information shown on the map by using the **vector-map-filter
 - filter_type - type of filter. Supported values are _menu_ and _radio_
 
 Here is an example:
-
+```html
     <vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>
+```
 
 ### Multiple filters at the same time
 
@@ -102,15 +110,16 @@ Many filters can be applied on the map by using a custom _filters box_ that can 
 - filters - url of the json that contains information about the filters
 
 Here is an example:
-
+```html
     <filters-box id="filters-box" filters="json/filters.json"></filters-box>
-
+```
 
 ### Programmatic Filters
 
 You can programmatically filter the applied filters by invoking the _filter_ function. Here are some examples of its use:
-
+```javascript
     filter({"Year":'2005','Gender':'F'})
+```
 
 Enumeration and range can be combined, i.e., you can use _filter({"Year":'2005-2007','Gender':'F,M'})_. In case you want to cancel all the applied filters you just use _filter('ALL','')???_.
 
@@ -118,11 +127,13 @@ Enumeration and range can be combined, i.e., you can use _filter({"Year":'2005-2
 
 ## JSON files for input
 
-JSON files are used to feed information to the vector-map component. They need to follow a certain format that is specified in the /json section
+JSON files are used to feed information to the vector-map component. They need to follow a certain format that is specified in the **/json** section
 
 You can use JSON files from any external source. For that you jst need to apply the following function to the _map_ object:
 
-    vectorMap.registerTransformer(jsonLocation, countriesMappingJson, markersMappingJson)
+```javascript
+vectorMap.registerTransformer(jsonLocation, countriesMappingJson, markersMappingJson)
+```
 
 - jsonLocation - location of the external JSON file containing info about countries and/or markers
 - countriesMappingJson - JSON with the countries mapping
