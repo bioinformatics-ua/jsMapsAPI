@@ -21,8 +21,23 @@
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
 	<!--jsMapsApi API + maps-->
+	<!--
 	<script type="text/javascript" src="finalJs/jsMapsApi.min.js"></script>
+-->
+	<!--Load all the maps-->
 	<script type="text/javascript" src="finalJs/maps.js"></script>
+	<script type="text/javascript" src="./js/main.js"></script>
+	<script type="text/javascript" src="./js/countries.js"></script>
+	<script type="text/javascript" src="./js/createFilters.js"></script>
+	<script type="text/javascript" src="./js/filters-auxiliary.js"></script>
+	<script type="text/javascript" src="./js/filters.js"></script>
+	<script type="text/javascript" src="./js/json-mapping.js"></script>
+	<script type="text/javascript" src="./js/maps-auxiliary.js"></script>
+	<script type="text/javascript" src="./js/markers.js"></script>
+	<script type="text/javascript" src="./js/multiple-filters.js"></script>
+	<script type="text/javascript" src="./js/regions.js"></script>
+
+
 	<!--Polymer-->
 	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 	<!-- Import custom elements created with Polymer-->
@@ -31,9 +46,9 @@
 	<link rel="import" href="custom-elements/vector-map-multiple-filters.html">
 	<link rel="import" href="custom-elements/filter-box-enumeration.html">
 	<style media="screen">
-	head {
-		height: 100%;
-	}
+		head {
+			height: 100%;
+		}
 	</style>
 </head>
 
@@ -42,9 +57,7 @@
 		<div class="starter-template col-md-2" /> </div>
 	<div class="starter-template col-md-8">
 		<!--<vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>-->
-		<vector-map id="map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478"
-		min_radius=5 max_radius=15 markers='json/markers.json'
-		background_color="#666666"></vector-map>
+		<vector-map id="map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478" min_radius=5 max_radius=15 markers='json/countries.json' background_color="#666666"></vector-map>
 	</div>
 	<div class="starter-template col-md-2">
 		<filters-box-enumeration id="filters-box-enumeration" filters="json/filters.json"></filters-box-enumeration>
