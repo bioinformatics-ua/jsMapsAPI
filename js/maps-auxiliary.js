@@ -71,49 +71,8 @@ function reloadMap(colors) {
 
         // erase the map
         $("#" + mDiv).empty();
-
-        map = new jvm.Map({
-            map: mType,
-            backgroundColor: background,
-            container: $('#' + mDiv),
-            onMarkerTipShow: function(e, label, index) {
-                var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
-                label.html(finalTooltip);
-            },
-            onRegionTipShow: function(e, countryName, code) {
-                // code contains the code of the country (i.e., PT, ES, FR, etc)
-                // show the Count associated to that Country - look for the country
-                var selectedCountry = -1;
-                $.each(jsonCountries, function(index, currentCountry) {
-                    if (currentCountry.Country === code) {
-                        selectedCountry = currentCountry;
-                        return;
-                    }
-                });
-                if (selectedCountry != -1) {
-                    var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
-                    countryName.html(finalTooltip);
-                } else
-                    countryName.html(countryName.html());
-            },
-            series: {
-                markers: [{
-                    // change the scale to fit the current min and max values
-                    scale: [minColorMap, maxColorMap],
-                    values: [minCount, maxCount],
-                    legend: {
-                        vertical: true
-                    }
-                }],
-                regions: [{
-                    // min and max values of count
-                    scale: [minColorMap, maxColorMap],
-                    attribute: 'fill',
-                    // the colors are 'stretched' to fill the scale
-                    values: colors
-                }]
-            }
-        });
+        removeTooltip();
+        switchMap(mapType);
     }
 }
 
@@ -187,7 +146,6 @@ function switchMap(newMap) {
 
     // add the markers
     if (thereAreMarkers) {
-        console.log('there are markers');
         addMarkersToMap();
     }
 

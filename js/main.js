@@ -138,7 +138,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 };
 
 window.addEventListener("keydown", checkKeyPressed, false);
-
 function checkKeyPressed(e) {
     if (e.keyCode == "37") {
         // erase the previous map

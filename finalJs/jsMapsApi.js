@@ -152,7 +152,7 @@ function buildMarkerTooltip(jsonMarkers, index) {
     finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
     return finalTooltip;
 }
- 
+
 // redraw the map
 function reloadMap(colors) {
     // update min and max Count of the countries
@@ -832,7 +832,7 @@ VectorialMap.prototype.createSlider = function() {
     $('#slider').hide();
     $('#minSlider').hide();
     $('#maxSlider').hide();
-} 
+}
 
 function filterFromMenuSelected(selectedFilter, filterValue) {
 
