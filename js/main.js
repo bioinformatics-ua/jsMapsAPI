@@ -36,7 +36,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     }
 
     // get the Count value for each Country
-    var auxColors = generateColorsForTheCountries();
+    auxColors = generateColorsForTheCountries();
 
     // get the tooltip templates
     // COUNTRY tooltip
@@ -124,9 +124,79 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     this.createSlider();
 };
 
-function switchMap(newMap) {
-    var auxColors = generateColorsForTheCountries();
+window.addEventListener("keydown", checkKeyPressed, false);
+function checkKeyPressed(e) {
 
+    if (e.keyCode == "37") {
+        // erase the previous map
+        $('#' + mDiv).empty();
+
+        // when the left button is clicked
+        // return to the main map
+        maps = new jvm.Map({
+            container: $('#' + mDiv),
+            // configuration of the main map
+            // type of map (world, Europe, USA, etc)
+            map: mType,
+            backgroundColor: background,
+            // triggered when a marker is hovered
+            onRegionClick: function(e, code) {
+                // reload a new map
+                countryCode = code.toLowerCase();
+                // waitToAddMarkers(100);
+                var newMap = countryCode + '_mill_en';
+                console.log(newMap);
+                // swith to new map
+                switchMap(newMap);
+            },
+            onMarkerTipShow: function(e, label, index) {
+                // select what text to display when marker is hovered
+                var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+                label.html(finalTooltip);
+            },
+            // triggered when a region is hovered
+            onRegionTipShow: function(e, countryName, code) {
+                // code contains the code of the country (i.e., PT, ES, FR, etc)
+                // show the Count associated to that Country - look for the country
+                var selectedCountry = -1;
+                $.each(jsonCountries, function(index, currentCountry) {
+                    if (currentCountry.Country === code) {
+                        selectedCountry = currentCountry;
+                        return;
+                    }
+                });
+                if (selectedCountry != -1) {
+                    // find occurrence of several strings inside the template
+                    var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
+                    countryName.html(finalTooltip);
+                } else
+                    countryName.html(countryName.html());
+            },
+            series: {
+                markers: [{
+                    scale: [minColorMap, maxColorMap],
+                    // range of values associated with the Count
+                    values: [minCount, maxCount],
+                    // add a legend
+                    legend: {
+                        vertical: true
+                    }
+                }],
+                regions: [{
+                    // min and max values of count
+                    scale: [minColorMap, maxColorMap],
+                    attribute: 'fill',
+                    values: auxColors
+                }]
+            }
+        });
+
+        // add the markes to the map
+        addMarkersToMainMap(jsonMarkers);
+    }
+}
+
+function switchMap(newMap) {
     // erase the previous map
     $('#' + mDiv).empty();
 
@@ -277,7 +347,6 @@ function mapRange(value, low1, high1, low2, high2) {
 }
 
 function addMarkersToMainMap(jsonMarkers) {
-    console.log(jsonMarkers);
     $.each(jsonMarkers, function(index, currentMarker) {
         //console.log(availableMaps[key]);
         // add a marker to every map
