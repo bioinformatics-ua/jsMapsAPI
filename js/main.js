@@ -37,7 +37,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 
     // get the Count value for each Country
     auxColors = generateColorsForTheCountries();
-    console.log(auxColors);
 
     // get the tooltip templates
     // COUNTRY tooltip
