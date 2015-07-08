@@ -1,46 +1,94 @@
 # JSON
 
-## Map data
+## Countries
 
-JSON files for the map data must be on the following format:
+JSON files for the **Countries** must be on the following format:
 
+```json
+{
+"countries": [
     {
-    "countries": [
-        {
-            "Count": "31.00",
-            "perc75": "",
-            "Min": "",
-            "Gender": "T",
-            "Median": "",
-            "Max": "",
-            "Name2": "",
-            "Value2": "",
-            "Value1": "2004",
-            "Name1": "YEAR",
-            "Var": "Active patients",
-            "perc25": "",
-            "SD": "",
-            "Mean": "",
-            "Country": "PT"
-        },
-        {
-            "Count": "80.00",
-            "perc75": "",
-            "Min": "",
-            "Gender": "F",
-            "Median": "",
-            "Max": "",
-            "Name2": "",
-            "Value2": "",
-            "Value1": "2005",
-            "Name1": "YEAR",
-            "Var": "Active patients",
-            "perc25": "",
-            "SD": "",
-            "Mean": "",
-            "Country": "RU"
-        }
-    ],
+        "Count": "31.00",
+        "perc75": "",
+        "Min": "",
+        "Gender": "T",
+        "Median": "",
+        "Max": "",
+        "Name2": "",
+        "Value2": "",
+        "Value1": "2004",
+        "Name1": "YEAR",
+        "Var": "Active patients",
+        "perc25": "",
+        "SD": "",
+        "Mean": "",
+        "Country": "PT"
+    },
+    {
+        "Count": "80.00",
+        "perc75": "",
+        "Min": "",
+        "Gender": "F",
+        "Median": "",
+        "Max": "",
+        "Name2": "",
+        "Value2": "",
+        "Value1": "2005",
+        "Name1": "YEAR",
+        "Var": "Active patients",
+        "perc25": "",
+        "SD": "",
+        "Mean": "",
+        "Country": "RU"
+    }]
+}
+```
+
+### Regions
+
+If you want, you can specify information relative to **Regions** inside a certain country. Here's an example:
+
+```json
+{
+    "countries": [{
+        "Count": "31.00",
+        "Name2": "Gender",
+        "Value2": "T",
+        "Value1": "2004",
+        "Name1": "YEAR",
+        "Var": "Active patients",
+        "perc25": "",
+        "SD": "",
+        "Mean": "",
+        "Country": "PT"
+    }, {
+        "Count": "17.00",
+        "Name2": "Gender",
+        "Value2": "F",
+        "Value1": "2004",
+        "Name1": "YEAR",
+        "Var": "Active patients",
+        "perc25": "",
+        "SD": "",
+        "Mean": "",
+        "Country": "ES",
+        "Regions": [{
+            "name": "ES-SE"
+        }, {
+            "name": "ES-M"
+        }]
+    }]
+}
+```
+
+
+
+## Markers
+
+JSON files for the **Markers** must be in the following format:
+
+```json
+{
     "markers": [
         {
             "Count": "31.00",
@@ -82,6 +130,7 @@ JSON files for the map data must be on the following format:
         }
         ]
     }
+```
 
 The _countries_ field is mandatory while the _markers_ is not, i.e., you must specify data related to countries but it is not necessary to give any information related to specific locations (markers) on the map.
 
@@ -95,6 +144,7 @@ The _countries_ field is mandatory while the _markers_ is not, i.e., you must sp
 - Value2: value for the second field
 - Var
 - Country: country from where the data is related. Must be in the _two digit ISO_ code (https://countrycode.org/)
+
 
 ## Filters
 
