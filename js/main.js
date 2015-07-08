@@ -57,69 +57,64 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         async: false
     });
 
-    maps = new jvm.MultiMap({
+    maps = new jvm.Map({
         container: $('#' + mapDiv),
-        maxLevel: 1,
         // configuration of the main map
-        main: {
-            // type of map (world, Europe, USA, etc)
-            map: mType,
-            backgroundColor: background,
-            // id of its container
-            container: $('#' + mapDiv),
-            // triggered when a marker is hovered
-            onMarkerTipShow: function(e, label, index) {
-                // select what text to display when marker is hovered
-                var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
-                label.html(finalTooltip);
-            },
-            // triggered when a region is hovered
-            onRegionTipShow: function(e, countryName, code) {
-                // code contains the code of the country (i.e., PT, ES, FR, etc)
-                // show the Count associated to that Country - look for the country
-                var selectedCountry = -1;
-                $.each(jsonCountries, function(index, currentCountry) {
-                    if (currentCountry.Country === code) {
-                        selectedCountry = currentCountry;
-                        return;
-                    }
-                });
-                if (selectedCountry != -1) {
-                    // find occurrence of several strings inside the template
-                    var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
-                    countryName.html(finalTooltip);
-                } else
-                    countryName.html(countryName.html());
-            },
-            series: {
-                markers: [{
-                    scale: [minColorMap, maxColorMap],
-                    // range of values associated with the Count
-                    values: [minCount, maxCount],
-                    // add a legend
-                    legend: {
-                        vertical: true
-                    }
-                }],
-                regions: [{
-                    // min and max values of count
-                    scale: [minColorMap, maxColorMap],
-                    attribute: 'fill',
-                    values: auxColors
-                }]
-            }
-
+        // type of map (world, Europe, USA, etc)
+        map: mType,
+        backgroundColor: background,
+        // triggered when a marker is hovered
+        onRegionClick: function(e, code) {
+            // reload a new map
+            countryCode = code.toLowerCase();
+            // waitToAddMarkers(100);
+            var newMap = countryCode + '_mill_en';
+            console.log(newMap);
+            // swith to new map
+            switchMap(newMap);
         },
-        regionStyle: {
-            initial: {
-                fill: '#B8E186'
-            }
+        onMarkerTipShow: function(e, label, index) {
+            // select what text to display when marker is hovered
+            var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+            label.html(finalTooltip);
+        },
+        // triggered when a region is hovered
+        onRegionTipShow: function(e, countryName, code) {
+            // code contains the code of the country (i.e., PT, ES, FR, etc)
+            // show the Count associated to that Country - look for the country
+            var selectedCountry = -1;
+            $.each(jsonCountries, function(index, currentCountry) {
+                if (currentCountry.Country === code) {
+                    selectedCountry = currentCountry;
+                    return;
+                }
+            });
+            if (selectedCountry != -1) {
+                // find occurrence of several strings inside the template
+                var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
+                countryName.html(finalTooltip);
+            } else
+                countryName.html(countryName.html());
         },
         series: {
+            markers: [{
+                scale: [minColorMap, maxColorMap],
+                // range of values associated with the Count
+                values: [minCount, maxCount],
+                // add a legend
+                legend: {
+                    vertical: true
+                }
+            }],
             regions: [{
-                attribute: 'fill'
+                // min and max values of count
+                scale: [minColorMap, maxColorMap],
+                attribute: 'fill',
+                values: auxColors
             }]
-        },
+        }
+    });
+    /*
         mapUrlByCode: function(code, multiMap) {
             // access a new map by drilldown
             countryCode = code.toLowerCase();
@@ -127,7 +122,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
             var mapName = countryCode + '_' + multiMap.defaultProjection + '_en';
             return '/lib/jvectormap/maps/' + countryCode + '-' + multiMap.defaultProjection + '-en.js';
         }
-    });
+        */
 
     // draw markers on the map
     if (inputJSON.markers) {
@@ -137,6 +132,56 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     // generate the slider and set corresponding values and callbacks
     this.createSlider();
 };
+
+function switchMap(newMap) {
+    var auxColors = generateColorsForTheCountries();
+
+    // erase the previous map
+    $('#' + mDiv).empty();
+
+    jvmMapMain = new jvm.Map({
+        map: newMap,
+        backgroundColor: background,
+        container: $('#' + mDiv),
+        onMarkerTipShow: function(e, label, index) {
+            var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+            label.html(finalTooltip);
+        },
+        onRegionTipShow: function(e, countryName, code) {
+            // code contains the code of the country (i.e., PT, ES, FR, etc)
+            // show the Count associated to that Country - look for the country
+            var selectedCountry = -1;
+            $.each(jsonCountries, function(index, currentCountry) {
+                if (currentCountry.Country === code) {
+                    selectedCountry = currentCountry;
+                    return;
+                }
+            });
+            if (selectedCountry != -1) {
+                var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
+                countryName.html(finalTooltip);
+            } else
+                countryName.html(countryName.html());
+        },
+        series: {
+            markers: [{
+                // change the scale to fit the current min and max values
+                scale: [minColorMap, maxColorMap],
+                values: [minCount, maxCount],
+                legend: {
+                    vertical: true
+                }
+            }],
+            regions: [{
+                // min and max values of count
+                scale: [minColorMap, maxColorMap],
+                attribute: 'fill',
+                // the colors are 'stretched' to fill the scale
+                values: auxColors
+            }]
+        }
+    });
+}
 
 function addMarkersTooltip(currentMap) {
     var jvmMapMain = new jvm.Map({
