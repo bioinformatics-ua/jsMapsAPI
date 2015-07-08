@@ -61,6 +61,15 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         async: false
     });
 
+    // REGION tooltip
+    jQuery.ajax({
+        url: '../tooltip-templates/region_tooltip.html',
+        success: function(result) {
+            regionTooltip = result;
+        },
+        async: false
+    });
+
     map = new jvm.Map({
         container: $('#' + mapDiv),
         // configuration of the main map
@@ -213,6 +222,12 @@ function buildMarkerTooltip(jsonMarkers, index) {
     finalTooltip = finalTooltip.replace('description', jsonMarkers[index].desc);
     finalTooltip = finalTooltip.replace('latitude', jsonMarkers[index].Latitude);
     finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
+    return finalTooltip;
+}
+
+function buildRegionTooltip(region, index) {
+    var finalTooltip = regionTooltip;
+    finalTooltip = finalTooltip.replace('name', region.html());
     return finalTooltip;
 }
 
