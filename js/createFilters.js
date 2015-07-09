@@ -173,47 +173,51 @@ var resetFiltersBox = function() {
 
 function createFiltersBoxCheckboxes() {
 
-    // tabs are the values
-    // fill the tabs for the year filter
-    var currentFilter = jsonFiltersArray[1];
-    var tab = [];
-    $.each(currentFilter.Values, function(index, currentValue) {
-        tab.push({
-            'id': index+1,
-            'label' : currentValue,
-            'isChecked' : false
+    // get all the filters
+    $.each(jsonFiltersArray, function(index, currentFilter) {
+        var boxID = '#box' + (index + 1);
+        // append to the HTML
+        $('#filterBoxCheckboxes').append('<li id="box' + (index + 1) + '" class="dropdown-checkbox-example dropdown-checkbox dropdown"></li>');
+
+        // fill the tabs for the year filter
+        var tab = [];
+        $.each(currentFilter.Values, function(index, currentValue) {
+            tab.push({
+                'id': index + 1,
+                'label': currentValue,
+                'isChecked': false
+            });
         });
+
+        function p(wat) {
+            return '<p>' + JSON.stringify(wat) + '</p>';
+        }
+
+        function updateStatus() {
+            var $p = $('p.status').empty();
+            $p.append(p(widget.checked()));
+        }
+
+        // dropdown with checkboxes initialization
+        var name = currentFilter.Name.toLowerCase();
+		name = name.charAt(0).toUpperCase() + name.slice(1);
+        $(boxID).dropdownCheckbox({
+            data: tab,
+            autosearch: true,
+            hideHeader: false,
+            // show number of selected items
+            showNbSelected: false,
+            templateButton: '<a class="dropdown-checkbox-toggle" data-toggle="dropdown" href="#">' + name + '<span class="dropdown-checkbox-nbselected"></span><b class="caret"></b>'
+        });
+        widget = $(boxID).data('dropdownCheckbox');
+
+        $('body').on('change:dropdown-checkbox checked checked:all check:all uncheck:all check:checked uncheck:checked', updateStatus());
+        updateStatus();
     });
-
-    function p(wat) {
-        return '<p>' + JSON.stringify(wat) + '</p>';
-    }
-
-    function updateStatus() {
-        var $p = $('p.status').empty();
-        $p.append(p(widget.checked()));
-    }
-
-    // dropdown with checkboxes initialization
-    $('.dropdown-checkbox-example').dropdownCheckbox({
-        data: tab,
-        autosearch: true,
-        title: "My Dropdown Checkbox",
-        hideHeader: false,
-        // show number of selected items
-        showNbSelected: false,
-        templateButton: '<a class="dropdown-checkbox-toggle" data-toggle="dropdown" href="#">Example Dropdown <span class="dropdown-checkbox-nbselected"></span><b class="caret"></b>'
-    });
-
-    widget = $('.dropdown-checkbox-example').data('dropdownCheckbox');
-
-    $('body').on('change:dropdown-checkbox checked checked:all check:all uncheck:all check:checked uncheck:checked', updateStatus());
-    updateStatus();
 }
 
-function getSelectedItems()
-{
-    console.log($(".dropdown-checkbox-example").dropdownCheckbox("checked"));
+function getSelectedItems() {
+    console.log($("#box1").dropdownCheckbox("checked"));
 }
 
 function createFiltersBoxWithEnumeration(jsonFilters) {
