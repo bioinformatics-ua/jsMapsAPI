@@ -28,19 +28,27 @@
 		// name of the element
 		is: "filters-box-enumeration",
 		//Lifecycle callbacks
-		created: function () {
-			var jsonFilters = $('#' + this.id).attr('filters');
+		attached: function() {
+			var filtersBox = this;
+			var jsonFilters = this.filters;
+			var filterType = this.type;
 
 			// check if all the mandatory fields are present
-			if (!jsonFilters)
-			{
+			if (!jsonFilters) {
 				console.error('You must input a JSON with the filters');
 				return;
 			}
 
-			$.when($.getJSON(jsonFilters)).then(function (jsonFilters) {
+			$.when($.getJSON(jsonFilters)).then(function(jsonFilters) {
 				jsonFiltersArray = readFiltersFromJSON(jsonFilters);
-				createFiltersBoxWithEnumeration(jsonFiltersArray);
+				switch (filterType) {
+					case 'input':
+						createFiltersBoxWithEnumeration(jsonFiltersArray);
+						break;
+					case 'checkboxes':
+						createFiltersBoxCheckboxes();
+						break;
+				}
 			});
 		},
 		properties: {
@@ -48,6 +56,10 @@
 			filters: {
 				type: String,
 				value: ''
+			},
+			type: {
+				type: String,
+				value: 'input'
 			}
 		}
 	});
