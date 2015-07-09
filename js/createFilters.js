@@ -171,77 +171,19 @@ var resetFiltersBox = function() {
     addMarkersToMap();
 };
 
-function createFiltersBoxCheckboxes(){
-    function list(size, checked) {
-        var result = [];
-        for (var i = 0; i < size; i++) {
-            result.push({
-                id: i,
-                label: 'Item #' + i,
-                isChecked: checked === undefined ? !!(Math.round(Math.random() * 1)) : checked
-            });
-        }
-        return result;
-    }
-    var widget;
+function createFiltersBoxCheckboxes() {
 
-    var tab = [{
-        id: "1",
-        label: "Forever.",
-        isChecked: true
-    }, {
-        id: "2",
-        label: "I love cheese.",
-        isChecked: true
-    }, {
-        id: "3",
-        label: "Meat for all",
-        isChecked: false
-    }, {
-        id: "4",
-        label: "Again and again",
-        isChecked: true
-    }, {
-        id: "5",
-        label: "Hey bro!",
-        isChecked: true
-    }, {
-        id: "6",
-        label: "It's working?",
-        isChecked: false
-    }, {
-        id: "7",
-        label: "Horse",
-        isChecked: true
-    }, {
-        id: "8",
-        label: "z-index",
-        isChecked: true
-    }, {
-        id: "9",
-        label: "language scala",
-        isChecked: true
-    }, {
-        id: "10",
-        label: "Yahoo",
-        isChecked: true
-    }, {
-        id: "11",
-        label: "yellow",
-        isChecked: true
-    }, {
-        id: "12",
-        label: "Gooooooooooogle",
-        isChecked: true
-    }, {
-        id: "13",
-        label: "NO WAY!",
-        isChecked: false
-    }, {
-        id: "14",
-        label: "2 times?",
-        isChecked: true
-    }];
+    // tabs are the values
+    // fill the tabs for the year filter
+    var currentFilter = jsonFiltersArray[1];
+    var tab = [];
+    $.each(currentFilter.Values, function(index, currentValue) {
+        tab.push({
+            'id': index+1,
+            'label' : currentValue,
+            'isChecked' : false
+        });
+    });
 
     function p(wat) {
         return '<p>' + JSON.stringify(wat) + '</p>';
@@ -252,27 +194,26 @@ function createFiltersBoxCheckboxes(){
         $p.append(p(widget.checked()));
     }
 
+    // dropdown with checkboxes initialization
     $('.dropdown-checkbox-example').dropdownCheckbox({
         data: tab,
         autosearch: true,
         title: "My Dropdown Checkbox",
         hideHeader: false,
-        showNbSelected: true,
+        // show number of selected items
+        showNbSelected: false,
         templateButton: '<a class="dropdown-checkbox-toggle" data-toggle="dropdown" href="#">Example Dropdown <span class="dropdown-checkbox-nbselected"></span><b class="caret"></b>'
     });
 
-    $('.dropdown-checkbox-example').dropdownCheckbox("append", {
-        id: "15",
-        label: "added by itself",
-        isChecked: true
-    });
-
-
     widget = $('.dropdown-checkbox-example').data('dropdownCheckbox');
-    // alt = $('.alternate-behaviour').data('dropdownCheckbox');
 
     $('body').on('change:dropdown-checkbox checked checked:all check:all uncheck:all check:checked uncheck:checked', updateStatus());
-    updateStatus()
+    updateStatus();
+}
+
+function getSelectedItems()
+{
+    console.log($(".dropdown-checkbox-example").dropdownCheckbox("checked"));
 }
 
 function createFiltersBoxWithEnumeration(jsonFilters) {
