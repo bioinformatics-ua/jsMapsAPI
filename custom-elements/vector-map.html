@@ -57,10 +57,18 @@
 				backgroundColor = vMap.background_color;
 				// get the map type (world, europe, usa, etc)
 				mapType = vMap.map_type;
+				if(vMap.markers)
+				{
+					dataType = 'markers';
+				}
+				else if(vMap.countries)
+				{
+					dataType = 'countries';
+				}
 
 				// create a new VectorialMap
 				vectorMap = new VectorialMap();
-				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor, mapType, backgroundColor);
+				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor, mapType, backgroundColor, dataType);
 			});
 		},
 		properties: {
@@ -86,6 +94,10 @@
 				value: "#0071A4"
 			},
 			markers: {
+				type: String,
+				value: ''
+			},
+			countries: {
 				type: String,
 				value: ''
 			},
