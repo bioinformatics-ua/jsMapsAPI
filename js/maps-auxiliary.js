@@ -112,7 +112,7 @@ function switchMap(newMap) {
             // check if the selected region has any data inside that country
             var regionFound = false;
             var selectedRegion;
-            $.each(selectedCountry.Regions, function(index, currentRegion) {
+            $.each(map.regions, function(index, currentRegion) {
                 if (currentRegion.name == code) {
                     console.log('+');
                     selectedRegion = currentRegion;
