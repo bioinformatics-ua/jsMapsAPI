@@ -153,6 +153,11 @@ function createFiltersBox(jsonFilters) {
         });
 
     });
+
+    var textToAppend = '<div id="filters_box">'+
+    '<button id="filter_box_apply_filters" type="button" class="btn btn-primary">Filter</button>'+
+    '<button id="filter_box_reset_filters" type="button" class="btn btn-primary">Reset</button></div>';
+    $('filters-box-enumeration').append(textToAppend);
 }
 
 var resetFiltersBox = function() {
@@ -214,10 +219,50 @@ function createFiltersBoxCheckboxes() {
         $('body').on('change:dropdown-checkbox checked checked:all check:all uncheck:all check:checked uncheck:checked', updateStatus());
         updateStatus();
     });
+
+    // append filter and reset button
+
+    var textToAppend = '<div id="filters_box">'+
+    '<button id="filter_box_apply_filters" type="button" class="btn btn-primary">Filter</button>'+
+    '<button id="filter_box_reset_filters" type="button" class="btn btn-primary">Reset</button></div>';
+    $('#filterBoxCheckboxes').append(textToAppend);
+
+    // triggered when the search button is clicked
+    $("#filter_box_apply_filters").click(function() {
+        var jsonObject = {};
+        var numFilters = jsonFiltersArray.length;
+        var emptyFilters = 0;
+        for (var i = 0; i < jsonFiltersArray.length; i++) {
+            // current and next filter id's
+            var currentFilter = "#box" + (i+1);
+            // current filter values - selected items
+            var selectedItems = getSelectedItems(currentFilter);
+            var itemsArray = [];
+            var keys= Object.keys(selectedItems);
+            for (var j = 0; j < keys.length; j++){
+               itemsArray.push(selectedItems[keys[j]].label);
+            }
+            // check if we have any filtering to apply or not
+            if (keys.length>0) {
+                jsonObject[jsonFiltersArray[i].Name] = itemsArray.join();
+            } else {
+                emptyFilters++;
+            }
+        }
+        // avoid the user selecting the Filter button without inputing any data
+        if (emptyFilters != numFilters) {
+            filter(jsonObject);
+        }
+    });
+
+    // triggered when the reset button is clicked
+    $("#filter_box_reset_filters").click(function() {
+        resetFiltersBox();
+    });
 }
 
-function getSelectedItems() {
-    console.log($("#box1").dropdownCheckbox("checked"));
+function getSelectedItems(boxID) {
+    return $(boxID).dropdownCheckbox("checked");
 }
 
 function createFiltersBoxWithEnumeration(jsonFilters) {
