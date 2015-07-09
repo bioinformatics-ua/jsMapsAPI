@@ -22,13 +22,16 @@ var Country = function(countryObject, name, count) {
 			}
 		} while (hasName);
 
+		// try to read its regions in case he has any
+		if(countryObject.Regions)
+			this.Regions = readRegionsFromJSON(countryObject.Regions, countryObject.Country);
+
 		this.Country = countryObject.Country;
 		// + is used to assure that a Number is being read
 		this.Count = +countryObject.Count;
 		this.Var = countryObject.Var;
 		this.desc = 'abc';
 	}
-
 };
 
 function generateColorsForTheCountries(countries) {

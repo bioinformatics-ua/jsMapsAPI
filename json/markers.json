@@ -87,6 +87,28 @@
             "Country": "QA",
             "Latitude": 10,
             "Longitude": 23
+        },
+        {
+            "Count": "31.00",
+            "Name2": "Gender",
+            "Value2": "T",
+            "Value1": "2004",
+            "Name1": "YEAR",
+            "Var": "Active patients",
+            "Country": "PT",
+            "Latitude": 0,
+            "Longitude": 20
+        },
+        {
+            "Count": "31.00",
+            "Name2": "Gender",
+            "Value2": "T",
+            "Value1": "2004",
+            "Name1": "YEAR",
+            "Var": "Active patients",
+            "Country": "PT",
+            "Latitude": 40,
+            "Longitude": -80
         }
     ]
 }

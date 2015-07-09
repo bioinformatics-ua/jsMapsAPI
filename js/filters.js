@@ -30,6 +30,32 @@ function resetFilters() {
 	});
 }
 
+VectorialMap.prototype.createSlider = function() {
+
+    // jQueryUI slider
+    slider = $("#slider").slider();
+
+    // set max and min value for the slider
+    slider.slider("option", "min", minRadius);
+    slider.slider("option", "max", maxRadius);
+
+    // allow the user to select a range
+    slider.slider("option", "range", true);
+
+    // when user clicks the slider, it will animate to the clicked position
+    slider.slider("option", "animate", "slow");
+
+    // after selecting a new slider value
+    slider.on("slidechange", function(event, ui) {
+        sliderChanged();
+    });
+
+    // hide all the components until they are hidden
+    $('#slider').hide();
+    $('#minSlider').hide();
+    $('#maxSlider').hide();
+} 
+
 function filterFromMenuSelected(selectedFilter, filterValue) {
 
 	currentFilter = selectedFilter;
