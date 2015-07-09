@@ -1,6 +1,5 @@
 // redraw the map
 function reloadMap(colors) {
-
     // get the name of the current map
     if (map.params.map == mType) {
         console.log('main map');
