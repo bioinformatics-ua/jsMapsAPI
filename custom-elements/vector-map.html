@@ -39,7 +39,14 @@
 		attached: function() {
 			// attr containing the json file with the markers and countries
 			var vMap = this;
-			var jsonFile = this.markers;
+			if(this.markers)
+			{
+				var jsonFile = this.markers;
+			}
+			else {
+				var jsonFile = this.countries;
+			}
+			console.log(jsonFile);
 
 			// check if all the mandatory fields are present
 			if (!jsonFile)

@@ -25,7 +25,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     maxColorMap = maxColor;
 
     if (dataType=='countries') {
-        jsonCountries = readCountriesFromJSON(inputJSON.countries);
+        jsonCountries = readCountriesFromJSON(inputJSON);
     }
     else if(dataType=='markers') {
         thereAreMarkers = true;
