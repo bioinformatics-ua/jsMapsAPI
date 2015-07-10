@@ -285,17 +285,23 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
         toAppend += 'placeholder="' + placeholder + '" +>';
         toAppend += '</div>';
 
-        $('#filters_box_enumeration').prepend(toAppend);
+        $('filters-box-enumeration').append(toAppend);
 
         // add Bootstrap tooltip to the filters box
-        $('#filters_box_enumeration').tooltip({
+        $('#filters-box-enumeration').tooltip({
             title: "Use this filter box to filter by multiple filters",
             placement: "bottom"
         });
     });
 
+    // add the buttons
+    var textToAppend = '<div id="filters_box">'+
+    '<button id="filter_box_apply_filters" type="button" class="btn btn-primary">Filter</button>'+
+    '<button id="filter_box_reset_filters" type="button" class="btn btn-primary">Reset</button></div>';
+    $('#filterBoxCheckboxes').append(textToAppend);
+
     // triggered when the search button is clicked
-    $("#filters_box_enum_apply_filters").click(function() {
+    $("#filter_box_apply_filters").click(function() {
         var jsonObject = {};
         var numFilters = jsonFilters.length;
         var emptyFilters = 0;
@@ -318,7 +324,7 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
     });
 
     // triggered when the reset button is clicked
-    $("#filters_box_enum_reset_filters").click(function() {
+    $("#filter_box_reset_filters").click(function() {
         resetFiltersBox();
     });
 }

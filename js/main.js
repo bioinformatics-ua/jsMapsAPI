@@ -30,7 +30,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     else if(dataType=='markers') {
         thereAreMarkers = true;
         jsonMarkers = readMarkersFromJSON(inputJSON);
-        console.log(jsonMarkers);
         filteredMarkers = jsonMarkers;
         numMarkers = jsonMarkers.length;
     }
