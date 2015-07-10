@@ -2,7 +2,6 @@
 function reloadMap(colors) {
     // get the name of the current map
     if (map.params.map == mType) {
-        console.log('main map');
         // main map
         // update min and max Count of the countries
         if (jsonCountries.length > 0)
