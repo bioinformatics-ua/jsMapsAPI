@@ -44,7 +44,7 @@
 	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
 	<!-- Import custom elements created with Polymer-->
 	<link rel="import" href="custom-elements/vector-map.html">
-	<link rel="import" href="custom-elements/filter-box-enumeration.html">
+	<link rel="import" href="custom-elements/filter-box.html">
 	<!--Bootstrap Dropdown Checkbox-->
 	<link rel="stylesheet" href="./lib/bootstrap-dropdown-checkbox/bootstrap-dropdown-checkbox.css">
 
@@ -65,7 +65,7 @@
 		min_radius=5 max_radius=15 markers='./json/markers.json' background_color="#666666" ></vector-map>
 	</div>
 	<div class="starter-template col-md-2">
-		<filters-box-enumeration id="filters-box-enumeration" filters="json/filters.json" type="input"></filters-box-enumeration>
+		<filter-box id="filters-box-enumeration" filters="json/filters.json" type="checkboxes"></filters-box-enumeration>
 		<ul class="nav navbar-nav" id="filterBoxCheckboxes">
 		</ul>
 	</div>

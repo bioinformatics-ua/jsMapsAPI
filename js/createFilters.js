@@ -123,10 +123,10 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
         toAppend += 'placeholder="' + placeholder + '" +>';
         toAppend += '</div>';
 
-        $('filters-box-enumeration').append(toAppend);
+        $('filter-box').append(toAppend);
 
         // add Bootstrap tooltip to the filters box
-        $('#filters-box-enumeration').tooltip({
+        $('#filter-box').tooltip({
             title: "Use this filter box to filter by multiple filters",
             placement: "bottom"
         });
@@ -136,7 +136,7 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
     var textToAppend = '<div id="filters_box">'+
     '<button id="filter_box_apply_filters" type="button" class="btn btn-primary">Filter</button>'+
     '<button id="filter_box_reset_filters" type="button" class="btn btn-primary">Reset</button></div>';
-    $('#filterBoxCheckboxes').append(textToAppend);
+    $('filter-box').append(textToAppend);
 
     // triggered when the search button is clicked
     $("#filter_box_apply_filters").click(function() {
