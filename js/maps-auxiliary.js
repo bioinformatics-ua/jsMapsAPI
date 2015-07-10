@@ -1,9 +1,7 @@
 // redraw the map
 function reloadMap(colors) {
-
     // get the name of the current map
     if (map.params.map == mType) {
-        console.log('main map');
         // main map
         // update min and max Count of the countries
         if (jsonCountries.length > 0)
@@ -112,7 +110,7 @@ function switchMap(newMap) {
             // check if the selected region has any data inside that country
             var regionFound = false;
             var selectedRegion;
-            $.each(selectedCountry.Regions, function(index, currentRegion) {
+            $.each(map.regions, function(index, currentRegion) {
                 if (currentRegion.name == code) {
                     console.log('+');
                     selectedRegion = currentRegion;

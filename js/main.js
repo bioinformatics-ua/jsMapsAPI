@@ -11,7 +11,7 @@ var thereAreMarkers = false;
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType, backgroundColor) {
+VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType, backgroundColor, dataType) {
     background = backgroundColor;
     mType = mapType;
     // countries list
@@ -24,19 +24,18 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     minColorMap = minColor;
     maxColorMap = maxColor;
 
-    if (!inputJSON.countries && !inputJSON.markers) {
-        console.error();
-        ('You must give as input a list of markers or countries!');
-        return;
+    if (dataType=='countries') {
+        jsonCountries = readCountriesFromJSON(inputJSON);
     }
-    if (inputJSON.countries) {
-        jsonCountries = readCountriesFromJSON(inputJSON.countries);
-    }
-    if (inputJSON.markers) {
+    else if(dataType=='markers') {
         thereAreMarkers = true;
-        jsonMarkers = readMarkersFromJSON(inputJSON.markers);
+        jsonMarkers = readMarkersFromJSON(inputJSON);
         filteredMarkers = jsonMarkers;
         numMarkers = jsonMarkers.length;
+    }
+    else{
+        console.error('You must give as input a list of markers or countries!');
+        return;
     }
 
     // get the Count value for each Country
@@ -128,16 +127,18 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     });
 
     // draw markers on the map
-    if (inputJSON.markers) {
+    if (dataType == 'markers') {
         filteredMarkers = jsonMarkers;
         addMarkersToMap();
     }
 
     // generate the slider and set corresponding values and callbacks
-    this.createSlider();
+    // this.createSlider();
 };
 
+
 window.addEventListener("keydown", checkKeyPressed, false);
+
 function checkKeyPressed(e) {
     if (e.keyCode == "37") {
         // erase the previous map
