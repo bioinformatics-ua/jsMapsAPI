@@ -133,7 +133,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     }
 
     // generate the slider and set corresponding values and callbacks
-    this.createSlider();
+    // this.createSlider();
 };
 
 
