@@ -54,7 +54,7 @@ VectorialMap.prototype.createSlider = function() {
     $('#slider').hide();
     $('#minSlider').hide();
     $('#maxSlider').hide();
-} 
+}
 
 function filterFromMenuSelected(selectedFilter, filterValue) {
 
