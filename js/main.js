@@ -24,16 +24,14 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     minColorMap = minColor;
     maxColorMap = maxColor;
 
-    if (dataType=='countries') {
+    if (dataType == 'countries') {
         jsonCountries = readCountriesFromJSON(inputJSON);
-    }
-    else if(dataType=='markers') {
+    } else if (dataType == 'markers') {
         thereAreMarkers = true;
         jsonMarkers = readMarkersFromJSON(inputJSON);
         filteredMarkers = jsonMarkers;
         numMarkers = jsonMarkers.length;
-    }
-    else{
+    } else {
         console.error('You must give as input a list of markers or countries!');
         return;
     }
