@@ -51,7 +51,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 
     // MARKER tooltip
     jQuery.ajax({
-        url: '../tooltip-templates/marker_tooltip.html',
+        url: './tooltip-templates/marker_tooltip.html',
         success: function(result) {
             markerTooltip = result;
         },
@@ -60,7 +60,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 
     // REGION tooltip
     jQuery.ajax({
-        url: '../tooltip-templates/region_tooltip.html',
+        url: './tooltip-templates/region_tooltip.html',
         success: function(result) {
             regionTooltip = result;
         },
