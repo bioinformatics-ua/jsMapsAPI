@@ -16,11 +16,13 @@ var resetFiltersBox = function() {
 
 function createFiltersBoxCheckboxes() {
 
+    $('filter-box').append('<ul class="nav navbar-nav" id="filterBoxCheckboxes" style="border-style: solid; border-width: 2px;"></ul>');
+
     // get all the filters
     $.each(jsonFiltersArray, function(index, currentFilter) {
         var boxID = '#box' + (index + 1);
         // append to the HTML
-        $('#filterBoxCheckboxes').append('<li id="box' + (index + 1) + '" class="dropdown-checkbox-example dropdown-checkbox dropdown"></li>');
+        $('#filterBoxCheckboxes').append('<li class="col-sm-6" id="box' + (index + 1) + '" class="dropdown-checkbox-example dropdown-checkbox dropdown"></li>');
 
         // fill the tabs for the year filter
         var tab = [];
@@ -43,7 +45,7 @@ function createFiltersBoxCheckboxes() {
 
         // dropdown with checkboxes initialization
         var name = currentFilter.Name.toLowerCase();
-		name = name.charAt(0).toUpperCase() + name.slice(1);
+        name = name.charAt(0).toUpperCase() + name.slice(1);
         $(boxID).dropdownCheckbox({
             data: tab,
             autosearch: true,
@@ -60,9 +62,9 @@ function createFiltersBoxCheckboxes() {
 
     // append filter and reset button
 
-    var textToAppend = '<div id="filters_box">'+
-    '<button id="filter_box_apply_filters" type="button" class="btn btn-primary">Filter</button>'+
-    '<button id="filter_box_reset_filters" type="button" class="btn btn-primary">Reset</button></div>';
+    var textToAppend = '<div id="filters_box" class="row col-sm-12">' +
+        '<button id="filter_box_apply_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Filter</button>' +
+        '<button id="filter_box_reset_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Reset</button></div>';
     $('#filterBoxCheckboxes').append(textToAppend);
 
     // triggered when the search button is clicked
@@ -72,16 +74,16 @@ function createFiltersBoxCheckboxes() {
         var emptyFilters = 0;
         for (var i = 0; i < jsonFiltersArray.length; i++) {
             // current and next filter id's
-            var currentFilter = "#box" + (i+1);
+            var currentFilter = "#box" + (i + 1);
             // current filter values - selected items
             var selectedItems = getSelectedItems(currentFilter);
             var itemsArray = [];
-            var keys= Object.keys(selectedItems);
-            for (var j = 0; j < keys.length; j++){
-               itemsArray.push(selectedItems[keys[j]].label);
+            var keys = Object.keys(selectedItems);
+            for (var j = 0; j < keys.length; j++) {
+                itemsArray.push(selectedItems[keys[j]].label);
             }
             // check if we have any filtering to apply or not
-            if (keys.length>0) {
+            if (keys.length > 0) {
                 jsonObject[jsonFiltersArray[i].Name] = itemsArray.join();
             } else {
                 emptyFilters++;
@@ -133,9 +135,9 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
     });
 
     // add the buttons
-    var textToAppend = '<div id="filters_box">'+
-    '<button id="filter_box_apply_filters" type="button" class="btn btn-primary">Filter</button>'+
-    '<button id="filter_box_reset_filters" type="button" class="btn btn-primary">Reset</button></div>';
+    var textToAppend = '<div id="filters_box">' +
+        '<button id="filter_box_apply_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Filter</button>' +
+        '<button id="filter_box_reset_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Reset</button></div>';
     $('filter-box').append(textToAppend);
 
     // triggered when the search button is clicked
