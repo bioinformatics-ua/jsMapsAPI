@@ -63,8 +63,8 @@ function createFiltersBoxCheckboxes() {
     // append filter and reset button
 
     var textToAppend = '<div id="filters_box" class="row col-sm-12">' +
-        '<button id="filter_box_apply_filters" type="button" class="btn btn-primary col-sm-6">Filter</button>' +
-        '<button id="filter_box_reset_filters" type="button" class="btn btn-primary col-sm-6">Reset</button></div>';
+        '<button id="filter_box_apply_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Filter</button>' +
+        '<button id="filter_box_reset_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Reset</button></div>';
     $('#filterBoxCheckboxes').append(textToAppend);
 
     // triggered when the search button is clicked
@@ -136,8 +136,8 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 
     // add the buttons
     var textToAppend = '<div id="filters_box">' +
-        '<button id="filter_box_apply_filters" type="button" class="btn btn-primary">Filter</button>' +
-        '<button id="filter_box_reset_filters" type="button" class="btn btn-primary">Reset</button></div>';
+        '<button id="filter_box_apply_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Filter</button>' +
+        '<button id="filter_box_reset_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Reset</button></div>';
     $('filter-box').append(textToAppend);
 
     // triggered when the search button is clicked
