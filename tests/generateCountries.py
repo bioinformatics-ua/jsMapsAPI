@@ -4,7 +4,6 @@ from random import randint, choice, uniform, random, sample
 # read the number of markers to add from the input arguments
 numMarkers = sys.argv[1]
 
-
 cr = csv.reader(open("./iso-codes.csv","rb"))
 countries={}
 i = 0
@@ -29,5 +28,5 @@ for i in range(int(numMarkers)):
 	jsonObject['Longitude'] = uniform(-180, 180)
 	jsonArray.append(jsonObject)
 
-with open('data.json', 'w') as outfile:
+with open('test-countries.json', 'w') as outfile:
     json.dump(jsonArray, outfile)
