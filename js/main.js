@@ -42,7 +42,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     // get the tooltip templates
     // COUNTRY tooltip
     jQuery.ajax({
-        url: '../tooltip-templates/country_tooltip.html',
+        url: './tooltip-templates/country_tooltip.html',
         success: function(result) {
             countryTooltip = result;
         },
