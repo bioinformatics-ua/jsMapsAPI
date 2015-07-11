@@ -11,7 +11,7 @@ var uglify = require('gulp-uglify');
 gulp.task('jsFiles', function() {
   gulp.src(['./js/main.js','./js/*.js'])
     .pipe(concat('jsMapsApi.js'))
-    .pipe(stripDebug())
+    //.pipe(stripDebug())
     .pipe(uglify())
     .pipe(gulp.dest('./finalJs'));
 });
