@@ -1,31 +1,30 @@
 import sys, json, csv
 from random import randint, choice, uniform, random, sample
 
-# read the number of markers to add from the input arguments
-numMarkers = sys.argv[1]
+# read the number of countries to add from the input arguments
+numCountries = sys.argv[1]
 
 cr = csv.reader(open("./iso-codes.csv","rb"))
-countries={}
+countries=[]
 i = 0
 for row in cr:
 	v, k = row
-	countries[i] = v
-	i = i +1
+	countries.append(v)
 
 # create a JSON object
 jsonArray = []
 
-for i in range(int(numMarkers)):
-	# create a new marker
+for i in range(int(numCountries)):
+	# create a new country
 	jsonObject = {}
 	jsonObject['Count'] = randint(1000,2000)
 	jsonObject['Name1'] = 'YEAR'
 	jsonObject['Value1'] = randint(1980,2015)
 	jsonObject['Name2'] = 'Gender'
 	jsonObject['Value2'] = sample(['F','M','T'], 1)
-	jsonObject['Country'] = choice(countries)
-	jsonObject['Latitude'] = uniform(-90, 90)
-	jsonObject['Longitude'] = uniform(-180, 180)
+	selectedCountry = choice(countries)
+	countries.remove(selectedCountry)
+	jsonObject['Country'] = selectedCountry
 	jsonArray.append(jsonObject)
 
 with open('test-countries.json', 'w') as outfile:
