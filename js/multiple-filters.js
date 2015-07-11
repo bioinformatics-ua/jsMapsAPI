@@ -100,7 +100,6 @@ function getMarkersIntersection(markersGroup1, markersGroup2) {
                 markers.push(marker1)
         });
     });
-
     return markers;
 }
 
@@ -119,9 +118,6 @@ function getCountriesIntersection(countriesGroup1, countriesGroup2) {
 }
 
 function applyMultipleFiltersProgramattically(filtersToApply) {
-
-    console.log('Filters to apply: ' + filtersToApply);
-
     var keys = Object.keys(filtersToApply)
     var numFiltersToApply = keys.length;
     var countriesHaveFilter = [];

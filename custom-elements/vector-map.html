@@ -3,11 +3,6 @@
 <dom-module id="vector-map">
 	<style>
 		/* CSS rules for the custom element */
-		#my_map {
-			position: absolute;
-			height: 600px;
-			width: 100%;
-		}
 		head {
 			height: 100%;
 		}
@@ -26,9 +21,6 @@
 
 		#slider {}
 	</style>
-	<template>
-		<div class="col-md-12" id="my_map"></div>
-	</template>
 </dom-module>
 <script>
 	// element registration
@@ -39,7 +31,10 @@
 		attached: function() {
 			// attr containing the json file with the markers and countries
 			var vMap = this;
-			var jsonFile = this.markers;
+			var jsonFile = this.countries;
+			if(this.markers)
+				jsonFile = this.markers;
+
 
 			// check if all the mandatory fields are present
 			if (!jsonFile)
@@ -57,10 +52,18 @@
 				backgroundColor = vMap.background_color;
 				// get the map type (world, europe, usa, etc)
 				mapType = vMap.map_type;
+				if(vMap.markers)
+				{
+					dataType = 'markers';
+				}
+				else if(vMap.countries)
+				{
+					dataType = 'countries';
+				}
 
 				// create a new VectorialMap
 				vectorMap = new VectorialMap();
-				vectorMap.createMap(jsonFile, minRadius, maxRadius, 'my_map', minColor, maxColor, mapType, backgroundColor);
+				vectorMap.createMap(jsonFile, minRadius, maxRadius, vMap.id, minColor, maxColor, mapType, backgroundColor, dataType);
 			});
 		},
 		properties: {
@@ -86,6 +89,10 @@
 				value: "#0071A4"
 			},
 			markers: {
+				type: String,
+				value: ''
+			},
+			countries: {
 				type: String,
 				value: ''
 			},

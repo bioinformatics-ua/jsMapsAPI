@@ -7,39 +7,22 @@ JSON files for the **Countries** must be on the following format:
 ```json
 {
 "countries": [
-    {
-        "Count": "31.00",
-        "perc75": "",
-        "Min": "",
-        "Gender": "T",
-        "Median": "",
-        "Max": "",
-        "Name2": "",
-        "Value2": "",
+    , {
+        "Count": "14.00",
+        "Name2": "Gender",
+        "Value2": "M",
         "Value1": "2004",
         "Name1": "YEAR",
         "Var": "Active patients",
-        "perc25": "",
-        "SD": "",
-        "Mean": "",
-        "Country": "PT"
-    },
-    {
-        "Count": "80.00",
-        "perc75": "",
-        "Min": "",
-        "Gender": "F",
-        "Median": "",
-        "Max": "",
-        "Name2": "",
-        "Value2": "",
+        "Country": "FR"
+    }, {
+        "Count": "153.00",
+        "Name2": "Gender",
+        "Value2": "T",
         "Value1": "2005",
         "Name1": "YEAR",
         "Var": "Active patients",
-        "perc25": "",
-        "SD": "",
-        "Mean": "",
-        "Country": "RU"
+        "Country": "PY"
     }]
 }
 ```
@@ -57,9 +40,6 @@ If you want, you can specify information relative to **Regions** inside a certai
         "Value1": "2004",
         "Name1": "YEAR",
         "Var": "Active patients",
-        "perc25": "",
-        "SD": "",
-        "Mean": "",
         "Country": "PT"
     }, {
         "Count": "17.00",
@@ -68,9 +48,6 @@ If you want, you can specify information relative to **Regions** inside a certai
         "Value1": "2004",
         "Name1": "YEAR",
         "Var": "Active patients",
-        "perc25": "",
-        "SD": "",
-        "Mean": "",
         "Country": "ES",
         "Regions": [{
             "name": "ES-SE"
@@ -92,43 +69,26 @@ JSON files for the **Markers** must be in the following format:
     "markers": [
         {
             "Count": "31.00",
-            "perc75": "",
-            "Min": "",
-            "Gender": "T",
-            "Median": "",
-            "Max": "",
-            "Name2": "",
-            "Value2": "",
+            "Name2": "Gender",
+            "Value2": "T",
             "Value1": "2004",
             "Name1": "YEAR",
             "Var": "Active patients",
-            "perc25": "",
-            "SD": "",
-            "Mean": "",
             "Country": "PT",
-            "Latitude": 40,
+            "Latitude": 80,
             "Longitude": 21
         },
         {
             "Count": "17.00",
-            "perc75": "",
-            "Min": "",
-            "Gender": "F",
-            "Median": "",
-            "Max": "",
-            "Name2": "",
-            "Value2": "",
+            "Name2": "Gender",
+            "Value2": "F",
             "Value1": "2004",
             "Name1": "YEAR",
             "Var": "Active patients",
-            "perc25": "",
-            "SD": "",
-            "Mean": "",
             "Country": "ES",
-            "Latitude": 10,
+            "Latitude": 90,
             "Longitude": 34
-        }
-        ]
+        }]
     }
 ```
 
@@ -149,7 +109,7 @@ The _countries_ field is mandatory while the _markers_ is not, i.e., you must sp
 ## Filters
 
 JSON files for the map filters must be on the following format:
-
+```json
     {
         "values": [{
             "comparable": false,
@@ -202,9 +162,10 @@ JSON files for the map filters must be on the following format:
                 2012,
                 2013
             ]
-        }]
-    }
-
+        }
+    ]
+}
+```
 
 
 
