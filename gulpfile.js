@@ -11,10 +11,10 @@ var sourcemaps = require('gulp-sourcemaps');
 // JS concat, minify and generate sourcemaps
 gulp.task('jsFiles', function() {
     gulp.src(['./js/main.js', './js/*.js'])
-        .pipe(sourcemaps.init()) // Process the original sources
+        .pipe(sourcemaps.init()) // Process the original sources 
         .pipe(concat('jsMapsApi.js'))
         .pipe(uglify())
-        .pipe(sourcemaps.write()) // Add the map to modified source.
+        .pipe(sourcemaps.write()) // Add the map to modified source
         .pipe(gulp.dest('./finalJs'));
 });
 
