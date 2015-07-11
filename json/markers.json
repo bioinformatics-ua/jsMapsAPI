@@ -1,0 +1,101 @@
+[{
+    "Count": "31.00",
+    "Name2": "Gender",
+    "Value2": "T",
+    "Value1": "2004",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "PT",
+    "Latitude": 80,
+    "Longitude": 21
+}, {
+    "Count": "17.00",
+    "Name2": "Gender",
+    "Value2": "F",
+    "Value1": "2004",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "ES",
+    "Latitude": 90,
+    "Longitude": 34
+}, {
+    "Count": "14.00",
+    "Name2": "Gender",
+    "Value2": "M",
+    "Value1": "2004",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "FR",
+    "Latitude": 8,
+    "Longitude": -10
+}, {
+    "Count": "153.00",
+    "Name2": "Gender",
+    "Value2": "T",
+    "Value1": "2005",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "PY",
+    "Latitude": 40,
+    "Longitude": 25
+}, {
+    "Count": "80.00",
+    "Name2": "Gender",
+    "Value2": "F",
+    "Value1": "2005",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "RU",
+    "Latitude": -20,
+    "Longitude": 21
+}, {
+    "Count": "73.00",
+    "Name2": "Gender",
+    "Value2": "M",
+    "Value1": "2005",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "IT",
+    "Latitude": 80,
+    "Longitude": -40
+}, {
+    "Count": "322.00",
+    "Name2": "Gender",
+    "Value2": "T",
+    "Value1": "2006",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "IS",
+    "Latitude": 80,
+    "Longitude": 45
+}, {
+    "Count": "154.00",
+    "Name2": "Gender",
+    "Value2": "F",
+    "Value1": "2006",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "QA",
+    "Latitude": 10,
+    "Longitude": 23
+}, {
+    "Count": "31.00",
+    "Name2": "Gender",
+    "Value2": "T",
+    "Value1": "2004",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "PT",
+    "Latitude": 0,
+    "Longitude": 20
+}, {
+    "Count": "31.00",
+    "Name2": "Gender",
+    "Value2": "T",
+    "Value1": "2004",
+    "Name1": "YEAR",
+    "Var": "Active patients",
+    "Country": "PT",
+    "Latitude": 40,
+    "Longitude": -80
+}]

@@ -1,0 +1,52 @@
+<link href="../bower_components/polymer/polymer.html" rel="import">
+<!--id - name of the custom component-->
+<dom-module id="filter-box">
+	<style>
+	</style>
+	<template>
+		<h3>Filters</h3>
+
+	</template>
+</dom-module>
+<script type="text/javascript">
+	// element registration
+	Polymer({
+		// name of the element
+		is: "filter-box",
+		//Lifecycle callbacks
+		attached: function() {
+			var filtersBox = this;
+			var jsonFilters = this.filters;
+			var filterType = this.type;
+
+			// check if all the mandatory fields are present
+			if (!jsonFilters) {
+				console.error('You must input a JSON with the filters');
+				return;
+			}
+
+			$.when($.getJSON(jsonFilters)).then(function(jsonFilters) {
+				jsonFiltersArray = readFiltersFromJSON(jsonFilters);
+				switch (filterType) {
+					case 'input':
+						createFiltersBoxWithEnumeration(jsonFiltersArray);
+						break;
+					case 'checkboxes':
+						createFiltersBoxCheckboxes();
+						break;
+				}
+			});
+		},
+		properties: {
+			// declare properties for the element's public API
+			filters: {
+				type: String,
+				value: ''
+			},
+			type: {
+				type: String,
+				value: 'input'
+			}
+		}
+	});
+</script>
