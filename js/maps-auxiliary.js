@@ -244,10 +244,9 @@ function switchMap(newMap) {
 }
 
 function addMarkersToMap() {
+    var markersJSONArray = [];
     $.each(filteredMarkers, function(index, currentMarker) {
-        //console.log(availableMaps[key]);
-        // add a marker to every map
-        map.addMarker(index, {
+        var currentMarkerJSON = {
             latLng: [currentMarker.Latitude, currentMarker.Longitude],
             name: currentMarker.desc,
             // set the style for this marker
@@ -255,6 +254,8 @@ function addMarkersToMap() {
                 fill: 'green',
                 r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
             }
-        });
+        };
+        markersJSONArray.push(currentMarkerJSON);
     });
+    map.addMarkers(markersJSONArray);
 }

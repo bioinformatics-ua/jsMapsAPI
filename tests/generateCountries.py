@@ -2,7 +2,7 @@ import sys, json, csv
 from random import randint, choice, uniform, random, sample
 
 # read the number of countries to add from the input arguments
-numCountries = sys.argv[1]
+numCountries = int(sys.argv[1])
 
 cr = csv.reader(open("./iso-codes.csv","rb"))
 countries=[]
@@ -14,7 +14,11 @@ for row in cr:
 # create a JSON object
 jsonArray = []
 
-for i in range(int(numCountries)):
+if(numCountries > len(countries)):
+	print 'Max number of countries is ',len(countries)
+	sys.exit()
+
+for i in range(numCountries):
 	# create a new country
 	jsonObject = {}
 	jsonObject['Count'] = randint(1000,2000)
