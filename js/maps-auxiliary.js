@@ -7,6 +7,31 @@ function reloadMap(colors) {
         if (jsonCountries.length > 0)
             readMinMax(colors);
 
+        var legendVar = {
+            vertical: true,
+            //title: 'Countries',
+        };
+
+
+        var markersWithLegend = {
+            scale: [minColorMap, maxColorMap],
+            // range of values associated with the Count
+            values: [minCount, maxCount],
+            // add a legend
+            legend: legendVar
+        };
+
+        var markersWithoutLegend = {
+            scale: [minColorMap, maxColorMap],
+            // range of values associated with the Count
+            values: [minCount, maxCount]
+        };
+
+        finalMarkersInMap = markersWithLegend;
+        if (dataType == 'markers') {
+            finalMarkersInMap = markersWithoutLegend;
+        }
+
         // erase the map
         $("#" + mDiv).empty();
 
@@ -43,14 +68,7 @@ function reloadMap(colors) {
                     countryName.html(countryName.html());
             },
             series: {
-                markers: [{
-                    // change the scale to fit the current min and max values
-                    scale: [minColorMap, maxColorMap],
-                    values: [minCount, maxCount],
-                    legend: {
-                        vertical: true
-                    }
-                }],
+                markers: [finalMarkersInMap],
                 regions: [{
                     // min and max values of count
                     scale: [minColorMap, maxColorMap],
@@ -97,12 +115,12 @@ function switchMap(newMap) {
         },
         onRegionTipShow: function(e, regionName, code) {
             var currentMap = newMap.split('_')[0].toUpperCase()
-            // code contains the code of the region (i.e., PT-1, ES-M, etc)
-            // show the Count associated to that Region - look for the Region
+                // code contains the code of the region (i.e., PT-1, ES-M, etc)
+                // show the Count associated to that Region - look for the Region
             var selectedCountry = -1;
             // find the corresponding country
             $.each(jsonCountries, function(index, currentCountry) {
-                if (currentCountry.Country ==currentMap) {
+                if (currentCountry.Country == currentMap) {
                     selectedCountry = currentCountry;
                     return;
                 }

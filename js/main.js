@@ -67,6 +67,32 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         async: false
     });
 
+    var legendVar = {
+        vertical: true,
+        //title: 'Countries',
+    };
+
+    var markersWithLegend = {
+        scale: [minColorMap, maxColorMap],
+        // range of values associated with the Count
+        values: [minCount, maxCount],
+        // add a legend
+        legend: legendVar
+    };
+
+    var markersWithoutLegend = {
+        scale: [minColorMap, maxColorMap],
+        // range of values associated with the Count
+        values: [minCount, maxCount]
+    };
+
+    finalMarkersInMap = markersWithLegend;
+    if(dataType=='markers')
+    {
+        finalMarkersInMap = markersWithoutLegend;
+    }
+
+
     map = new jvm.Map({
         container: $('#' + mapDiv),
         // configuration of the main map
@@ -106,15 +132,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
                 countryName.html(countryName.html());
         },
         series: {
-            markers: [{
-                scale: [minColorMap, maxColorMap],
-                // range of values associated with the Count
-                values: [minCount, maxCount],
-                // add a legend
-                legend: {
-                    vertical: true
-                }
-            }],
+            markers: [finalMarkersInMap],
             regions: [{
                 // min and max values of count
                 scale: [minColorMap, maxColorMap],
@@ -129,14 +147,9 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         filteredMarkers = jsonMarkers;
         addMarkersToMap();
     }
-
-    // generate the slider and set corresponding values and callbacks
-    // this.createSlider();
 };
 
-
 window.addEventListener("keydown", checkKeyPressed, false);
-
 function checkKeyPressed(e) {
     if (e.keyCode == "37") {
         // erase the previous map
