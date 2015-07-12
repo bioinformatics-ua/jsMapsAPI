@@ -1,94 +1,34 @@
 [{
-    "Count": "31.00",
-    "Name2": "Gender",
-    "Value2": "T",
-    "Value1": "2004",
-    "Name1": "YEAR",
-    "Var": "Active patients",
-    "perc25": "",
-    "SD": "",
-    "Mean": "",
-    "Country": "PT"
+    "count": "31.00",
+    "country": "PT",
+    "attributes": {
+        "gender": "T",
+        "year": "2004"
+    }
 }, {
-    "Count": "17.00",
-    "Name2": "Gender",
-    "Value2": "F",
-    "Value1": "2004",
-    "Name1": "YEAR",
-    "Var": "Active patients",
-    "perc25": "",
-    "SD": "",
-    "Mean": "",
-    "Country": "ES",
+    "count": "17.00",
+    "attributes": {
+        "gender": "M",
+        "year": "2004"
+    },
+    "country": "ES",
     "Regions": [{
         "name": "ES-SE"
     }, {
         "name": "ES-M"
     }]
 }, {
-    "Count": "14.00",
-    "Name2": "Gender",
-    "Value2": "M",
-    "Value1": "2004",
-    "Name1": "YEAR",
-    "Var": "Active patients",
-    "perc25": "",
-    "SD": "",
-    "Mean": "",
-    "Country": "FR"
+    "count": "14.00",
+    "attributes": {
+        "gender": "F",
+        "year": "2004"
+    },
+    "country": "FR"
 }, {
-    "Count": "153.00",
-    "Name2": "Gender",
-    "Value2": "T",
-    "Value1": "2005",
-    "Name1": "YEAR",
-    "Var": "Active patients",
-    "perc25": "",
-    "SD": "",
-    "Mean": "",
-    "Country": "PY"
-}, {
-    "Count": "80.00",
-    "Name2": "Gender",
-    "Value2": "F",
-    "Value1": "2005",
-    "Name1": "YEAR",
-    "Var": "Active patients",
-    "perc25": "",
-    "SD": "",
-    "Mean": "",
-    "Country": "RU"
-}, {
-    "Count": "73.00",
-    "Name2": "Gender",
-    "Value2": "M",
-    "Value1": "2005",
-    "Name1": "YEAR",
-    "Var": "Active patients",
-    "perc25": "",
-    "SD": "",
-    "Mean": "",
-    "Country": "IT"
-}, {
-    "Count": "322.00",
-    "Name2": "Gender",
-    "Value2": "T",
-    "Value1": "2006",
-    "Name1": "YEAR",
-    "Var": "Active patients",
-    "perc25": "",
-    "SD": "",
-    "Mean": "",
-    "Country": "IS"
-}, {
-    "Count": "154.00",
-    "Name2": "Gender",
-    "Value2": "F",
-    "Name1": "YEAR",
-    "Value1": "2006",
-    "Var": "Active patients",
-    "perc25": "",
-    "SD": "",
-    "Mean": "",
-    "Country": "QA"
+    "count": "153.00",
+    "attributes": {
+        "gender": "G",
+        "year": "2004"
+    },
+    "country": "PY"
 }]

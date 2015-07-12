@@ -7,7 +7,7 @@ var Marker = function (markerObject, name, count, latitude, longitude) {
 		this.Var = '';
 		this.Latitude = latitude;
 		this.Longitude = longitude;
-		// TODO - add escription to a Marker from the JSON file
+		// TODO - add description to a Marker from the JSON file
 		this.desc = 'abc';
 	}
 	else {

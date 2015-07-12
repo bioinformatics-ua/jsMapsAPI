@@ -38,6 +38,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 
     // get the Count value for each Country
     auxColors = generateColorsForTheCountries();
+    console.log(auxColors);
 
     // get the tooltip templates
     // COUNTRY tooltip
@@ -85,19 +86,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         scale: [minColorMap, maxColorMap],
         // range of values associated with the Count
         values: [minCount, maxCount]
-    };
-
-    var images = [];
-    for(var i=0; i < jsonMarkers.length; i++)
-        images[i] = 'red';
-
-    var markersIcons = {
-        attribute: 'image',
-        scale: {
-            'red': '../img/red-icon.png',
-            'blue': '../img/red-icon.png'
-        },
-        values: images
     };
 
     finalMarkersInMap = markersWithLegend;

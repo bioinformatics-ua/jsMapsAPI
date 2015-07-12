@@ -8,19 +8,12 @@ var Country = function(countryObject, name, count) {
 		this.desc = 'abc';
 	} else {
 		// read from the JSON
-		var hasName = true;
-		var i = 0;
-		do {
-			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
-			if(countryObject[currentNameToCheck] === undefined) {
-				hasName = false;
-			} else {
-				this[currentNameToCheck] = countryObject[currentNameToCheck];
-				this[currentValue] = countryObject[currentValue];
-			}
-		} while (hasName);
+		// add attributes
+		var attributes = countryObject["attributes"];
+		var country = this;
+		$.each(Object.keys(attributes), function(index, attr) {
+			country[attr] = attributes[attr];
+		});
 
 		// try to read its regions in case he has any
 		if(countryObject.Regions)
@@ -28,8 +21,7 @@ var Country = function(countryObject, name, count) {
 
 		this.country = countryObject.country;
 		// + is used to assure that a Number is being read
-		this.Count = +countryObject.Count;
-		this.Var = countryObject.Var;
+		this.count = +countryObject.count;
 		this.desc = 'abc';
 	}
 };
@@ -39,7 +31,7 @@ function generateColorsForTheCountries(countries) {
 		countries = jsonCountries;
 	var countryColors = [];
 	$.each(countries, function(index, currentCountry) {
-		countryColors[currentCountry.country] = currentCountry.Count;
+		countryColors[currentCountry.country] = currentCountry.count;
 	});
 	return countryColors;
 };
