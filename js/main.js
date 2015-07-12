@@ -38,7 +38,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 
     // get the Count value for each Country
     auxColors = generateColorsForTheCountries();
-    console.log(auxColors);
 
     // get the tooltip templates
     // COUNTRY tooltip
@@ -120,7 +119,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
             // show the Count associated to that Country - look for the country
             var selectedCountry = -1;
             $.each(jsonCountries, function(index, currentCountry) {
-                if (currentCountry.country === code) {
+                if (currentCountry.name === code) {
                     selectedCountry = currentCountry;
                     return;
                 }
@@ -149,27 +148,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         addMarkersToMap();
     }
 };
-
-function buildCountryTooltip(countryName, selectedCountry) {
-    var finalTooltip = countryTooltip;
-    finalTooltip = finalTooltip.replace('name', countryName.html());
-    finalTooltip = finalTooltip.replace('count', selectedCountry.Count);
-    return finalTooltip;
-}
-
-function buildMarkerTooltip(jsonMarkers, index) {
-    var finalTooltip = markerTooltip;
-    finalTooltip = finalTooltip.replace('description', jsonMarkers[index].desc);
-    finalTooltip = finalTooltip.replace('latitude', jsonMarkers[index].Latitude);
-    finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
-    return finalTooltip;
-}
-
-function buildRegionTooltip(region) {
-    var finalTooltip = regionTooltip;
-    finalTooltip = finalTooltip.replace('name', region.name);
-    return finalTooltip;
-}
 
 // Auxiliary function to transpose a value from an initial range to another range
 function mapRange(value, low1, high1, low2, high2) {

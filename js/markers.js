@@ -65,3 +65,11 @@ function addMarkersToMap() {
     });
     map.addMarkers(markersJSONArray);
 }
+
+function buildMarkerTooltip(jsonMarkers, index) {
+    var finalTooltip = markerTooltip;
+    finalTooltip = finalTooltip.replace('description', jsonMarkers[index].desc);
+    finalTooltip = finalTooltip.replace('latitude', jsonMarkers[index].Latitude);
+    finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
+    return finalTooltip;
+}

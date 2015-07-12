@@ -33,6 +33,13 @@ function generateColorsForTheRegions(country){
 	return regionColors;
 }
 
+
+function buildRegionTooltip(region) {
+    var finalTooltip = regionTooltip;
+    finalTooltip = finalTooltip.replace('name', region.name);
+    return finalTooltip;
+}
+
 function addRegionsToMap(key) {
     // check if the highlighted country has any region
     var isoCode = key.split("_")[0].toUpperCase();

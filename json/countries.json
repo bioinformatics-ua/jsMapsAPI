@@ -1,6 +1,6 @@
 [{
     "count": "31.00",
-    "country": "PT",
+    "name": "PT",
     "attributes": {
         "gender": "T",
         "year": "2004"
@@ -11,7 +11,7 @@
         "gender": "M",
         "year": "2004"
     },
-    "country": "ES",
+    "name": "ES",
     "Regions": [{
         "name": "ES-SE"
     }, {
@@ -23,12 +23,12 @@
         "gender": "F",
         "year": "2004"
     },
-    "country": "FR"
+    "name": "FR"
 }, {
     "count": "153.00",
     "attributes": {
         "gender": "G",
         "year": "2004"
     },
-    "country": "PY"
+    "name": "PY"
 }]
