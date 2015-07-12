@@ -81,25 +81,25 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     };
 
     var markersWithoutLegend = {
+        attribute: 'image',
         scale: [minColorMap, maxColorMap],
         // range of values associated with the Count
         values: [minCount, maxCount]
     };
 
     var images = [];
-    for(var i=0; i < jsonMarkers ; i++)
+    for(var i=0; i < jsonMarkers.length; i++)
         images[i] = 'red';
 
     var markersIcons = {
         attribute: 'image',
         scale: {
-            'red': './img/red-icon.png',
-            'blue': './img/red-icon.png'
+            'red': '../img/red-icon.png',
+            'blue': '../img/red-icon.png'
         },
         values: images
     };
 
-    console.log(markersIcons);
     finalMarkersInMap = markersWithLegend;
     if (dataType == 'markers') {
         finalMarkersInMap = markersWithoutLegend;

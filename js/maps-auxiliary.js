@@ -132,7 +132,6 @@ function switchMap(newMap) {
             var selectedRegion;
             $.each(map.regions, function(index, currentRegion) {
                 if (currentRegion.name == code) {
-                    console.log('+');
                     selectedRegion = currentRegion;
                     regionFound = true;
                     return;
@@ -252,8 +251,9 @@ function addMarkersToMap() {
             name: currentMarker.desc,
             // set the style for this marker
             style: {
-                fill: 'green',
-                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius)
+                fill: 'red',
+                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius),
+                image: '../img/blue-icon.png'
             }
         };
         markersJSONArray.push(currentMarkerJSON);
