@@ -87,8 +87,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     };
 
     finalMarkersInMap = markersWithLegend;
-    if(dataType=='markers')
-    {
+    if (dataType == 'markers') {
         finalMarkersInMap = markersWithoutLegend;
     }
 
