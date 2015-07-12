@@ -1,7 +1,7 @@
 var Country = function(countryObject, name, count) {
 	if(countryObject == '') {
 		// read from the input parameters
-		this.Country = name;
+		this.country = name;
 		// + is used to assure that a Number is being read
 		this.Count = +count;
 		this.Var = 0;
@@ -24,9 +24,9 @@ var Country = function(countryObject, name, count) {
 
 		// try to read its regions in case he has any
 		if(countryObject.Regions)
-			this.Regions = readRegionsFromJSON(countryObject.Regions, countryObject.Country);
+			this.Regions = readRegionsFromJSON(countryObject.Regions, countryObject.country);
 
-		this.Country = countryObject.Country;
+		this.country = countryObject.country;
 		// + is used to assure that a Number is being read
 		this.Count = +countryObject.Count;
 		this.Var = countryObject.Var;
@@ -39,7 +39,7 @@ function generateColorsForTheCountries(countries) {
 		countries = jsonCountries;
 	var countryColors = [];
 	$.each(countries, function(index, currentCountry) {
-		countryColors[currentCountry.Country] = currentCountry.Count;
+		countryColors[currentCountry.country] = currentCountry.Count;
 	});
 	return countryColors;
 };
@@ -69,7 +69,7 @@ function findCountryByName(countryName)
 {
 	var returnCountry = null;
 	$.each(jsonCountries, function(index, currentCountry) {
-		if(currentCountry.Country == countryName)
+		if(currentCountry.country == countryName)
 		{
 			returnCountry = currentCountry;
 			return returnCountry;

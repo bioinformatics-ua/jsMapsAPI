@@ -56,7 +56,7 @@ function reloadMap(colors) {
                 // show the Count associated to that Country - look for the country
                 var selectedCountry = -1;
                 $.each(jsonCountries, function(index, currentCountry) {
-                    if (currentCountry.Country === code) {
+                    if (currentCountry.country === code) {
                         selectedCountry = currentCountry;
                         return;
                     }
@@ -115,14 +115,13 @@ function switchMap(newMap) {
             label.html(finalTooltip);
         },
         onRegionTipShow: function(e, regionName, code) {
-            console.log(code);
             var currentMap = newMap.split('_')[0].toUpperCase()
                 // code contains the code of the region (i.e., PT-1, ES-M, etc)
                 // show the Count associated to that Region - look for the Region
             var selectedCountry = -1;
             // find the corresponding country
             $.each(jsonCountries, function(index, currentCountry) {
-                if (currentCountry.Country == currentMap) {
+                if (currentCountry.country == currentMap) {
                     selectedCountry = currentCountry;
                     return;
                 }
@@ -167,6 +166,8 @@ function switchMap(newMap) {
         // erase the previous map
         $('#' + mDiv).empty();
         removeTooltip();
+
+
         // when the left button is clicked
         // return to the main map
         map = new jvm.Map({
@@ -195,7 +196,7 @@ function switchMap(newMap) {
                 // show the Count associated to that Country - look for the country
                 var selectedCountry = -1;
                 $.each(jsonCountries, function(index, currentCountry) {
-                    if (currentCountry.Country === code) {
+                    if (currentCountry.country === code) {
                         selectedCountry = currentCountry;
                         return;
                     }
@@ -226,6 +227,8 @@ function switchMap(newMap) {
             }
         });
 
+
+
         // add the markes to the map
         if (thereAreMarkers) {
             addMarkersToMap();
@@ -241,22 +244,4 @@ function switchMap(newMap) {
         // check if the selected map has any region to highlight
         // addRegionsToMap(newMap)
     }
-}
-
-function addMarkersToMap() {
-    var markersJSONArray = [];
-    $.each(filteredMarkers, function(index, currentMarker) {
-        var currentMarkerJSON = {
-            latLng: [currentMarker.Latitude, currentMarker.Longitude],
-            name: currentMarker.desc,
-            // set the style for this marker
-            style: {
-                fill: 'red',
-                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius),
-                image: '../img/'+currentMarker.icon+'-icon.png'
-            }
-        };
-        markersJSONArray.push(currentMarkerJSON);
-    });
-    map.addMarkers(markersJSONArray);
 }

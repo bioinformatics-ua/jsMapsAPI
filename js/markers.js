@@ -2,7 +2,7 @@
 var Marker = function (markerObject,name, count, latitude, longitude) {
 	if(markerObject == '')
 	{
-		this.Country = name;
+		this.country = name;
 		this.Count = +count;
 		this.Var = '';
 		this.Latitude = latitude;
@@ -26,7 +26,7 @@ var Marker = function (markerObject,name, count, latitude, longitude) {
 			}
 		} while (hasName)
 
-		this.Country = markerObject.country;
+		this.country = markerObject.country;
 		this.Count = +markerObject.count;
 		this.Latitude = markerObject.latitude;
 		this.Longitude = markerObject.longitude;
@@ -54,4 +54,22 @@ function readMarkersFromJSON(jsonMarkers) {
 			minCount = currentCountValue;
 	});
 	return markers;
+}
+
+function addMarkersToMap() {
+    var markersJSONArray = [];
+    $.each(filteredMarkers, function(index, currentMarker) {
+        var currentMarkerJSON = {
+            latLng: [currentMarker.Latitude, currentMarker.Longitude],
+            name: currentMarker.desc,
+            // set the style for this marker
+            style: {
+                fill: 'red',
+                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius),
+                image: '../img/'+currentMarker.icon+'.png'
+            }
+        };
+        markersJSONArray.push(currentMarkerJSON);
+    });
+    map.addMarkers(markersJSONArray);
 }

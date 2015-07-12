@@ -69,7 +69,7 @@ function checkWhatCountriesToAdd(selectedFilter, filterValue) {
 					countryValueToCheck = currentValue;
 					// check by value
 					if(currentCountry[currentValue] == filterValue)
-						countries[currentCountry.Country] = currentCountry.Count;
+						countries[currentCountry.country] = currentCountry.Count;
 				}
 			} else
 				break;
@@ -89,11 +89,9 @@ function checkWhatMarkersToAdd(selectedFilter, filterValue) {
 			i++;
 			var currentNameToCheck = 'name' + i;
 			var currentValue = 'value' + i;
-			console.log(currentNameToCheck);
-			console.log(currentMarker);
 			// check if the Country has that name
 			if(currentMarker[currentNameToCheck]) {
-				if(currentMarker[currentNameToCheck] == selectedFilter.Name) {
+				if(currentMarker[currentNameToCheck].toLowerCase() == selectedFilter.Name.toLowerCase()) {
 					if(currentMarker[currentValue] == filterValue)
 						markers.push(currentMarker);
 				}

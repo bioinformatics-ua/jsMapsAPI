@@ -140,7 +140,7 @@ function sliderChanged() {
 	$.each(jsonCountries, function(index, currentCountry) {
 		var filterValueForCountry = +currentCountry[countryValueToCheck];
 		if(filterValueForCountry >= min && filterValueForCountry <= max)
-			countries[currentCountry.Country] = currentCountry.Count;
+			countries[currentCountry.country] = currentCountry.Count;
 	});
 
 	// draw the countries on the map

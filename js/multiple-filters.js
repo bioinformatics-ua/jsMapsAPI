@@ -93,9 +93,9 @@ function getMarkersIntersection(markersGroup1, markersGroup2) {
     // markers that belong to the two groups
     $.each(markersGroup1, function(index, marker1) {
         // check if this marker name is inside the second group
-        var marker1Country = marker1.Country;
+        var marker1Country = marker1.country;
         $.each(markersGroup2, function(index, marker2) {
-            var marker2Country = marker2.Country;
+            var marker2Country = marker2.country;
             if (marker1Country == marker2Country)
                 markers.push(marker1)
         });
@@ -159,7 +159,7 @@ function applyMultipleFiltersProgramattically(filtersToApply) {
     // colour only the countris whose countriesHaveFilter[index] == numberFilters
     $.each(jsonCountries, function(countryIndex, currentCountry) {
         if (countriesHaveFilter[countryIndex] == numFiltersToApply)
-            colors[currentCountry.Country] = currentCountry.Count;
+            colors[currentCountry.country] = currentCountry.Count;
     });
     reloadMap(colors);
 
@@ -251,7 +251,7 @@ function applyMultipleFilters(selectedMultipleFilters, jsonFilters) {
     // colour only the countris whose countriesHaveFilter[index] == numberFilters
     $.each(jsonCountries, function(countryIndex, currentCountry) {
         if (countriesHaveFilter[countryIndex] == numFiltersToApply)
-            colors[currentCountry.Country] = currentCountry.Count;
+            colors[currentCountry.country] = currentCountry.Count;
     });
 
     // colour the countries

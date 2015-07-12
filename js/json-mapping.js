@@ -37,7 +37,7 @@ function jsonMapCountries(json, countriesMappingJson) {
 		$.each(json, function(index, currentJSON) {
 			var jsonCountry = '{';
 			// get the name of the country
-			var name = currentJSON[jsonMapping.Country];
+			var name = currentJSON[jsonMapping.country];
 			// the country name must be on the two-digit format
 			// get the count - WHAT IS THE COUNT?
 			var count = 0;
@@ -62,7 +62,7 @@ function jsonMapMarkers(json, markersMappingJson) {
 		// iterate through every 'marker'
 		$.each(json, function(index, currentJSON) {
 			// get the name of the country
-			var name = currentJSON[jsonMapping.Country];
+			var name = currentJSON[jsonMapping.country];
 			// the country name must be on the two-digit format
 			// get the count - WHAT IS THE COUNT?
 			var count = 0;

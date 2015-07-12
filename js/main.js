@@ -132,7 +132,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
             // show the Count associated to that Country - look for the country
             var selectedCountry = -1;
             $.each(jsonCountries, function(index, currentCountry) {
-                if (currentCountry.Country === code) {
+                if (currentCountry.country === code) {
                     selectedCountry = currentCountry;
                     return;
                 }
