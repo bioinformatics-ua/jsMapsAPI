@@ -1,101 +1,31 @@
 [{
-    "count": "31.00",
-    "name2": "Gender",
-    "value2": "T",
-    "value1": "2004",
-    "name1": "YEAR",
-    "country": "PT",
-    "latitude": 80,
-    "longitude": 21,
-    "icon": "red"
-}, {
-    "count": "17.00",
-    "name2": "Gender",
-    "value2": "F",
-    "value1": "2004",
-    "name1": "YEAR",
-    "country": "ES",
-    "latitude": 90,
-    "longitude": 34,
-    "icon": "red"
-}, {
-    "count": "14.00",
-    "name2": "Gender",
-    "value2": "M",
-    "value1": "2004",
-    "name1": "YEAR",
-    "country": "FR",
-    "latitude": 8,
-    "longitude": -10,
-    "icon": "red"
-}, {
     "count": "153.00",
-    "name2": "Gender",
-    "value2": "T",
-    "value1": "2005",
-    "name1": "YEAR",
+    "attributes": {
+        "gender" : "T",
+        "year" : "2005"
+    },
     "country": "PY",
     "latitude": 40,
     "longitude": 25,
     "icon": "red"
 }, {
     "count": "80.00",
-    "name2": "Gender",
-    "value2": "F",
-    "value1": "2005",
-    "name1": "YEAR",
+    "attributes": {
+        "gender" : "M",
+        "year" : "2005"
+    },
     "country": "RU",
     "latitude": -20,
     "longitude": 21,
     "icon": "blue"
 }, {
     "count": "73.00",
-    "name2": "Gender",
-    "value2": "M",
-    "value1": "2005",
-    "name1": "YEAR",
+    "attributes": {
+        "gender" : "F",
+        "year" : "2005"
+    },
     "country": "IT",
     "latitude": 80,
     "longitude": -40,
     "icon": "blue"
-}, {
-    "count": "322.00",
-    "name2": "Gender",
-    "value2": "T",
-    "value1": "2006",
-    "name1": "YEAR",
-    "country": "IS",
-    "latitude": 80,
-    "longitude": 45,
-    "icon": "blue"
-}, {
-    "count": "154.00",
-    "name2": "Gender",
-    "value2": "F",
-    "value1": "2006",
-    "name1": "YEAR",
-    "country": "QA",
-    "latitude": 10,
-    "longitude": 23,
-    "icon": "blue"
-}, {
-    "count": "31.00",
-    "name2": "Gender",
-    "value2": "T",
-    "value1": "2004",
-    "name1": "YEAR",
-    "country": "PT",
-    "latitude": 0,
-    "longitude": 20,
-    "icon": "green"
-}, {
-    "count": "31.00",
-    "name2": "Gender",
-    "value2": "T",
-    "value1": "2004",
-    "name1": "YEAR",
-    "country": "PT",
-    "latitude": 40,
-    "longitude": -80,
-    "icon": "green"
 }]

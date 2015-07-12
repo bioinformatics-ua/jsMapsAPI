@@ -1,5 +1,5 @@
 // Marker definition
-var Marker = function (markerObject,name, count, latitude, longitude) {
+var Marker = function (markerObject, name, count, latitude, longitude) {
 	if(markerObject == '')
 	{
 		this.country = name;
@@ -11,20 +11,12 @@ var Marker = function (markerObject,name, count, latitude, longitude) {
 		this.desc = 'abc';
 	}
 	else {
-		// try to read all the names and values
-		var hasName = true;
-		var i = 0;
-		do {
-			i++;
-			var currentNameToCheck = 'name' + i;
-			var currentValue = 'value' + i;
-			if(!markerObject[currentNameToCheck]) {
-				hasName = false;
-			} else {
-				this[currentNameToCheck] = markerObject[currentNameToCheck];
-				this[currentValue] = markerObject[currentValue];
-			}
-		} while (hasName)
+		// add attributes
+		var attributes = markerObject["attributes"];
+		var marker = this;
+		$.each(Object.keys(attributes), function(index, attr) {
+			marker[attr] = attributes[attr];
+		});
 
 		this.country = markerObject.country;
 		this.Count = +markerObject.count;
