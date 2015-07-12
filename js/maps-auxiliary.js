@@ -115,6 +115,7 @@ function switchMap(newMap) {
             label.html(finalTooltip);
         },
         onRegionTipShow: function(e, regionName, code) {
+            console.log(code);
             var currentMap = newMap.split('_')[0].toUpperCase()
                 // code contains the code of the region (i.e., PT-1, ES-M, etc)
                 // show the Count associated to that Region - look for the Region

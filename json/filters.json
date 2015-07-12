@@ -1,29 +1,13 @@
 {
     "values": [{
-        "comparable": false,
-        "comparable_values": null,
-        "key": null,
         "name": "Gender",
-        "show": true,
-        "translation": {
-            "ALL": "Male/Female",
-            "F": "Female ",
-            "M": "Male"
-        },
-        "value": "Gender",
         "values": [
             "F",
             "M",
             "T"
         ]
     }, {
-        "comparable": false,
-        "comparable_values": null,
-        "key": "Name1",
-        "name": "YEAR",
-        "show": true,
-        "translation": null,
-        "value": "Value1",
+        "name": "Year",
         "values": [
             1990,
             1991,

@@ -1,7 +1,6 @@
 // create a new FIlter object
-var Filter = function(Name, Value, Values) {
+var Filter = function(Name, Values) {
 	this.Name = Name;
-	this.Value = Value;
 	this.Values = Values;
 };
 
@@ -188,12 +187,11 @@ function readFiltersFromJSON(inputFilters) {
 		currentFilter = inputFilters.values[i];
 		// fields
 		var name = currentFilter.name;
-		var value = currentFilter.value;
 		var values = [];
 
 		for(var j = 0; j < currentFilter.values.length; j++)
 			values.push(currentFilter.values[j]);
-		filters[i] = new Filter(name, value, values);
+		filters[i] = new Filter(name, values);
 	}
 	numFilters = filters.length;
 	return filters;
