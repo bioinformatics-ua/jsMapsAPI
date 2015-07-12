@@ -61,8 +61,8 @@ function checkWhatCountriesToAdd(selectedFilter, filterValue) {
 		var i = 0;
 		do {
 			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
+			var currentNameToCheck = 'name' + i;
+			var currentValue = 'value' + i;
 			// check if the Country has that name
 			if(currentCountry[currentNameToCheck]) {
 				if(currentCountry[currentValue] == filterValue) {
@@ -87,8 +87,10 @@ function checkWhatMarkersToAdd(selectedFilter, filterValue) {
 		var i = 0;
 		do {
 			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
+			var currentNameToCheck = 'name' + i;
+			var currentValue = 'value' + i;
+			console.log(currentNameToCheck);
+			console.log(currentMarker);
 			// check if the Country has that name
 			if(currentMarker[currentNameToCheck]) {
 				if(currentMarker[currentNameToCheck] == selectedFilter.Name) {

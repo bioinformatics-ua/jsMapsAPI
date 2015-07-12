@@ -16,8 +16,8 @@ var Marker = function (markerObject,name, count, latitude, longitude) {
 		var i = 0;
 		do {
 			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
+			var currentNameToCheck = 'name' + i;
+			var currentValue = 'value' + i;
 			if(!markerObject[currentNameToCheck]) {
 				hasName = false;
 			} else {
@@ -26,11 +26,11 @@ var Marker = function (markerObject,name, count, latitude, longitude) {
 			}
 		} while (hasName)
 
-		this.Country = markerObject.Country;
-		this.Count = +markerObject.Count;
-		this.Var = markerObject.Var;
-		this.Latitude = markerObject.Latitude;
-		this.Longitude = markerObject.Longitude;
+		this.Country = markerObject.country;
+		this.Count = +markerObject.count;
+		this.Latitude = markerObject.latitude;
+		this.Longitude = markerObject.longitude;
+		this.icon = markerObject.icon;
 		// TODO - add escription to a Marker from the JSON file
 		this.desc = 'abc';
 	}

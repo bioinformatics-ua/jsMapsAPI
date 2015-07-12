@@ -253,7 +253,7 @@ function addMarkersToMap() {
             style: {
                 fill: 'red',
                 r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius),
-                image: '../img/blue-icon.png'
+                image: '../img/'+currentMarker.icon+'-icon.png'
             }
         };
         markersJSONArray.push(currentMarkerJSON);
