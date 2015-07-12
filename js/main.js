@@ -110,7 +110,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         },
         onMarkerTipShow: function(e, label, index) {
             // select what text to display when marker is hovered
-            var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+            var finalTooltip = buildMarkerTooltip(jsonMarkers, jsonMarkers[index]);
             label.html(finalTooltip);
         },
         // triggered when a region is hovered

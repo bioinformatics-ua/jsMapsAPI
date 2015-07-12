@@ -19,9 +19,9 @@ var Marker = function (markerObject, name, count, latitude, longitude) {
 		});
 
 		this.country = markerObject.country;
-		this.Count = +markerObject.count;
-		this.Latitude = markerObject.latitude;
-		this.Longitude = markerObject.longitude;
+		this.count = +markerObject.count;
+		this.latitude = markerObject.latitude;
+		this.longitude = markerObject.longitude;
 		this.icon = markerObject.icon;
 		// TODO - add escription to a Marker from the JSON file
 		this.desc = 'abc';
@@ -52,12 +52,12 @@ function addMarkersToMap() {
     var markersJSONArray = [];
     $.each(filteredMarkers, function(index, currentMarker) {
         var currentMarkerJSON = {
-            latLng: [currentMarker.Latitude, currentMarker.Longitude],
+            latLng: [currentMarker.latitude, currentMarker.longitude],
             name: currentMarker.desc,
             // set the style for this marker
             style: {
                 fill: 'red',
-                r: mapRange(currentMarker.Count, minCount, maxCount, minRadius, maxRadius),
+                r: mapRange(currentMarker.count, minCount, maxCount, minRadius, maxRadius),
                 image: '../img/'+currentMarker.icon+'.png'
             }
         };
@@ -66,10 +66,10 @@ function addMarkersToMap() {
     map.addMarkers(markersJSONArray);
 }
 
-function buildMarkerTooltip(jsonMarkers, index) {
+function buildMarkerTooltip(jsonMarkers, marker) {
     var finalTooltip = markerTooltip;
-    finalTooltip = finalTooltip.replace('description', jsonMarkers[index].desc);
-    finalTooltip = finalTooltip.replace('latitude', jsonMarkers[index].Latitude);
-    finalTooltip = finalTooltip.replace('longitude', jsonMarkers[index].Longitude);
+	$.each(Object.keys(marker), function(index, attr) {
+        finalTooltip = finalTooltip.replace(attr, marker[attr]);
+	});
     return finalTooltip;
 }

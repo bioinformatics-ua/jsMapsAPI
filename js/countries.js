@@ -28,11 +28,9 @@ var Country = function(countryObject, name, count) {
 
 function buildCountryTooltip(countryName, country) {
     var finalTooltip = countryTooltip;
-    // get all the attributes from the country
     $.each(Object.keys(country), function(index, attr) {
         finalTooltip = finalTooltip.replace(attr, country[attr]);
 	});
-
     return finalTooltip;
 }
 
