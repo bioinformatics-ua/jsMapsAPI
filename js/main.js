@@ -86,6 +86,20 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         values: [minCount, maxCount]
     };
 
+    var images = [];
+    for(var i=0; i < jsonMarkers ; i++)
+        images[i] = 'red';
+
+    var markersIcons = {
+        attribute: 'image',
+        scale: {
+            'red': './img/red-icon.png',
+            'blue': './img/red-icon.png'
+        },
+        values: images
+    };
+
+    console.log(markersIcons);
     finalMarkersInMap = markersWithLegend;
     if (dataType == 'markers') {
         finalMarkersInMap = markersWithoutLegend;
