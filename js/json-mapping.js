@@ -37,7 +37,7 @@ function jsonMapCountries(json, countriesMappingJson) {
 		$.each(json, function(index, currentJSON) {
 			var jsonCountry = '{';
 			// get the name of the country
-			var name = currentJSON[jsonMapping.Country];
+			var name = currentJSON[jsonMapping.country];
 			// the country name must be on the two-digit format
 			// get the count - WHAT IS THE COUNT?
 			var count = 0;
@@ -62,7 +62,7 @@ function jsonMapMarkers(json, markersMappingJson) {
 		// iterate through every 'marker'
 		$.each(json, function(index, currentJSON) {
 			// get the name of the country
-			var name = currentJSON[jsonMapping.Country];
+			var name = currentJSON[jsonMapping.country];
 			// the country name must be on the two-digit format
 			// get the count - WHAT IS THE COUNT?
 			var count = 0;
@@ -81,4 +81,42 @@ function jsonMapMarkers(json, markersMappingJson) {
 		mappingMarkers = markers;
 		console.log(mappingMarkers);
 	});
+}
+
+VectorialMap.prototype.filterOnServer = function(filters) {
+    // read the filters from a JSON file (just for testing)
+    $.getJSON("../json/serverFilter.json", function(filtersJSON) {
+        // convert the filtersJSON to a string
+        var filtersString = JSON.stringify(filtersJSON);
+        // build the url to send to the server
+        var url = 'http://serverFiltering.com/?data=' + encodeURIComponent(filtersString);
+        // FOR TESTING PURPOSES - this file contains a different set
+        // of countries and markers
+        url = '../json/countries_plus_markers2.json';
+        // send request to the server to get the markers and countries
+        $.getJSON(url, function(json) {
+            // get the response from the server
+            /*
+            THIS CODE IS SERVER SIDE
+            var myParam = url.split('data=')[1];
+            var returnJSON = decodeURIComponent(myParam);
+            console.log(JSON.parse(returnJSON));
+            */
+
+            // parse the JSON to get the countries and markers
+            jsonCountries = readCountriesFromJSON(json.countries);
+            // get the colours for the countries
+            var countryColors = generateColorsForTheCountries(jsonCountries);
+            // display the countries on the map
+            reloadMap(countryColors);
+
+            // in case we also have markers
+            if (json.markers) {
+                // read the markers from the JSON file
+                jsonMarkers = readMarkersFromJSON(json.markers);
+                // add markers to the map
+                addMarkersToMap();
+            }
+        });
+    });
 }

@@ -1,57 +1,62 @@
 // Marker definition
-var Marker = function (markerObject,name, count, latitude, longitude) {
-	if(markerObject == '')
-	{
-		this.Country = name;
-		this.Count = +count;
-		this.Var = '';
-		this.Latitude = latitude;
-		this.Longitude = longitude;
-		// TODO - add escription to a Marker from the JSON file
-		this.desc = 'abc';
-	}
-	else {
-		// try to read all the names and values
-		var hasName = true;
-		var i = 0;
-		do {
-			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
-			if(!markerObject[currentNameToCheck]) {
-				hasName = false;
-			} else {
-				this[currentNameToCheck] = markerObject[currentNameToCheck];
-				this[currentValue] = markerObject[currentValue];
-			}
-		} while (hasName)
+var Marker = function(markerObject) {
+    // add attributes
+    var attributes = markerObject["attributes"];
+    var marker = this;
+    $.each(Object.keys(attributes), function(index, attr) {
+        marker[attr] = attributes[attr];
+    });
 
-		this.Country = markerObject.Country;
-		this.Count = +markerObject.Count;
-		this.Var = markerObject.Var;
-		this.Latitude = markerObject.Latitude;
-		this.Longitude = markerObject.Longitude;
-		// TODO - add escription to a Marker from the JSON file
-		this.desc = 'abc';
-	}
+    this.country = markerObject.country;
+    this.count = +markerObject.count;
+    this.latitude = markerObject.latitude;
+    this.longitude = markerObject.longitude;
+    this.icon = markerObject.icon;
+    // TODO - add escription to a Marker from the JSON file
+    this.desc = 'abc';
 };
 
 // read the markers from a JSON file
 function readMarkersFromJSON(jsonMarkers) {
-	var markers = [];
+    var markers = [];
 
-	minCount = Infinity;
-	maxCount = -Infinity;
+    minCount = Infinity;
+    maxCount = -Infinity;
 
-	$.each(jsonMarkers, function (index, currentJSONMarker) {
-		markers[index] = new Marker(currentJSONMarker);
-		var currentCountValue = markers[index].Count;
+    $.each(jsonMarkers, function(index, currentJSONMarker) {
+        markers.push(new Marker(currentJSONMarker));
+        var currentCountValue = markers[index].Count;
 
-		if(currentCountValue > maxCount) {
-			maxCount = currentCountValue;
-		}
-		if(currentCountValue < minCount)
-			minCount = currentCountValue;
-	});
-	return markers;
+        if (currentCountValue > maxCount) {
+            maxCount = currentCountValue;
+        }
+        if (currentCountValue < minCount)
+            minCount = currentCountValue;
+    });
+    return markers;
+}
+
+function addMarkersToMap() {
+    var markersJSONArray = [];
+    $.each(filteredMarkers, function(index, currentMarker) {
+        var currentMarkerJSON = {
+            latLng: [currentMarker.latitude, currentMarker.longitude],
+            name: currentMarker.desc,
+            // set the style for this marker
+            style: {
+                r: mapRange(currentMarker.count, minCount, maxCount, minRadius, maxRadius),
+                image: '../img/' + currentMarker.icon + '.png'
+            }
+        };
+        markersJSONArray.push(currentMarkerJSON);
+    });
+    map.addMarkers(markersJSONArray);
+}
+
+function buildMarkerTooltip(jsonMarkers, marker) {
+    var finalTooltip = markerTooltip;
+    $.each(Object.keys(marker), function(index, attr) {
+        finalTooltip = finalTooltip.replace(attr, marker[attr]);
+    });
+    return finalTooltip;
 }

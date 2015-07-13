@@ -1,7 +1,7 @@
 var Region = function(regionObject, country) {
     // read from the input parameters
     this.Region = regionObject.name;
-    this.Country = country;
+    this.country = country;
     // + is used to assure that a Number is being read
     this.desc = 'just a region...';
 };
@@ -19,7 +19,7 @@ function generateColorsForTheRegions(country){
     // find the country with that isoCode
     var regionColors = [];
     $.each(jsonCountries, function(index, currentCountry) {
-        if (currentCountry.Country == isoCode) {
+        if (currentCountry.country == isoCode) {
             // country was found, check if it has any region
             if (currentCountry.Regions) {
                 var regions = currentCountry.Regions;
@@ -33,18 +33,23 @@ function generateColorsForTheRegions(country){
 	return regionColors;
 }
 
+
+function buildRegionTooltip(region) {
+    var finalTooltip = regionTooltip;
+    finalTooltip = finalTooltip.replace('name', region.name);
+    return finalTooltip;
+}
+
 function addRegionsToMap(key) {
     // check if the highlighted country has any region
     var isoCode = key.split("_")[0].toUpperCase();
     // find the country with that isoCode
     $.each(jsonCountries, function(index, currentCountry) {
-        if (currentCountry.Country == isoCode) {
+        if (currentCountry.country == isoCode) {
             // country was found, check if it has any region
             if (currentCountry.Regions) {
                 var regions = currentCountry.Regions;
-
                 var palette = ['#66C2A5', '#FC8D62', '#8DA0CB', '#E78AC3', '#A6D854'];
-
                 function generateColors() {
                     var colors = {},
                         key;
