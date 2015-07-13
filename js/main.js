@@ -26,11 +26,36 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 
     if (dataType == 'countries') {
         jsonCountries = readCountriesFromJSON(inputJSON);
+        // get the tooltip templates
+        // COUNTRY tooltip
+        jQuery.ajax({
+            url: '../tooltip-templates/country_tooltip.html',
+            success: function(result) {
+                countryTooltip = result;
+            },
+            async: false
+        });
+        // REGION tooltip
+        jQuery.ajax({
+            url: '../tooltip-templates/region_tooltip.html',
+            success: function(result) {
+                regionTooltip = result;
+            },
+            async: false
+        });
     } else if (dataType == 'markers') {
         thereAreMarkers = true;
         jsonMarkers = readMarkersFromJSON(inputJSON);
         filteredMarkers = jsonMarkers;
         numMarkers = jsonMarkers.length;
+        // MARKER tooltip
+        jQuery.ajax({
+            url: '../tooltip-templates/marker_tooltip.html',
+            success: function(result) {
+                markerTooltip = result;
+            },
+            async: false
+        });
     } else {
         console.error('You must give as input a list of markers or countries!');
         return;
@@ -39,60 +64,29 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     // get the Count value for each Country
     auxColors = generateColorsForTheCountries();
 
-    // get the tooltip templates
-    // COUNTRY tooltip
-    jQuery.ajax({
-        url: '../tooltip-templates/country_tooltip.html',
-        success: function(result) {
-            countryTooltip = result;
-        },
-        async: false
-    });
-
-    // MARKER tooltip
-    jQuery.ajax({
-        url: '../tooltip-templates/marker_tooltip.html',
-        success: function(result) {
-            markerTooltip = result;
-        },
-        async: false
-    });
-
-    // REGION tooltip
-    jQuery.ajax({
-        url: '../tooltip-templates/region_tooltip.html',
-        success: function(result) {
-            regionTooltip = result;
-        },
-        async: false
-    });
-
+    // marker legend
     var legendVar = {
         vertical: true,
         //title: 'Countries',
     };
-
-    var markersWithLegend = {
+    markersWithLegend = {
         scale: [minColorMap, maxColorMap],
         // range of values associated with the Count
         values: [minCount, maxCount],
         // add a legend
         legend: legendVar
     };
-
-    var markersWithoutLegend = {
-        attribute: 'image',
+    markersWithoutLegend = {
         scale: [minColorMap, maxColorMap],
         // range of values associated with the Count
         values: [minCount, maxCount]
     };
-
     finalMarkersInMap = markersWithLegend;
     if (dataType == 'markers') {
         finalMarkersInMap = markersWithoutLegend;
     }
 
-
+    // create a new Map
     map = new jvm.Map({
         container: $('#' + mapDiv),
         // configuration of the main map
@@ -101,11 +95,8 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         backgroundColor: background,
         // triggered when a marker is hovered
         onRegionClick: function(e, code) {
-            // reload a new map
             countryCode = code.toLowerCase();
-            // waitToAddMarkers(100);
             var newMap = countryCode + '_mill_en';
-            // swith to new map
             switchMap(newMap);
         },
         onMarkerTipShow: function(e, label, index) {
@@ -116,7 +107,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         // triggered when a region is hovered
         onRegionTipShow: function(e, countryName, code) {
             // code contains the code of the country (i.e., PT, ES, FR, etc)
-            // show the Count associated to that Country - look for the country
             var selectedCountry = -1;
             $.each(jsonCountries, function(index, currentCountry) {
                 if (currentCountry.name === code) {

@@ -1,51 +1,39 @@
 // Marker definition
-var Marker = function (markerObject, name, count, latitude, longitude) {
-	if(markerObject == '')
-	{
-		this.country = name;
-		this.Count = +count;
-		this.Var = '';
-		this.Latitude = latitude;
-		this.Longitude = longitude;
-		// TODO - add description to a Marker from the JSON file
-		this.desc = 'abc';
-	}
-	else {
-		// add attributes
-		var attributes = markerObject["attributes"];
-		var marker = this;
-		$.each(Object.keys(attributes), function(index, attr) {
-			marker[attr] = attributes[attr];
-		});
+var Marker = function(markerObject) {
+    // add attributes
+    var attributes = markerObject["attributes"];
+    var marker = this;
+    $.each(Object.keys(attributes), function(index, attr) {
+        marker[attr] = attributes[attr];
+    });
 
-		this.country = markerObject.country;
-		this.count = +markerObject.count;
-		this.latitude = markerObject.latitude;
-		this.longitude = markerObject.longitude;
-		this.icon = markerObject.icon;
-		// TODO - add escription to a Marker from the JSON file
-		this.desc = 'abc';
-	}
+    this.country = markerObject.country;
+    this.count = +markerObject.count;
+    this.latitude = markerObject.latitude;
+    this.longitude = markerObject.longitude;
+    this.icon = markerObject.icon;
+    // TODO - add escription to a Marker from the JSON file
+    this.desc = 'abc';
 };
 
 // read the markers from a JSON file
 function readMarkersFromJSON(jsonMarkers) {
-	var markers = [];
+    var markers = [];
 
-	minCount = Infinity;
-	maxCount = -Infinity;
+    minCount = Infinity;
+    maxCount = -Infinity;
 
-	$.each(jsonMarkers, function (index, currentJSONMarker) {
-		markers[index] = new Marker(currentJSONMarker);
-		var currentCountValue = markers[index].Count;
+    $.each(jsonMarkers, function(index, currentJSONMarker) {
+        markers[index] = new Marker(currentJSONMarker);
+        var currentCountValue = markers[index].Count;
 
-		if(currentCountValue > maxCount) {
-			maxCount = currentCountValue;
-		}
-		if(currentCountValue < minCount)
-			minCount = currentCountValue;
-	});
-	return markers;
+        if (currentCountValue > maxCount) {
+            maxCount = currentCountValue;
+        }
+        if (currentCountValue < minCount)
+            minCount = currentCountValue;
+    });
+    return markers;
 }
 
 function addMarkersToMap() {
@@ -58,7 +46,7 @@ function addMarkersToMap() {
             style: {
                 fill: 'red',
                 r: mapRange(currentMarker.count, minCount, maxCount, minRadius, maxRadius),
-                image: '../img/'+currentMarker.icon+'.png'
+                image: '../img/' + currentMarker.icon + '.png'
             }
         };
         markersJSONArray.push(currentMarkerJSON);
@@ -68,8 +56,8 @@ function addMarkersToMap() {
 
 function buildMarkerTooltip(jsonMarkers, marker) {
     var finalTooltip = markerTooltip;
-	$.each(Object.keys(marker), function(index, attr) {
+    $.each(Object.keys(marker), function(index, attr) {
         finalTooltip = finalTooltip.replace(attr, marker[attr]);
-	});
+    });
     return finalTooltip;
 }

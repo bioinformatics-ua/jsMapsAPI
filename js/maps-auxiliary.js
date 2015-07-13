@@ -7,31 +7,6 @@ function reloadMap(colors) {
         if (jsonCountries.length > 0)
             readMinMax(colors);
 
-        var legendVar = {
-            vertical: true,
-            //title: 'Countries',
-        };
-
-
-        var markersWithLegend = {
-            scale: [minColorMap, maxColorMap],
-            // range of values associated with the Count
-            values: [minCount, maxCount],
-            // add a legend
-            legend: legendVar
-        };
-
-        var markersWithoutLegend = {
-            scale: [minColorMap, maxColorMap],
-            // range of values associated with the Count
-            values: [minCount, maxCount]
-        };
-
-        finalMarkersInMap = markersWithLegend;
-        if (dataType == 'markers') {
-            finalMarkersInMap = markersWithoutLegend;
-        }
-
         // erase the map
         $("#" + mDiv).empty();
 
