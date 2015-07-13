@@ -1,6 +1,6 @@
 # jsMapsAPI
 
-Javascript API that makes use of [jvectormap](http://jvectormap.com/)  to create a map that displays data related to countries, their regions and other places (markers). The user defines the data he wants to visualize in a certain format and it is displayed on the kind of map he chooses (World, Europe, USA, etc) with the possibility of adding custom tooltips to be shown when a country, region or marker is hovered. Data can be filtered by any field specified by the user.
+Javascript API that makes use of [jvectormap](http://jvectormap.com/)  to create a map that displays data related to countries, their regions and specific places (markers). The user defines the data he wants to visualize in a certain format and it is displayed on the kind of map he chooses (World, Europe, USA, etc) with the possibility of adding custom tooltips to be shown when a country, region or marker is hovered. Data can be filtered by any field specified by the user.
 
 ## How to use the API
 
@@ -15,29 +15,42 @@ To use the API you need to follow the next steps:
 
 Now that you have done the previous steps, you are ready to display a map on your page. You just have to include the **vector-map** tag where you want to place the map component on your HTML; the tag attributes are as follows:
 
-- id - "map"
-- map_type - map location to display. Possible values are 'world_mill_en' (world map), 'europe_mill_en' (Europe map), etc. By default the world map is displayed. Available maps can be found [here](http://jvectormap.com/maps/), with the possibility of creating your own maps with the tools available in [jvectormap](http://jvectormap.com/documentation/gis-converter/)
-- min_color - color that represents the country with lowest Count
-- max_color - color that represents the country with the highest Count
-- min_radius - min radius for the markers
-- max_radius - max radius for the markers
-- filters - path to the file/page that contains the JSON of the map filters
-- markers - path to the file/page that contains the JSON of the countries (and markers if present)
-- background_color - color of the map background in hex format (has a default value of #666666 )
+| Field   |      Description      |
+|----------|:-------------:|
+| id |  id of the map |
+| map_type | map location to display. Possible values are 'world_mill_en' (world map), 'europe_mill_en' (Europe map), etc. By default the world map is displayed.  |
+| min_color | color that represents the country with lowest Count |
+|      max_color    |       color that represents the country with the highest Count        |
+|     min_radius     |         min radius for the markers      |
+|    max_radius      |      max radius for the markers         |
+|    markers      |     path to the file that contains the JSON of the countries    |
+|    countries      |      path to the file that contains the JSON of the markers  |
+|    background_color      | colour of the map background in hex format (has a default value of #666666 )        |
 
 Here is an example:
 ```html
-<vector-map id="map" min_color='#34a219' max_color="#fe3f3f"
-min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'
-background_color="#666666"></vector-map>
+<vector-map id="my_map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478"
+min_radius=5 max_radius=15 markers='./json/markers.json' background_color="#666666"></vector-map>
 ```
+
+## Markers, Countries and Regions JSON files
+
+JSON files are used to feed information to the vector-map component. They need to follow a certain format that is specified in the **/json** section
+
+You can use JSON files from any external source. For that you jst need to apply the following function to the _map_ object:
+
+```javascript
+vectorMap.registerTransformer(jsonLocation, countriesMappingJson, markersMappingJson)
+```
+
+- jsonLocation - location of the external JSON file containing info about countries and/or markers
+- countriesMappingJson - JSON with the countries mapping
+- markersMappingJson - - JSON with the markers mapping
+For information regarding the format of the countriesMappingJson and markersMappingJson files please consult the /mappingJSON section.
 
 ## Supported maps
 
-The supported maps for the API can be found on the [jvectormap site](http://jvectormap.com/maps/). In order to use a map you must add a script tag which imports the map you want to use, i.e., in case you which to use the world map you must add a script tag similar to the next on your file:
-    <script src="path/to/maps/folder/world-mill-en.js"></script>
-There is the possibility to use the Miller(_world-mill-en_) or Mercator(_world-merc-en_) projection, it's up to you to choose which one suits you the best.
-
+The supported maps for the API can be found on the [jvectormap site](http://jvectormap.com/maps/).
 As previously mentioned, you specify your map on the __vector-map__ tag by specifying the __map_type__ attribue. Possible values are:
 - world_mill_en (World - default)
 - europe_mill_en (Europe)
@@ -45,13 +58,9 @@ As previously mentioned, you specify your map on the __vector-map__ tag by speci
 - it_mill_en (Italy)
 - etc...
 
-Please pay attention to the use of underscores delimiting the words. To switch from the Miller to the Mercator projection just replace __mill__ with __merc__.
-
-There is also the possibility for you to create your own maps and use them with this API; all the required steps are described in [jvectormap documentation](http://jvectormap.com/documentation/gis-converter/).
-
 ## Tooltips
 
-When a country or a marker is hovered, you get a tooltip with some kind of information relative to it. You can specify the template for this tooltip on the **country_tooltip.html** and **marker_tooltip.html** files inside the **tooltip-templates** folder.
+When a country, region or marker is hovered, you get a tooltip with some kind of information relative to it. You can specify the template for this tooltip on the **country_tooltip.html**, **region_tooltip.html** and **marker_tooltip.html** files inside the **tooltip-templates** folder.
 
 ### Tooltip examples
 
@@ -74,7 +83,7 @@ When a country or a marker is hovered, you get a tooltip with some kind of infor
 - marker_tooltip.html (marker's description, latitude and longitude are displayed)
 
 ```html
-<b>description</b>
+<b>desc</b>
 <br>
 
 <b>Latitude:
@@ -86,33 +95,23 @@ When a country or a marker is hovered, you get a tooltip with some kind of infor
 </b> longitude
 ```
 
-
 ## Filters
 
 Filters are used on the markers to better select the information to be consulted. For example, we can view information related only to a certain year or a certain gender.
 
 You can filter the information shown on the map by using the **vector-map-filters** tag in your HTML file with the following attributes:
 
-- id="filters"
-- filters - url of the json that contains information about the filters
-- filter_type - type of filter. Supported values are _menu_ and _radio_
+| Field   |      Description     |
+|----------|:------------:|
+| filters | url of the json that contains information about the filters |
+| type | type of filter. Supported values are checkboxes and input     |
 
 Here is an example:
 ```html
-    <vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>
+<filter-box filters="json/filters.json" type="checkboxes"></filter-box>
 ```
 
-### Multiple filters at the same time
-
-Many filters can be applied on the map by using a custom _filters box_ that can be added to a page using the **filters-box** tag with the following attributes:
-
-- id="filters-box"
-- filters - url of the json that contains information about the filters
-
-Here is an example:
-```html
-    <filters-box id="filters-box" filters="json/filters.json"></filters-box>
-```
+This tag will create a filters-box where you will be able to filter your information. When you select _checkboxes_ as _type_ you can select the values for the filters with checkboxes; instead if you choose _input_ as _type_ you will be able to freely write the values of the filter in a text box for each filter.
 
 ### Programmatic Filters
 
@@ -123,27 +122,6 @@ You can programmatically filter the applied filters by invoking the _filter_ fun
 
 Enumeration and range can be combined, i.e., you can use _filter({"Year":'2005-2007','Gender':'F,M'})_. In case you want to cancel all the applied filters you just use _filter('ALL','')???_.
 
-
-
-## JSON files for input
-
-JSON files are used to feed information to the vector-map component. They need to follow a certain format that is specified in the **/json** section
-
-You can use JSON files from any external source. For that you jst need to apply the following function to the _map_ object:
-
-```javascript
-vectorMap.registerTransformer(jsonLocation, countriesMappingJson, markersMappingJson)
-```
-
-- jsonLocation - location of the external JSON file containing info about countries and/or markers
-- countriesMappingJson - JSON with the countries mapping
-- markersMappingJson - - JSON with the markers mapping
-For information regarding the format of the countriesMappingJson and markersMappingJson files please consult the /mappingJSON section.
-
-
 ## Example
 
-You can consult a live example of the API in http://bioinformatics-ua.github.io/jsMapsAPI/.
-
-This page displays a world map with several countries filled with a color that conveys some kind of information. There are also maps placed on the map.
-There are also some filters that can be used to filter the information displayed on the map.
+You can consult live examples of the API in http://bioinformatics-ua.github.io/jsMapsAPI/ that show multiple applications of this API.

@@ -135,4 +135,4 @@ function switchMap(newMap) {
     if (thereAreMarkers) {
         addMarkersToMap();
     }
-});
+}
