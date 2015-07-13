@@ -24,7 +24,7 @@ function readMarkersFromJSON(jsonMarkers) {
     maxCount = -Infinity;
 
     $.each(jsonMarkers, function(index, currentJSONMarker) {
-        markers[index] = new Marker(currentJSONMarker);
+        markers.push(new Marker(currentJSONMarker));
         var currentCountValue = markers[index].Count;
 
         if (currentCountValue > maxCount) {
@@ -44,7 +44,6 @@ function addMarkersToMap() {
             name: currentMarker.desc,
             // set the style for this marker
             style: {
-                fill: 'red',
                 r: mapRange(currentMarker.count, minCount, maxCount, minRadius, maxRadius),
                 image: '../img/' + currentMarker.icon + '.png'
             }

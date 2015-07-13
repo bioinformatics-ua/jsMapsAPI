@@ -62,7 +62,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     }
 
     // get the Count value for each Country
-    auxColors = generateColorsForTheCountries();
+    auxColors = ((dataType=='countries') ? generateColorsForTheCountries() : []);
 
     // marker legend
     var legendVar = {

@@ -49,9 +49,7 @@ function addRegionsToMap(key) {
             // country was found, check if it has any region
             if (currentCountry.Regions) {
                 var regions = currentCountry.Regions;
-
                 var palette = ['#66C2A5', '#FC8D62', '#8DA0CB', '#E78AC3', '#A6D854'];
-
                 function generateColors() {
                     var colors = {},
                         key;

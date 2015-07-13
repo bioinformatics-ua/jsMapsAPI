@@ -35,17 +35,14 @@ function generateColorsForTheCountries(countries) {
     return countryColors;
 };
 
-function readCountriesFromJSON(markers) {
-
+function readCountriesFromJSON(countriesJSON) {
     var countries = [];
-    var numJSONCountries = markers.length;
 
     minCount = Infinity;
     maxCount = -Infinity;
 
-    $.each(markers, function(index, currentCountry) {
-        countries[index] = new Country(currentCountry);
-        console.log(countries[index]);
+    $.each(countriesJSON, function(index, currentCountry) {
+        countries.push(new Country(currentCountry));
 
         if (countries[index].Count > maxCount)
             maxCount = countries[index].Count;
