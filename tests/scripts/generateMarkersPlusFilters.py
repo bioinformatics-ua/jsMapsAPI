@@ -1,18 +1,16 @@
 import sys, json, csv
 from random import randint, choice, uniform, random, sample
 
-# read the number of countries to add from the input arguments
-numCountries = int(sys.argv[1])
+# read the number of markers to add from the input arguments
+numMarkers = sys.argv[1]
 
 cr = csv.reader(open("../iso-codes.csv","rb"))
-countries=[]
+countries={}
 i = 0
 for row in cr:
 	v, k = row
-	countries.append(v)
-
-# create a JSON object
-jsonArray = []
+	countries[i] = v
+	i = i +1
 
 # filters
 filters = [
@@ -49,21 +47,17 @@ filters = [
 	}
 ]
 
-# validate the number of countries to generate (max)
-if(numCountries > len(countries)):
-	print 'Max number of countries is ', len(countries)
-	sys.exit()
+# create a JSON object
+jsonArray = []
 
-for i in range(numCountries):
-	# create a new country
+for i in range(int(numMarkers)):
+	# create a new marker
 	jsonObject = {}
-	# count
 	jsonObject['count'] = randint(1000,2000)
-	# name
-	selectedCountry = choice(countries)
-	countries.remove(selectedCountry)
-	jsonObject['name'] = selectedCountry
-	# attributes
+	jsonObject['country'] = choice(countries)
+	jsonObject['latitude'] = uniform(-90, 90)
+	jsonObject['longitude'] = uniform(-180, 180)
+	# generate attributes
 	attributes = {}
 	for filter in filters:
 		filterName = filter['name']
@@ -74,12 +68,8 @@ for i in range(numCountries):
 			# continuous - pick one random number between the range
 			attributes[filterName] = randint(filter['min'],filter['max'])
 	jsonObject['attributes'] = attributes
+	jsonObject['icon'] = sample(['red','green','blue'], 1)
 	jsonArray.append(jsonObject)
 
-# write countries
-with open('../json/test-countries.json', 'w') as outfile:
+with open('../json/test-markers.json', 'w') as outfile:
     json.dump(jsonArray, outfile)
-
-# write filters
-with open('../json/test-filters.json', 'w') as outfile:
-    json.dump(filters, outfile)

@@ -115,7 +115,6 @@ function getSelectedItems(boxID) {
 
 function createFiltersBoxWithEnumeration(jsonFilters) {
     numFilters = jsonFilters.length;
-    console.log(numFilters);
     // create filters box with enumeration
     $.each(jsonFilters, function(index, currentFilter) {
         var filterName = currentFilter.name.toLowerCase();
