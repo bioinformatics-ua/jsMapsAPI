@@ -26,13 +26,20 @@ function createFiltersBoxCheckboxes() {
 
         // fill the tabs for the year filter
         var tab = [];
-        $.each(currentFilter.Values, function(index, currentValue) {
-            tab.push({
-                'id': index + 1,
-                'label': currentValue,
-                'isChecked': false
+        // check if the values are continuous or discrete
+        if (currentFilter.continuous) {
+            // continuous values
+            console.log('continuous');
+        } else {
+            // discrete values
+            $.each(currentFilter.values, function(index, currentValue) {
+                tab.push({
+                    'id': index + 1,
+                    'label': currentValue,
+                    'isChecked': false
+                });
             });
-        });
+        }
 
         function p(wat) {
             return '<p>' + JSON.stringify(wat) + '</p>';
@@ -44,7 +51,7 @@ function createFiltersBoxCheckboxes() {
         }
 
         // dropdown with checkboxes initialization
-        var name = currentFilter.Name.toLowerCase();
+        var name = currentFilter.name.toLowerCase();
         name = name.charAt(0).toUpperCase() + name.slice(1);
         $(boxID).dropdownCheckbox({
             data: tab,

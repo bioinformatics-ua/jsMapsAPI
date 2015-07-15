@@ -104,7 +104,7 @@ function checkWhatCountriesMarkersToAdd(selectedFilter, filterValue) {
 function checkFilterNameIsValid(filterName) {
     var valid = false;
     $.each(jsonFiltersArray, function(index, currentFilter) {
-        if (currentFilter.Name.toLowerCase() === filterName.toLowerCase()) {
+        if (currentFilter.name.toLowerCase() === filterName.toLowerCase()) {
             filterObject = currentFilter;
             valid = true;
             return;
