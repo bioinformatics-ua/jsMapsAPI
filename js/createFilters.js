@@ -1,8 +1,9 @@
 var numFilters = 0;
 
-var resetFiltersBox = function() {
+function resetFiltersBox() {
     // reset all the 'fboxes'
     for (var i = 0; i < numFilters; i++) {
+        var currentId = "#fbox" + i;
         $("#fbox" + i).text('');
         $("#fbox" + i).val('');
     }
@@ -13,7 +14,7 @@ var resetFiltersBox = function() {
 
     filteredMarkers = jsonMarkers;
     addMarkersToMap();
-};
+}
 
 function createFiltersBoxCheckboxes() {
 
@@ -113,8 +114,8 @@ function getSelectedItems(boxID) {
 }
 
 function createFiltersBoxWithEnumeration(jsonFilters) {
-
-    var numFilters = jsonFilters.length;
+    numFilters = jsonFilters.length;
+    console.log(numFilters);
     // create filters box with enumeration
     $.each(jsonFilters, function(index, currentFilter) {
         var filterName = currentFilter.name.toLowerCase();
@@ -162,7 +163,7 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
             var currentFilterValue = $(currentFilter).val();
             // check if we have any filtering to apply or not
             if (currentFilterValue !== '') {
-                jsonObject[jsonFilters[i].Name] = currentFilterValue;
+                jsonObject[jsonFilters[i].name] = currentFilterValue;
             } else {
                 emptyFilters++;
             }
