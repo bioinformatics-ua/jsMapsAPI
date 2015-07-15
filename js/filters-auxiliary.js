@@ -83,7 +83,7 @@ function checkWhatMarkersToAdd(selectedFilter, filterValue) {
     // add only the markers who have that filter value
     $.each(jsonMarkers, function(index, currentMarker) {
         $.each(Object.keys(currentMarker), function(index, attr) {
-            if (attr.toLowerCase() == selectedFilter.Name.toLowerCase() && currentMarker[attr] == filterValue)
+            if (attr.toLowerCase() == selectedFilter.name.toLowerCase() && currentMarker[attr] == filterValue)
                 markers.push(currentMarker)
         });
     });

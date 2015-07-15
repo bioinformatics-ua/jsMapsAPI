@@ -1,5 +1,6 @@
-var resetFiltersBox = function() {
+var numFilters = 0;
 
+var resetFiltersBox = function() {
     // reset all the 'fboxes'
     for (var i = 0; i < numFilters; i++) {
         $("#fbox" + i).text('');
@@ -20,6 +21,7 @@ function createFiltersBoxCheckboxes() {
 
     // get all the filters
     $.each(jsonFiltersArray, function(index, currentFilter) {
+        numFilters++;
         var boxID = '#box' + (index + 1);
         // append to the HTML
         $('#filterBoxCheckboxes').append('<li class="col-sm-6" id="box' + (index + 1) + '" class="dropdown-checkbox-example dropdown-checkbox dropdown"></li>');
@@ -29,7 +31,6 @@ function createFiltersBoxCheckboxes() {
         // check if the values are continuous or discrete
         if (currentFilter.continuous) {
             // continuous values
-            console.log('continuous');
         } else {
             // discrete values
             $.each(currentFilter.values, function(index, currentValue) {
@@ -68,7 +69,6 @@ function createFiltersBoxCheckboxes() {
     });
 
     // append filter and reset button
-
     var textToAppend = '<div id="filters_box" class="row col-sm-12">' +
         '<button id="filter_box_apply_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Filter</button>' +
         '<button id="filter_box_reset_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Reset</button></div>';
@@ -91,7 +91,7 @@ function createFiltersBoxCheckboxes() {
             }
             // check if we have any filtering to apply or not
             if (keys.length > 0) {
-                jsonObject[jsonFiltersArray[i].Name] = itemsArray.join();
+                jsonObject[jsonFiltersArray[i].name] = itemsArray.join();
             } else {
                 emptyFilters++;
             }
