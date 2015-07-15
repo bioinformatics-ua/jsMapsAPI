@@ -117,7 +117,7 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
     var numFilters = jsonFilters.length;
     // create filters box with enumeration
     $.each(jsonFilters, function(index, currentFilter) {
-        var filterName = currentFilter.Name.toLowerCase();
+        var filterName = currentFilter.name.toLowerCase();
         filterName = filterName.charAt(0).toUpperCase() + filterName.slice(1);
         var buttonId = 'dropdown' + index + 'button';
         var ulId = 'dropdown' + index;
@@ -127,9 +127,12 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
         toAppend += '<p><b>' + filterName + ':</b></p>';
         toAppend += '<div class="form-group">';
         toAppend += '<input type="text" class="form-control" id="fbox' + index + '"';
-        // build the placeholder
-        var placeholder = currentFilter.Values
-        toAppend += 'placeholder="' + placeholder + '" +>';
+
+        // build the placeholder - check if we have continuous or discrete values
+        if (currentFilter.continuous)
+            toAppend += 'placeholder="' + currentFilter.min + '...' + currentFilter.max + '" +>';
+        else
+            toAppend += 'placeholder="' + currentFilter.values.join() + '" +>';
         toAppend += '</div>';
 
         $('filter-box').append(toAppend);
