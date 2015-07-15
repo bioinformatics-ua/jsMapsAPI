@@ -40,6 +40,5 @@ function readFiltersFromJSON(filtersJSON) {
     $.each(filtersJSON, function(index, filter) {
         filters.push(new Filter(filter));
     });
-    console.log(filters);
     return filters;
 }
