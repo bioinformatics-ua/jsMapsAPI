@@ -133,7 +133,6 @@ function checkFilterValuesAreValid(filter, filterValues) {
             }
         });
     } else {
-
         // check if the values belong in the "values" property of the filter
         $.each(filterValues, function(index, filterValue) {
             valid = false;

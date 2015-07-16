@@ -144,6 +144,9 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
         });
     });
 
+    // append errors
+    $('.form-control').append('<span class="glyphicon glyphicon-remove form-control-feedback">');
+
     // add the buttons
     var textToAppend = '<div id="filters_box">' +
         '<button id="filter_box_apply_filters" type="button" class="btn btn-primary col-sm-4 col-sm-offset-1">Filter</button>' +
