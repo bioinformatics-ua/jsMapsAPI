@@ -4,9 +4,8 @@
 <script type="text/javascript" src="../lib/bootstrap-dropdown-checkbox/bootstrap-dropdown-checkbox.js"></script>
 <!--id - name of the custom component-->
 <dom-module id="filter-box">
-	<style>
-	</style>
 	<template>
+		<button>Show/Hide filters</button>
 		<h3>Filters</h3>
 	</template>
 </dom-module>
@@ -17,6 +16,10 @@
 		is: "filter-box",
 		//Lifecycle callbacks
 		attached: function() {
+			$("button").click(function() {
+			    $("filter-box").children().not('button').slideToggle("slow");
+			});
+
 			var filtersBox = this;
 			var jsonFilters = this.filters;
 			var filterType = this.type;
