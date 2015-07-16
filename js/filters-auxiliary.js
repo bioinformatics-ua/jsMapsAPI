@@ -1,8 +1,8 @@
 function getAllFilterValues(filterValue) {
     var returnParts = [];
-
+    console.log(filterValue);
     // check if we have an enumeration (comma-separated values and/or ranges)
-    if (String(filterValue).indexOf(",")!=-1) {
+    if (String(filterValue).indexOf(",") != -1) {
         // get all the enumerated values (can be singular or range)
         var enumerationParts = String(filterValue).split(",");
         // check if we have a simple value or a range
@@ -27,7 +27,8 @@ function getAllFilterValues(filterValue) {
         });
     } else {
         // just a single part
-        if (filterValue.indexOf("-")!=-1) {
+        console.log('single');
+        if (filterValue.indexOf("-") != -1) {
             // we have a range
             console.log('range');
             var subParts = String(filterValue).split("-");
@@ -41,7 +42,13 @@ function getAllFilterValues(filterValue) {
                 returnParts.push(min);
             }
         } else
+        {
+            // just a single value
+            console.log('single value');
+            // check the validity of this value
+            checkFilterValuesAreValid(filterObject,filterValue.split(''));
             returnParts.push(filterValue);
+        }
     }
     return returnParts;
 }
@@ -126,9 +133,10 @@ function checkFilterValuesAreValid(filter, filterValues) {
             }
         });
     } else {
+
         // check if the values belong in the "values" property of the filter
         $.each(filterValues, function(index, filterValue) {
-            console.log(filterValue);
+            valid = false;
             // check if the current value is valid
             $.each(filter.values, function(index, currentValue) {
                 if (currentValue == filterValue) {
@@ -136,6 +144,10 @@ function checkFilterValuesAreValid(filter, filterValues) {
                     return;
                 }
             });
+            if(!valid)
+            {
+                console.log('Invalid value for the filter: ' + filterValue);
+            }
         });
     }
     return valid;
