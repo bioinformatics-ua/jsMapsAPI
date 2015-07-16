@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>bioinformatics-ua/jsMapsAPI</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!--Bootstrap-->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
+	<!--jVectormap-->
+	<link rel="stylesheet" href="lib/jvectormap/jquery-jvectormap-2.0.2.css">
+	<!--jQuery-->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!--Load all the maps-->
+	<script type="text/javascript" src="finalJs/maps.js"></script>
+	<!--Load all the necessary scripts-->
+	<script type="text/javascript" src="./finalJs/jsMapsApi.js"></script>
+
+
+	<!--Polymer-->
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+	<!-- Import custom elements created with Polymer-->
+	<link rel="import" href="custom-elements/vector-map.html">
+	<link rel="import" href="custom-elements/filter-box.html">
+
+	<style media="screen">
+		head {
+			height: 100%;
+		}
+		#my_map {
+			position: absolute;
+			height: 600px;
+			width: 100%;
+		}
+	</style>
+</head>
+
+
+<body>
+	<div class="container-fluid" style="margin-top:10px">
+		<div class="starter-template col-sm-12 col-md-10">
+			<vector-map id="my_map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478"
+			min_radius=5 max_radius=15 markers='./tests/json/test-markers.json' background_color="#666666"></vector-map>
+		</div>
+
+		<div class="starter-template col-sm-12 col-md-2">
+			<button>Show/Hide filters</button>
+			<filter-box filters="./tests/json/test-filters.json" type="input"></filter-box>
+		</div>
+	</div>
+
+	<script>
+		$("button").click(function() {
+			$("filter-box").slideToggle("slow");
+		});
+	</script>
+</body>
+
+</html>
