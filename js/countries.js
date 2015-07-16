@@ -1,106 +1,92 @@
-var Country = function(countryObject, name, count) {
-	if(countryObject == '') {
-		// read from the input parameters
-		this.Country = name;
-		// + is used to assure that a Number is being read
-		this.Count = +count;
-		this.Var = 0;
-		this.desc = 'abc';
-	} else {
-		// read from the JSON
-		var hasName = true;
-		var i = 0;
-		do {
-			i++;
-			var currentNameToCheck = 'Name' + i;
-			var currentValue = 'Value' + i;
-			if(countryObject[currentNameToCheck] === undefined) {
-				hasName = false;
-			} else {
-				this[currentNameToCheck] = countryObject[currentNameToCheck];
-				this[currentValue] = countryObject[currentValue];
-			}
-		} while (hasName);
+var Country = function(countryObject) {
+    // read from the JSON
+    // add attributes
+    var attributes = countryObject["attributes"];
+    var country = this;
+    $.each(Object.keys(attributes), function(index, attr) {
+        country[attr] = attributes[attr];
+    });
 
-		// try to read its regions in case he has any
-		if(countryObject.Regions)
-			this.Regions = readRegionsFromJSON(countryObject.Regions, countryObject.Country);
+    // try to read its regions in case he has any
+    if (countryObject.Regions)
+        this.Regions = readRegionsFromJSON(countryObject.Regions, countryObject.country);
 
-		this.Country = countryObject.Country;
-		// + is used to assure that a Number is being read
-		this.Count = +countryObject.Count;
-		this.Var = countryObject.Var;
-		this.desc = 'abc';
-	}
+    this.name = countryObject.name;
+    // + is used to assure that a Number is being read
+    this.count = +countryObject.count;
+    this.desc = 'abc';
 };
+
+function buildCountryTooltip(countryName, country) {
+    var finalTooltip = countryTooltip;
+    $.each(Object.keys(country), function(index, attr) {
+        finalTooltip = finalTooltip.replace(attr, country[attr]);
+    });
+    return finalTooltip;
+}
 
 function generateColorsForTheCountries(countries) {
-	if(!countries)
-		countries = jsonCountries;
-	var countryColors = [];
-	$.each(countries, function(index, currentCountry) {
-		countryColors[currentCountry.Country] = currentCountry.Count;
-	});
-	return countryColors;
+    if (!countries)
+        countries = jsonCountries;
+    var countryColors = [];
+    $.each(countries, function(index, currentCountry) {
+        countryColors[currentCountry.name] = currentCountry.count;
+    });
+    return countryColors;
 };
 
-function readCountriesFromJSON(markers) {
+function readCountriesFromJSON(countriesJSON) {
+    var countries = [];
 
-	var countries = [];
-	var numJSONCountries = markers.length;
+    minCount = Infinity;
+    maxCount = -Infinity;
 
-	minCount = Infinity;
-	maxCount = -Infinity;
+    $.each(countriesJSON, function(index, currentCountry) {
+        countries.push(new Country(currentCountry));
 
-	$.each(markers, function(index, currentCountry) {
-		countries[index] = new Country(currentCountry);
+        if (countries[index].Count > maxCount)
+            maxCount = countries[index].Count;
 
-		if(countries[index].Count > maxCount)
-			maxCount = countries[index].Count;
-
-		if(countries[index].Count < minCount)
-			minCount = countries[index].Count;
-	});
-	return countries;
+        if (countries[index].Count < minCount)
+            minCount = countries[index].Count;
+    });
+    return countries;
 }
 
 // return the country whose name is passed as an argument
-function findCountryByName(countryName)
-{
-	var returnCountry = null;
-	$.each(jsonCountries, function(index, currentCountry) {
-		if(currentCountry.Country == countryName)
-		{
-			returnCountry = currentCountry;
-			return returnCountry;
-		}
-	});
-	return returnCountry;
+function findCountryByName(countryName) {
+    var returnCountry = null;
+    $.each(jsonCountries, function(index, currentCountry) {
+        if (currentCountry.country == countryName) {
+            returnCountry = currentCountry;
+            return returnCountry;
+        }
+    });
+    return returnCountry;
 }
 
 // read the min and max count of the countris
-function readMinMax(countriesNames)
-{
-	minCount = Infinity;
-	maxCount = -Infinity;
+function readMinMax(countriesNames) {
+    minCount = Infinity;
+    maxCount = -Infinity;
 
-	// countries names is a JSON object
-	// read keys to an array
-	var keys = [];
-	for (var key in countriesNames) {
-	  if (countriesNames.hasOwnProperty(key)) {
-	    keys.push(key);
-	  }
-	}
+    // countries names is a JSON object
+    // read keys to an array
+    var keys = [];
+    for (var key in countriesNames) {
+        if (countriesNames.hasOwnProperty(key)) {
+            keys.push(key);
+        }
+    }
 
-	// find country by name
-	$.each(keys, function(index, currentCountryName) {
-		// find the country by its name
-		var currentCountry = findCountryByName(currentCountryName);
-		if(currentCountry.Count > maxCount)
-			maxCount = currentCountry.Count;
+    // find country by name
+    $.each(keys, function(index, currentCountryName) {
+        // find the country by its name
+        var currentCountry = findCountryByName(currentCountryName);
+        if (currentCountry.Count > maxCount)
+            maxCount = currentCountry.Count;
 
-		if(currentCountry.Count < minCount)
-			minCount = currentCountry.Count;
-	});
+        if (currentCountry.Count < minCount)
+            minCount = currentCountry.Count;
+    });
 }
