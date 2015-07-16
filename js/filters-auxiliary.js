@@ -2,42 +2,36 @@ function getAllFilterValues(filterValue) {
     var returnParts = [];
 
     // check if we have an enumeration (comma-separated values and/or ranges)
-    if (String(filterValue).indexOf(",") != -1) {
-
+    if (String(filterValue).indexOf(",")!=-1) {
         // get all the enumerated values (can be singular or range)
         var enumerationParts = String(filterValue).split(",");
-
         // check if we have a simple value or a range
         $.each(enumerationParts, function(index, currentEnumeration) {
-
             // if we have a range...
             if (currentEnumeration.indexOf("-") != -1) {
-
                 // all the range parts
                 var rangeParts = String(currentEnumeration).split("-");
-
                 // check if the extreme values are valid
                 checkFilterValuesAreValid(filterObject, rangeParts);
-
                 // get all the values between those two numbers
                 // and add them
                 var min = rangeParts[0];
                 var max = rangeParts[1];
                 for (; min <= max; min++)
                     returnParts.push(min);
-
             } else {
                 // if we don't have a range
                 // check if the single value is valid
                 returnParts.push(currentEnumeration);
-
             }
         });
     } else {
         // just a single part
-        if (filterValue.indexOf("-") != -1) {
+        if (filterValue.indexOf("-")!=-1) {
             // we have a range
+            console.log('range');
             var subParts = String(filterValue).split("-");
+            console.log(subParts);
             // check if the extreme values are valid
             checkFilterValuesAreValid(filterObject, subParts);
             // get all the values between those two numbers
@@ -114,19 +108,35 @@ function checkFilterNameIsValid(filterName) {
 }
 
 function checkFilterValuesAreValid(filter, filterValues) {
-    var valid = false;
-    $.each(filterValues, function(index, part) {
-        // check if the current value is valid
-        $.each(filterObject.Values, function(index, currentValue) {
-            if (currentValue == part) {
-                valid = true;
+    var valid = true;
+    // check if the filter is continuous or not
+    if (filter.continuous == true) {
+        var min = filter.min;
+        var max = filter.max;
+        console.log(min);
+        console.log(max);
+        // check if the values are between min and max
+        $.each(filterValues, function(index, currentValue) {
+            // check if we have a value outside the range
+            console.log(+currentValue);
+            if (+currentValue < min || +currentValue > max) {
+                valid = false;
+                console.log('Invalid value for the filter: ' + currentValue);
                 return;
             }
         });
-        if (!valid) {
-            console.log('Invalid value for the filter: ' + part);
-            return;
-        }
-    });
+    } else {
+        // check if the values belong in the "values" property of the filter
+        $.each(filterValues, function(index, filterValue) {
+            console.log(filterValue);
+            // check if the current value is valid
+            $.each(filter.values, function(index, currentValue) {
+                if (currentValue == filterValue) {
+                    valid = true;
+                    return;
+                }
+            });
+        });
+    }
     return valid;
 }

@@ -3,9 +3,10 @@
     "values": ["M", "F", "T"],
     "name": "gender"
 }, {
-    "continuous": "false",
-    "values": [2010, 2011, 2012, 2013],
-    "name": "year"
+    "max": 2014,
+    "continuous": "true",
+    "name": "year",
+    "min": 2010
 }, {
     "max": 200,
     "continuous": "true",
