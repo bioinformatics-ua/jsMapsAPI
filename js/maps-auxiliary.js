@@ -68,12 +68,16 @@ function removeTooltip() {
     $('.jvectormap-tip').remove();
 }
 
+function removeBackButton() {
+    // erase the previous map tooltip
+    $('.jvectormap-goback').remove();
+}
+
 function switchMap(newMap) {
     // this function gets called when a country on the world map is clicked
     // erase the previous map
     $('#' + mDiv).empty();
     removeTooltip();
-
     var regionColors = ((dataType == 'countries') ? generateColorsForTheCountries(newMap) : []);
 
     map = new jvm.Map({
