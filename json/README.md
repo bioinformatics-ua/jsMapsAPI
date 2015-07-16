@@ -83,14 +83,13 @@ JSON files for the **Markers** must be in the following format:
 }]
 ```
 
-
 Field      | Description
----------- | :--------------------------------------------------------------------------------------------------------------------:
-country       | country from where the data is related
+---------- | :-----------------------------------------------------------------------------------------------------------------------------------------------------------------------:
+country    | country from where the data is related
 count      | integer value
-latitude      | latitude of the marker
-longitude      | longitude of the marker
-icon      | icon to be displayed on the place of the marker. Markers are store on the */img* folder. E.g, if you want to use the */img/blue.png* icon the *icon* value must be *blue*
+latitude   | latitude of the marker
+longitude  | longitude of the marker
+icon       | icon to be displayed on the place of the marker. Markers are store on the */img* folder. E.g, if you want to use the */img/blue.png* icon the *icon* value must be *blue*
 attributes | in here you can specify any aditional attibute for the markers
 
 ## Filters
@@ -98,44 +97,30 @@ JSON files for the map filters must be on the following format:
 
 ```json
 [{
-        "name": "Gender",
-        "values": [
-            "F",
-            "M",
-            "T"
-        ]
-    }, {
-        "name": "Year",
-        "values": [
-            1990,
-            1991,
-            1992,
-            1993,
-            1994,
-            1995,
-            1996,
-            1997,
-            1998,
-            1999,
-            2000,
-            2001,
-            2002,
-            2003,
-            2004,
-            2005,
-            2006,
-            2007,
-            2008,
-            2009,
-            2010,
-            2011,
-            2012,
-            2013
-        ]
+    "continuous": "false",
+    "values": ["M", "F", "T"],
+    "name": "gender"
+}, {
+    "continuous": "false",
+    "values": [2010, 2011, 2012, 2013],
+    "name": "year"
+}, {
+    "name": "height",
+    "continuous": "true",
+    "min": 100,
+    "max": 200
+}, {
+    "max": 200,
+    "continuous": "true",
+    "name": "weight",
+    "min": 20
 }]
 ```
 
-Field      | Description
----------- | :--------------------------------------------------------------------------------------------------------------------:
-name       | name of the filter
-values      | possible values that the filter can assume. For example, Gender can be M, F or T
+Field  | Description
+------ | :------------------------------------------------------------------------------:
+name   | name of the filter
+values | possible values that the filter can assume. For example, Gender can be M, F or T
+continuous   | variable indicating weather the values the filter can assume are discrete (e.g. the gender) or are continuos (e.g. the height or weight). In case the values are discrete, the possible values are read from the "values" attribute, if they are continuous two extra fields ('min' and 'max') define, as their name indicates, the mininum and maximum values for the filter
+min   | minimum value the filter can assume
+max   | maximum value the filter can assume
