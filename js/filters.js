@@ -1,13 +1,19 @@
 // create a new FIlter object
-var Filter = function(Name, Values) {
-    this.Name = Name;
-    this.Values = Values;
-};
-
-// number of filters
-var numFilters;
-var currentFilter;
-var countryValueToCheck;
+var Filter = function(filterObject) {
+    this.name = filterObject['name'];
+    // check if the values are continuous or discrete
+    if (filterObject['continuous'] == 'false') {
+        // discrete values - read from values
+        this.values = [];
+        this.values = filterObject['values'];
+        this.continuous = false;
+    } else {
+        // continuous values
+        this.continuous = true;
+        this.min = filterObject['min']
+        this.max = filterObject['max']
+    }
+}
 
 function resetFilters() {
     // color the original map
@@ -32,11 +38,7 @@ function resetFilters() {
 function readFiltersFromJSON(filtersJSON) {
     var filters = [];
     $.each(filtersJSON, function(index, filter) {
-        // fields
-        var values = [];
-        for (var j = 0; j < filter.values.length; j++)
-            values.push(filter.values[j]);
-        filters.push(new Filter(filter.name, values));
+        filters.push(new Filter(filter));
     });
     return filters;
 }

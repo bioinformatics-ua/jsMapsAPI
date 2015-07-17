@@ -1,5 +1,4 @@
 function filter(inputArgs) {
-
     var keys = Object.keys(inputArgs)
     var numberKeys = keys.length;
     var validFilters = 0;

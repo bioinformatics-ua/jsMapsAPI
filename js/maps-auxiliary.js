@@ -1,66 +1,57 @@
 // redraw the map
 function reloadMap(colors) {
-    // get the name of the current map
-    if (map.params.map == mType) {
-        // main map
-        // update min and max Count of the countries
-        if (jsonCountries.length > 0)
-            readMinMax(colors);
+    // update min and max Count of the countries
+    if (jsonCountries.length > 0)
+        readMinMax(colors);
 
-        // erase the map
-        $("#" + mDiv).empty();
+    // erase the map
+    $("#" + mDiv).empty();
 
-        map = new jvm.Map({
-            map: mType,
-            backgroundColor: background,
-            container: $('#' + mDiv),
-            onRegionClick: function(e, code) {
-                countryCode = code.toLowerCase();
-                var newMap = countryCode + '_mill_en';
-                // swith to new map
-                switchMap(newMap);
-            },
-            onMarkerTipShow: function(e, label, index) {
-                var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
-                label.html(finalTooltip);
-            },
-            onRegionTipShow: function(e, countryName, code) {
-                // code contains the code of the country (i.e., PT, ES, FR, etc)
-                // show the Count associated to that Country - look for the country
-                var selectedCountry = -1;
-                $.each(jsonCountries, function(index, currentCountry) {
-                    if (currentCountry.country === code) {
-                        selectedCountry = currentCountry;
-                        return;
-                    }
-                });
-                if (selectedCountry != -1) {
-                    var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
-                    countryName.html(finalTooltip);
-                } else
-                    countryName.html(countryName.html());
-            },
-            series: {
-                markers: [finalMarkersInMap],
-                regions: [{
-                    // min and max values of count
-                    scale: [minColorMap, maxColorMap],
-                    attribute: 'fill',
-                    values: colors
-                }]
-            }
-        });
-    } else {
-        // submap
-        // update min and max Count of the countries
-        if (jsonCountries.length > 0)
-            readMinMax(colors);
-
-        // erase the map
-        $("#" + mDiv).empty();
-        removeTooltip();
-        switchMap(mapType);
+    map = new jvm.Map({
+        map: mType,
+        backgroundColor: background,
+        container: $('#' + mDiv),
+        onRegionClick: function(e, code) {
+            countryCode = code.toLowerCase();
+            var newMap = countryCode + '_mill_en';
+            // swith to new map
+            switchMap(newMap);
+        },
+        onMarkerTipShow: function(e, label, index) {
+            var finalTooltip = buildMarkerTooltip(jsonMarkers, index);
+            label.html(finalTooltip);
+        },
+        onRegionTipShow: function(e, countryName, code) {
+            // code contains the code of the country (i.e., PT, ES, FR, etc)
+            // show the Count associated to that Country - look for the country
+            var selectedCountry = -1;
+            $.each(jsonCountries, function(index, currentCountry) {
+                if (currentCountry.country === code) {
+                    selectedCountry = currentCountry;
+                    return;
+                }
+            });
+            if (selectedCountry != -1) {
+                var finalTooltip = buildCountryTooltip(countryName, selectedCountry);
+                countryName.html(finalTooltip);
+            } else
+                countryName.html(countryName.html());
+        },
+        series: {
+            markers: [finalMarkersInMap],
+            regions: [{
+                // min and max values of count
+                scale: [minColorMap, maxColorMap],
+                attribute: 'fill',
+                values: colors
+            }]
+        }
+    });
+    // add the markes to the map
+    if (thereAreMarkers) {
+        addMarkersToMap();
     }
+
 }
 
 function removeTooltip() {
@@ -68,12 +59,16 @@ function removeTooltip() {
     $('.jvectormap-tip').remove();
 }
 
+function removeBackButton() {
+    // erase the previous map tooltip
+    $('.jvectormap-goback').remove();
+}
+
 function switchMap(newMap) {
     // this function gets called when a country on the world map is clicked
     // erase the previous map
     $('#' + mDiv).empty();
     removeTooltip();
-
     var regionColors = ((dataType == 'countries') ? generateColorsForTheCountries(newMap) : []);
 
     map = new jvm.Map({

@@ -10,7 +10,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 	<!--Bootstrap-->
 	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<!--Font Awesome-->
 	<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
 	<!--jVectormap-->
 	<link rel="stylesheet" href="lib/jvectormap/jquery-jvectormap-2.0.2.css">
@@ -22,22 +21,21 @@
 	<!--Load all the maps-->
 	<script type="text/javascript" src="finalJs/maps.js"></script>
 	<!--Load all the necessary scripts-->
-	<script type="text/javascript" src="./lib/bootstrap-dropdown-checkbox/bootstrap-dropdown-checkbox.js"></script>
 	<script type="text/javascript" src="./finalJs/jsMapsApi.js"></script>
 
 
 	<!--Polymer-->
 	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
 	<!-- Import custom elements created with Polymer-->
 	<link rel="import" href="custom-elements/vector-map.html">
 	<link rel="import" href="custom-elements/filter-box.html">
-	<!--Bootstrap Dropdown Checkbox-->
-	<link rel="stylesheet" href="./lib/bootstrap-dropdown-checkbox/bootstrap-dropdown-checkbox.css">
 
 	<style media="screen">
 		head {
 			height: 100%;
 		}
+
 		#my_map {
 			position: absolute;
 			height: 600px;
@@ -50,21 +48,12 @@
 <body>
 	<div class="container-fluid" style="margin-top:10px">
 		<div class="starter-template col-sm-12 col-md-10">
-			<vector-map id="my_map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478"
-			min_radius=5 max_radius=15 markers='./json/markers.json' background_color="#666666"></vector-map>
+			<vector-map id="my_map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478" min_radius=5 max_radius=15 markers='./tests/json/test-markers.json' background_color="#666666"></vector-map>
 		</div>
-
 		<div class="starter-template col-sm-12 col-md-2">
-			<button>Show/Hide filters</button>
-			<filter-box filters="json/filters.json" type="checkboxes"></filter-box>
+			<filter-box filters="./tests/json/test-filters.json" type="input"></filter-box>
 		</div>
 	</div>
-
-	<script>
-		$("button").click(function() {
-			$("filter-box").slideToggle("slow");
-		});
-	</script>
 </body>
 
 </html>

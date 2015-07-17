@@ -18,8 +18,6 @@
 		form {
 			display: inline-block;
 		}
-
-		#slider {}
 	</style>
 </dom-module>
 <script>
@@ -38,10 +36,7 @@
 
 			// check if all the mandatory fields are present
 			if (!jsonFile)
-			{
-				console.error('You must input a JSON with the markers');
-				return;
-			}
+				return console.error('You must input a JSON with the markers');
 
 			// get the json file (Ajax request)
 			$.when($.getJSON(jsonFile)).then(function(jsonFile) {
