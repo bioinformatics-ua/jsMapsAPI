@@ -48,13 +48,9 @@
 				// get the map type (world, europe, usa, etc)
 				mapType = vMap.map_type;
 				if(vMap.markers)
-				{
 					dataType = 'markers';
-				}
 				else if(vMap.countries)
-				{
 					dataType = 'countries';
-				}
 
 				// create a new VectorialMap
 				vectorMap = new VectorialMap();

@@ -23,6 +23,14 @@
 			var filtersBox = this;
 			var jsonFilters = this.filters;
 			var filterType = this.type;
+			var associatedMap = this.map;
+
+			if(!associatedMap)
+			{
+				console.error('You must associate the filters with a map!');
+				return;
+			}
+			// check if the corresponding id exists
 
 			// check if all the mandatory fields are present
 			if (!jsonFilters) {
@@ -51,6 +59,10 @@
 			type: {
 				type: String,
 				value: 'input'
+			},
+			map: {
+				type: String,
+				value: ''
 			}
 		}
 	});
