@@ -1,6 +1,5 @@
 function getAllFilterValues(filterValue) {
     var returnParts = [];
-    console.log(filterValue);
     // check if we have an enumeration (comma-separated values and/or ranges)
     if (String(filterValue).indexOf(",") != -1) {
         // get all the enumerated values (can be singular or range)
@@ -116,7 +115,6 @@ function checkFilterNameIsValid(filterName) {
 
 function restoreInputBoxes()
 {
-    console.log('restoring');
     for(var i = 0 ; i < jsonFiltersArray.length ; i++)
         $('#fbox'+i).parent().removeClass("has-error");
 }
