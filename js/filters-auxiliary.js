@@ -52,28 +52,13 @@ function getAllFilterValues(filterValue) {
     return returnParts;
 }
 
-FiltersBox.prototype.checkWhatCountriesToAdd = function(selectedFilter, filterValue) {
-
+FiltersBox.prototype.checkWhatCountriesToAdd = function(selectedFilter, filterValue, map) {
     var countries = [];
-    $.each(jsonCountries, function(index, currentCountry) {
-        // check if any of the names is equal to the selected filter
-        // try to read all the names and values
-        var i = 0;
-        do {
-            i++;
-            var currentNameToCheck = 'name' + i;
-            var currentValue = 'value' + i;
-            // check if the Country has that name
-            if (currentCountry[currentNameToCheck]) {
-                if (currentCountry[currentValue] == filterValue) {
-                    countryValueToCheck = currentValue;
-                    // check by value
-                    if (currentCountry[currentValue] == filterValue)
-                        countries[currentCountry.country] = currentCountry.Count;
-                }
-            } else
-                break;
-        } while (true)
+    $.each(map.jsonCountries, function(index, country) {
+        $.each(Object.keys(country), function(index, attr) {
+            if (attr.toLowerCase() == selectedFilter.name.toLowerCase() && country[attr] == filterValue)
+                markers.push(country)
+        });
     });
     return countries;
 };

@@ -41,15 +41,17 @@ VectorialMap.prototype.readCountriesFromJSON = function(countriesJSON) {
     this.minCount = Infinity;
     this.maxCount = -Infinity;
 
+    var vMap = this;
+
 
     $.each(countriesJSON, function(index, currentCountry) {
         countries.push(new Country(currentCountry));
 
-        if (countries[index].Count > this.maxCount)
-            this.maxCount = countries[index].Count;
+        if (countries[index].count > vMap.maxCount)
+            vMap.maxCount = countries[index].count;
 
-        if (countries[index].Count < this.minCount)
-            this.minCount = countries[index].Count;
+        if (countries[index].count < vMap.minCount)
+            vMap.minCount = countries[index].count;
     });
     return countries;
 }

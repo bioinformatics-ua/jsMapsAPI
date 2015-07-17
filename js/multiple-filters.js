@@ -67,29 +67,35 @@ FiltersBox.prototype.filter = function(inputArgs) {
     });
 
 
-    // get the final countries
-    var finalCountries = [];
-    if (countriesByFilter.length > 0) {
-        finalCountries = countriesByFilter[0];
-        for (var i = 0; i < countriesByFilter.length - 1; i++)
-            finalCountries = getCountriesIntersection(finalCountries, countriesByFilter[i + 1]);
-    }
-
-    // add countries to Map
-    map.reloadMap(finalCountries);
-
-    // get the final markers
-    filteredMarkers = [];
-    if (markersByFilter.length > 0) {
-        filteredMarkers = markersByFilter[0];
-        for (var i = 0; i < markersByFilter.length - 1; i++) {
-            filteredMarkers = getMarkersIntersection(filteredMarkers, markersByFilter[i + 1]);
+    if(map.datatype == 'countries')
+    {
+        // get the final countries
+        var finalCountries = [];
+        if (countriesByFilter.length > 0) {
+            finalCountries = countriesByFilter[0];
+            for (var i = 0; i < countriesByFilter.length - 1; i++)
+                finalCountries = getCountriesIntersection(finalCountries, countriesByFilter[i + 1]);
         }
+        // add countries to Map
+        map.reloadMap(finalCountries);
     }
-    console.log(filteredMarkers.length);
-    map.filteredMarkers = filteredMarkers;
-    // add markers to the map
-    map.addMarkersToMap();
+    else {
+        map.reloadMap();
+        // get the final markers
+        filteredMarkers = [];
+        if (markersByFilter.length > 0) {
+            filteredMarkers = markersByFilter[0];
+            for (var i = 0; i < markersByFilter.length - 1; i++) {
+                filteredMarkers = getMarkersIntersection(filteredMarkers, markersByFilter[i + 1]);
+            }
+        }
+        map.filteredMarkers = filteredMarkers;
+        // add markers to the map
+        map.addMarkersToMap();
+    }
+
+
+
 }
 
 function getMarkersIntersection(markersGroup1, markersGroup2) {

@@ -21,8 +21,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     this.minColorMap = minColor;
     this.maxColorMap = maxColor;
 
-
-
     if (dataType == 'countries') {
         this.jsonCountries = this.readCountriesFromJSON(inputJSON);
         // get the tooltip templates
@@ -61,12 +59,11 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     }
 
     // get the Count value for each Country
-    this.auxColors = ((dataType=='countries') ? this.generateColorsForTheCountries() : []);
+    this.auxColors = ((this.dataType=='countries') ? this.generateColorsForTheCountries() : []);
 
     // marker legend
     var legendVar = {
-        vertical: true,
-        //title: 'Countries',
+        vertical: true
     };
 
     markersWithLegend = {
@@ -76,13 +73,14 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         // add a legend
         legend: legendVar
     };
+
     markersWithoutLegend = {
         scale: [this.minColorMap, this.maxColorMap],
         // range of values associated with the Count
         values: [this.minCount, this.maxCount]
     };
     finalMarkersInMap = markersWithLegend;
-    if (dataType == 'markers') {
+    if (this.dataType == 'markers') {
         finalMarkersInMap = markersWithoutLegend;
     }
 
