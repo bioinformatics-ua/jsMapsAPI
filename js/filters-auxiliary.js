@@ -52,7 +52,7 @@ function getAllFilterValues(filterValue) {
     return returnParts;
 }
 
-function checkWhatCountriesToAdd(selectedFilter, filterValue) {
+FiltersBox.prototype.checkWhatCountriesToAdd = function(selectedFilter, filterValue) {
 
     var countries = [];
     $.each(jsonCountries, function(index, currentCountry) {
@@ -78,10 +78,10 @@ function checkWhatCountriesToAdd(selectedFilter, filterValue) {
     return countries;
 };
 
-function checkWhatMarkersToAdd(selectedFilter, filterValue) {
+FiltersBox.prototype.checkWhatMarkersToAdd = function(selectedFilter, filterValue, map) {
     var markers = [];
     // add only the markers who have that filter value
-    $.each(jsonMarkers, function(index, currentMarker) {
+    $.each(map.jsonMarkers, function(index, currentMarker) {
         $.each(Object.keys(currentMarker), function(index, attr) {
             if (attr.toLowerCase() == selectedFilter.name.toLowerCase() && currentMarker[attr] == filterValue)
                 markers.push(currentMarker)
@@ -90,20 +90,21 @@ function checkWhatMarkersToAdd(selectedFilter, filterValue) {
     return markers;
 };
 
-function checkWhatCountriesMarkersToAdd(selectedFilter, filterValue) {
+FiltersBox.prototype.checkWhatCountriesMarkersToAdd = function(selectedFilter, filterValue, map) {
     var countriesToAdd = [];
     var markersToAdd = [];
 
-    // check what countries to colour
-    countriesToAdd = checkWhatCountriesToAdd(selectedFilter, filterValue);
-    markersToAdd = checkWhatMarkersToAdd(selectedFilter, filterValue);
+    if(map.datatype == 'countries')
+        countriesToAdd = this.checkWhatCountriesToAdd(selectedFilter, filterValue, map);
+    else
+        markersToAdd = this.checkWhatMarkersToAdd(selectedFilter, filterValue, map);
 
     return [countriesToAdd, markersToAdd];
 }
 
-function checkFilterNameIsValid(filterName) {
+FiltersBox.prototype.checkFilterNameIsValid = function(filterName) {
     var valid = false;
-    $.each(jsonFiltersArray, function(index, currentFilter) {
+    $.each(this.filters, function(index, currentFilter) {
         if (currentFilter.name.toLowerCase() === filterName.toLowerCase()) {
             filterObject = currentFilter;
             valid = true;
@@ -113,10 +114,10 @@ function checkFilterNameIsValid(filterName) {
     return valid;
 }
 
-function restoreInputBoxes()
-{
-    for(var i = 0 ; i < jsonFiltersArray.length ; i++)
-        $('#fbox'+i).parent().removeClass("has-error");
+FiltersBox.prototype.restoreInputBoxes = function(){
+    var fBox = this;
+    for(var i = 0 ; i < this.filters.length ; i++)
+        $('#fbox' + i + '-'+fBox.map).parent().removeClass("has-error");
 }
 
 function getSelectedItems(boxID) {
@@ -158,8 +159,7 @@ function checkFilterValuesAreValid(filter, filterValues) {
     return valid;
 }
 
-function highlightInputBoxError(filter, filterValue)
-{
+function highlightInputBoxError(filter, filterValue){
     console.log('Invalid value for the filter: ' + filterValue);
     // highlight the input with error
     var filterToFind = filter.name;

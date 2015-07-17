@@ -24,6 +24,13 @@
 			var jsonFilters = this.filters;
 			var filterType = this.type;
 			var associatedMap = this.map;
+			var id = this.id;
+
+			if(!id)
+			{
+				console.error('You must associate an id with this filter box');
+				return;
+			}
 
 			if(!associatedMap)
 			{
@@ -39,7 +46,7 @@
 			}
 
 			$.when($.getJSON(jsonFilters)).then(function(jsonFilters) {
-				var fBox = new FiltersBox(associatedMap, filterType);
+				var fBox = new FiltersBox(id, associatedMap, filterType);
 				fBox.readFiltersFromJSON(jsonFilters);
 				switch (filterType) {
 					case 'input':

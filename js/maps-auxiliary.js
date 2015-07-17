@@ -1,3 +1,14 @@
+function findMapById(id)
+{
+    var ret = null;
+    $.each(vMaps, function(index, map) {
+        if(map.id == id)
+            ret = map;
+    });
+    return ret;
+}
+
+
 // redraw the map
 VectorialMap.prototype.reloadMap = function(colors) {
     // update min and max Count of the countries

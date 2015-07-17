@@ -37,6 +37,7 @@ function readMarkersFromJSON(jsonMarkers) {
 }
 
 VectorialMap.prototype.addMarkersToMap = function(){
+    console.log('adding markers to map');
     var markersJSONArray = [];
     $.each(this.filteredMarkers, function(index, currentMarker) {
         var currentMarkerJSON = {

@@ -1,4 +1,6 @@
-function filter(inputArgs) {
+FiltersBox.prototype.filter = function(inputArgs) {
+    var fBox = this;
+
     var keys = Object.keys(inputArgs)
     var numberKeys = keys.length;
     var validFilters = 0;
@@ -10,25 +12,27 @@ function filter(inputArgs) {
         markersByFilter[i] = new Array();
     }
 
+
     // check if any of the names is all (reset all applied filters	)
     var exit = false;
     $.each(keys, function(index, filterName) {
         if (filterName.toLowerCase() == 'all') {
             exit = true;
-            // reloads the original markers and countries on the map
-            resetFilters();
-            // erase the text from the filters box
-            resetFiltersBox();
+            fBox.resetFilters();
+            fBox.resetFiltersBox();
             return;
         }
     });
     if (exit)
         return;
 
+    // access the map associated with the filters box
+    var map = findMapById(this.map);
+
     // for every key/filter
     $.each(keys, function(index, filterName) {
         // check if the filterName is valid
-        if (!checkFilterNameIsValid(filterName)) {
+        if (!fBox.checkFilterNameIsValid(filterName)) {
             // invalid filter name
             console.log('Invalid filter name!(' + filterName + ')');
             return;
@@ -44,7 +48,7 @@ function filter(inputArgs) {
 
             // for every single value get all the countrues and markers
             $.each(finalParts, function(i, part) {
-                var checkReturn = checkWhatCountriesMarkersToAdd(filterObject, part);
+                var checkReturn = fBox.checkWhatCountriesMarkersToAdd(filterObject, filterValue, map);
                 var countriesAux = checkReturn[0];
                 var markersAux = checkReturn[1];
                 // add every country to the list of countriesByFilter
@@ -62,6 +66,7 @@ function filter(inputArgs) {
         }
     });
 
+
     // get the final countries
     var finalCountries = [];
     if (countriesByFilter.length > 0) {
@@ -71,7 +76,7 @@ function filter(inputArgs) {
     }
 
     // add countries to Map
-    reloadMap(finalCountries);
+    map.reloadMap(finalCountries);
 
     // get the final markers
     filteredMarkers = [];
@@ -81,9 +86,10 @@ function filter(inputArgs) {
             filteredMarkers = getMarkersIntersection(filteredMarkers, markersByFilter[i + 1]);
         }
     }
-
+    console.log(filteredMarkers.length);
+    map.filteredMarkers = filteredMarkers;
     // add markers to the map
-    addMarkersToMap();
+    map.addMarkersToMap();
 }
 
 function getMarkersIntersection(markersGroup1, markersGroup2) {

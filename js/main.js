@@ -1,8 +1,13 @@
+var vMaps = [];
+
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType, backgroundColor, dataType) {
+VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType, backgroundColor, dataType, id) {
+    // add the map to the VMaps array
+    vMaps.push(this);
 
+    this.id = id;
     this.background = backgroundColor;
     this.mType = mapType;
     this.dataType = dataType;
@@ -15,6 +20,8 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     // assign the colors for the range
     this.minColorMap = minColor;
     this.maxColorMap = maxColor;
+
+
 
     if (dataType == 'countries') {
         this.jsonCountries = this.readCountriesFromJSON(inputJSON);
@@ -132,6 +139,8 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         this.filteredMarkers = this.jsonMarkers;
         this.addMarkersToMap(this.filteredMarkers);
     }
+
+
 };
 
 // Auxiliary function to transpose a value from an initial range to another range
