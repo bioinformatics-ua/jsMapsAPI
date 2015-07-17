@@ -111,10 +111,6 @@ function createFiltersBoxCheckboxes() {
     });
 }
 
-function getSelectedItems(boxID) {
-    return $(boxID).dropdownCheckbox("checked");
-}
-
 function createFiltersBoxWithEnumeration(jsonFilters) {
     numFilters = jsonFilters.length;
     // create filters box with enumeration
@@ -185,11 +181,4 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
         restoreInputBoxes();
         resetFiltersBox();
     });
-}
-
-function restoreInputBoxes()
-{
-    console.log('restoring');
-    for(var i = 0 ; i < jsonFiltersArray.length ; i++)
-        $('#fbox'+i).parent().removeClass("has-error");
 }

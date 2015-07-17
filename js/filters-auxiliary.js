@@ -114,21 +114,31 @@ function checkFilterNameIsValid(filterName) {
     return valid;
 }
 
+function restoreInputBoxes()
+{
+    console.log('restoring');
+    for(var i = 0 ; i < jsonFiltersArray.length ; i++)
+        $('#fbox'+i).parent().removeClass("has-error");
+}
+
+function getSelectedItems(boxID) {
+    return $(boxID).dropdownCheckbox("checked");
+}
+
+
 function checkFilterValuesAreValid(filter, filterValues) {
     var valid = true;
     // check if the filter is continuous or not
     if (filter.continuous == true) {
         var min = filter.min;
         var max = filter.max;
-        console.log(min);
-        console.log(max);
         // check if the values are between min and max
         $.each(filterValues, function(index, currentValue) {
             // check if we have a value outside the range
             console.log(+currentValue);
             if (+currentValue < min || +currentValue > max) {
                 valid = false;
-                console.log('Invalid value for the filter: ' + currentValue);
+                highlightInputBoxError(filter, currentValue);
                 return;
             }
         });
@@ -144,17 +154,20 @@ function checkFilterValuesAreValid(filter, filterValues) {
                 }
             });
             if(!valid)
-            {
-                console.log('Invalid value for the filter: ' + filterValue);
-                // highlight the input with error
-                var filterToFind = filter.name;
-                // find index of the filter
-                $.each(jsonFiltersArray, function(index, currentFilter) {
-                    if(filterToFind == currentFilter.name)
-                        $('#fbox'+index).parent().addClass("has-error");
-                });
-            }
+                highlightInputBoxError(filter, filterValue);
         });
     }
     return valid;
+}
+
+function highlightInputBoxError(filter, filterValue)
+{
+    console.log('Invalid value for the filter: ' + filterValue);
+    // highlight the input with error
+    var filterToFind = filter.name;
+    // find index of the filter
+    $.each(jsonFiltersArray, function(index, currentFilter) {
+        if(filterToFind == currentFilter.name)
+            $('#fbox'+index).parent().addClass("has-error");
+    });
 }
