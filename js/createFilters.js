@@ -77,6 +77,8 @@ function createFiltersBoxCheckboxes() {
 
     // triggered when the search button is clicked
     $("#filter_box_apply_filters").click(function() {
+        // remove all the 'has-error' input boxes
+        restoreInputBoxes();
         var jsonObject = {};
         var numFilters = jsonFiltersArray.length;
         var emptyFilters = 0;
@@ -155,6 +157,8 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 
     // triggered when the search button is clicked
     $("#filter_box_apply_filters").click(function() {
+        // remove all the 'has-error' input boxes
+        restoreInputBoxes();
         var jsonObject = {};
         var numFilters = jsonFilters.length;
         var emptyFilters = 0;
@@ -178,6 +182,14 @@ function createFiltersBoxWithEnumeration(jsonFilters) {
 
     // triggered when the reset button is clicked
     $("#filter_box_reset_filters").click(function() {
+        restoreInputBoxes();
         resetFiltersBox();
     });
+}
+
+function restoreInputBoxes()
+{
+    console.log('restoring');
+    for(var i = 0 ; i < jsonFiltersArray.length ; i++)
+        $('#fbox'+i).parent().removeClass("has-error");
 }

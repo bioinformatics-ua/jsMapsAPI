@@ -146,6 +146,13 @@ function checkFilterValuesAreValid(filter, filterValues) {
             if(!valid)
             {
                 console.log('Invalid value for the filter: ' + filterValue);
+                // highlight the input with error
+                var filterToFind = filter.name;
+                // find index of the filter
+                $.each(jsonFiltersArray, function(index, currentFilter) {
+                    if(filterToFind == currentFilter.name)
+                        $('#fbox'+index).parent().addClass("has-error");
+                });
             }
         });
     }
