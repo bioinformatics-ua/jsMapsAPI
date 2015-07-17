@@ -39,13 +39,14 @@
 			}
 
 			$.when($.getJSON(jsonFilters)).then(function(jsonFilters) {
-				jsonFiltersArray = readFiltersFromJSON(jsonFilters);
+				var fBox = new FiltersBox(associatedMap, filterType);
+				fBox.readFiltersFromJSON(jsonFilters);
 				switch (filterType) {
 					case 'input':
-						createFiltersBoxWithEnumeration(jsonFiltersArray);
+						fBox.createFiltersBoxWithEnumeration();
 						break;
 					case 'checkboxes':
-						createFiltersBoxCheckboxes();
+						fBox.createFiltersBoxCheckboxes();
 						break;
 				}
 			});
