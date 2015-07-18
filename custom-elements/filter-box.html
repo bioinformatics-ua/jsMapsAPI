@@ -5,7 +5,7 @@
 <!--id - name of the custom component-->
 <dom-module id="filter-box">
 	<template>
-		<button>Show/Hide filters</button>
+		<button id='show'>Show/Hide filters</button>
 		<h3>Filters</h3>
 	</template>
 </dom-module>
@@ -16,15 +16,17 @@
 		is: "filter-box",
 		//Lifecycle callbacks
 		attached: function() {
-			$("button").click(function() {
-				$("filter-box").children().not('button').slideToggle("slow");
-			});
+
 
 			var filtersBox = this;
 			var jsonFilters = this.filters;
 			var filterType = this.type;
 			var associatedMap = this.map;
 			var id = this.id;
+
+			$("button").click(function() {
+				$('filter-box#'+id).children().not('button#show').slideToggle("slow");
+			});
 
 			if(!id)
 			{
