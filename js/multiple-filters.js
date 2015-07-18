@@ -80,8 +80,6 @@ FiltersBox.prototype.filter = function(inputArgs) {
         map.reloadMap(finalCountries);
     }
     else {
-        map.reloadMap();
-        // get the final markers
         filteredMarkers = [];
         if (markersByFilter.length > 0) {
             filteredMarkers = markersByFilter[0];
@@ -90,8 +88,7 @@ FiltersBox.prototype.filter = function(inputArgs) {
             }
         }
         map.filteredMarkers = filteredMarkers;
-        // add markers to the map
-        map.addMarkersToMap();
+        map.reloadMap();
     }
 
 

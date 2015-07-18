@@ -5,19 +5,22 @@ var FiltersBox = function(id, map, filterType) {
 }
 
 FiltersBox.prototype.resetFiltersBox = function() {
+    var fBox = this;
     // reset all the 'fboxes'
     for (var i = 0; i < this.filters.length; i++) {
         var currentId = '#fbox' + i + '-'+fBox.map;
-        $(current).text('');
+        $(currentId).text('');
         $(currentId).val('');
     }
 
-    // reload the map
-    var colors = generateColorsForTheCountries();
-    reloadMap(colors);
+    var map = findMapById(this.map);
 
-    filteredMarkers = jsonMarkers;
-    addMarkersToMap();
+    // reload the map
+    var colors = map.generateColorsForTheCountries();
+    map.filteredMarkers = map.jsonMarkers;
+    map.reloadMap(colors);
+    if(map.datatype == 'markers')
+        map.addMarkersToMap();
 }
 
 FiltersBox.prototype.createFiltersBoxWithEnumeration = function() {
