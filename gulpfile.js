@@ -20,7 +20,7 @@ gulp.task('jsFiles', function() {
 
 // generate maps
 gulp.task('maps', function() {
-    gulp.src(['./lib/jvectormap/maps/*.js'])
+    gulp.src(['./maps_creator/created_countries/*.js'])
         .pipe(concat('maps.js'))
         .pipe(stripDebug())
         .pipe(uglify())
@@ -35,7 +35,7 @@ gulp.task('default', ['jsFiles', 'maps'], function() {
     });
 
     // watch for changes on the map files
-    gulp.watch('./lib/jvectormap/maps/*.js', function() {
+    gulp.watch('./maps_creator/created_countries/*.js', function() {
         gulp.run('maps');
     });
 });

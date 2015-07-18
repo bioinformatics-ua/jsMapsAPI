@@ -1,0 +1,1 @@
+{"name_field": "name", "name": "gw", "input_file": "./states_provinces/ne_10m_admin_1_states_provinces.shp", "output_file": "./created_countries/gw.js", "input_file_encoding": "utf-8", "code_field": "iso_a2", "where": "iso_a2 = 'GW'"}

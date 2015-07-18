@@ -1,0 +1,1 @@
+jQuery.fn.vectorMap('addMap', 'ki_mill_en',{"insets": [{"width": 900, "top": 0, "height": 41.58626556595795, "bbox": [{"y": -526420.3395593398, "x": -19439938.012240127}, {"y": 1281975.8780795198, "x": 19696939.842146322}], "left": 0}], "paths": {}, "height": 41.58626556595795, "projection": {"type": "mill", "centralMeridian": 0.0}, "width": 900.0});

@@ -1,0 +1,1 @@
+jQuery.fn.vectorMap('addMap', 'um_mill_en',{"insets": [{"width": 900, "top": 0, "height": 76.81402286177712, "bbox": [{"y": -3227100.1648680144, "x": -19756935.2902114}, {"y": 43299.52805231551, "x": 18561064.652646974}], "left": 0}], "paths": {}, "height": 76.81402286177712, "projection": {"type": "mill", "centralMeridian": 0.0}, "width": 900.0});
