@@ -10,7 +10,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     this.id = id;
     this.background = backgroundColor;
     this.mType = mapType;
-    this.dataType = dataType;
+    this.datatype = dataType;
     // countries list
     this.jsonCountries = [];
     // markers list
@@ -59,7 +59,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     }
 
     // get the Count value for each Country
-    this.auxColors = ((this.dataType=='countries') ? this.generateColorsForTheCountries() : []);
+    this.auxColors = ((this.datatype=='countries') ? this.generateColorsForTheCountries() : []);
 
     // marker legend
     var legendVar = {
@@ -80,7 +80,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         values: [this.minCount, this.maxCount]
     };
     finalMarkersInMap = markersWithLegend;
-    if (this.dataType == 'markers') {
+    if (this.datatype == 'markers') {
         finalMarkersInMap = markersWithoutLegend;
     }
 

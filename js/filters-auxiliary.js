@@ -57,7 +57,9 @@ FiltersBox.prototype.checkWhatCountriesToAdd = function(selectedFilter, filterVa
     $.each(map.jsonCountries, function(index, country) {
         $.each(Object.keys(country), function(index, attr) {
             if (attr.toLowerCase() == selectedFilter.name.toLowerCase() && country[attr] == filterValue)
-                markers.push(country)
+            {
+                countries.push(country)
+            }
         });
     });
     return countries;

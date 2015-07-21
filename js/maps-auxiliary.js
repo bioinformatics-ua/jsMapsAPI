@@ -10,17 +10,19 @@ function findMapById(id)
 
 
 // redraw the map
-VectorialMap.prototype.reloadMap = function(colors) {
-    // update min and max Count of the countries
-    if (this.jsonCountries.length > 0)
-        this.readMinMax(colors);
+VectorialMap.prototype.reloadMap = function(countries) {
+    var vMap = this;
+    if (vMap.jsonCountries.length > 0)
+    {
+        // update min and max Count of the countries
+        vMap.readMinMax(countries);
+        colors = vMap.generateColorsForTheCountries(countries);
+    }
 
     // erase the map
-    $("#" + this.mDiv).empty();
+    $("#" + vMap.mDiv).empty();
 
-    var vMap = this;
-
-    this.map = new jvm.Map({
+    vMap.map = new jvm.Map({
         map: vMap.mType,
         backgroundColor: vMap.background,
         container: $('#' + vMap.mDiv),

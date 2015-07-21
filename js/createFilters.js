@@ -16,9 +16,8 @@ FiltersBox.prototype.resetFiltersBox = function() {
     var map = findMapById(this.map);
 
     // reload the map
-    var colors = map.generateColorsForTheCountries();
     map.filteredMarkers = map.jsonMarkers;
-    map.reloadMap(colors);
+    map.reloadMap(map.jsonCountries);
     if(map.datatype == 'markers')
         map.addMarkersToMap();
 }
