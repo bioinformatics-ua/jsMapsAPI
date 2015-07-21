@@ -63,7 +63,6 @@ FiltersBox.prototype.createFiltersBoxWithEnumeration = function() {
     // triggered when the search button is clicked
     $('#'+fBox.id+'_apply_filters').click(function() {
         // remove all the 'has-error' input boxes
-        console.log('applying filters...');
         fBox.restoreInputBoxes();
         var jsonObject = {};
         var numFilters = fBox.filters.length;

@@ -18,6 +18,9 @@ VectorialMap.prototype.reloadMap = function(countries) {
         vMap.readMinMax(countries);
         colors = vMap.generateColorsForTheCountries(countries);
     }
+    else {
+        colors = [];
+    }
 
     // erase the map
     $("#" + vMap.mDiv).empty();

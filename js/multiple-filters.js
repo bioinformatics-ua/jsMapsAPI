@@ -9,7 +9,6 @@ FiltersBox.prototype.filter = function(inputArgs) {
     var markersByFilter = new Array();
     for (i = 0; i < numberKeys; i++) {
         countriesByFilter[i] = new Array();
-        markersByFilter[i] = new Array();
     }
 
 
@@ -36,39 +35,36 @@ FiltersBox.prototype.filter = function(inputArgs) {
             // invalid filter name
             console.log('Invalid filter name!(' + filterName + ')');
             return;
-
         } else {
             // get the filter value (can contain enumeration and range)
             // '2004-2006' , 'F,M', etc
             var filterValue = inputArgs[filterName];
             // get all single filter values
-            var finalParts = getAllFilterValues(filterValue);
-            //console.log(finalParts);
-            validFilters++;
-
-            // for every single value get all the countrues and markers
-            $.each(finalParts, function(i, part) {
-                var checkReturn = fBox.checkWhatCountriesMarkersToAdd(filterObject, filterValue, map);
-                var countriesAux = checkReturn[0];
-                var markersAux = checkReturn[1];
-                // add every country to the list of countriesByFilter
-                // add every marker to the list of markersByFilter
-                $.each(Object.keys(countriesAux), function(j, currentKey) {
-                    // the colors that are returned are in a json format
-                    var keyValue = countriesAux[currentKey];
-                    countriesByFilter[index][currentKey] = keyValue;
+            var finalParts = fBox.getAllFilterValues(filterValue);
+            if (finalParts.length != 0) {
+                markersByFilter[index] = new Array();
+                // for every single value get all the countrues and markers
+                $.each(finalParts, function(i, part) {
+                    var checkReturn = fBox.checkWhatCountriesMarkersToAdd(filterObject, part, map);
+                    var countriesAux = checkReturn[0];
+                    var markersAux = checkReturn[1];
+                    // add every country to the list of countriesByFilter
+                    // add every marker to the list of markersByFilter
+                    $.each(Object.keys(countriesAux), function(j, currentKey) {
+                        // the colors that are returned are in a json format
+                        var keyValue = countriesAux[currentKey];
+                        countriesByFilter[index][currentKey] = keyValue;
+                    });
+                    // get the markers
+                    $.each(markersAux, function(j, currentMarker) {
+                        markersByFilter[index].push(currentMarker);
+                    });
                 });
-                // get the markers
-                $.each(markersAux, function(j, currentMarker) {
-                    markersByFilter[index].push(currentMarker);
-                });
-            });
+            }
         }
     });
 
-
-    if(map.datatype == 'countries')
-    {
+    if (map.datatype == 'countries') {
         // get the final countries
         var finalCountries = [];
         if (countriesByFilter.length > 0) {
@@ -78,21 +74,19 @@ FiltersBox.prototype.filter = function(inputArgs) {
         }
         // add countries to Map
         map.reloadMap(finalCountries);
-    }
-    else {
-        filteredMarkers = [];
-        if (markersByFilter.length > 0) {
-            filteredMarkers = markersByFilter[0];
-            for (var i = 0; i < markersByFilter.length - 1; i++) {
-                filteredMarkers = getMarkersIntersection(filteredMarkers, markersByFilter[i + 1]);
+    } else {
+        if (markersByFilter.length != 0) {
+            filteredMarkers = [];
+            if (markersByFilter.length > 0) {
+                filteredMarkers = markersByFilter[0];
+                for (var i = 0; i < markersByFilter.length - 1; i++) {
+                    filteredMarkers = getMarkersIntersection(filteredMarkers, markersByFilter[i + 1]);
+                }
             }
+            map.filteredMarkers = filteredMarkers;
+            map.reloadMap();
         }
-        map.filteredMarkers = filteredMarkers;
-        map.reloadMap();
     }
-
-
-
 }
 
 function getMarkersIntersection(markersGroup1, markersGroup2) {

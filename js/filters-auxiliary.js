@@ -1,13 +1,16 @@
-function getAllFilterValues(filterValue) {
+FiltersBox.prototype.getAllFilterValues = function(filterValue) {
+    var fBox = this;
     var returnParts = [];
     // check if we have an enumeration (comma-separated values and/or ranges)
     if (String(filterValue).indexOf(",") != -1) {
+        console.log('enumeration');
         // get all the enumerated values (can be singular or range)
         var enumerationParts = String(filterValue).split(",");
         // check if we have a simple value or a range
         $.each(enumerationParts, function(index, currentEnumeration) {
             // if we have a range...
             if (currentEnumeration.indexOf("-") != -1) {
+                console.log('range inside enumeration');
                 // all the range parts
                 var rangeParts = String(currentEnumeration).split("-");
                 // check if the extreme values are valid
@@ -21,7 +24,9 @@ function getAllFilterValues(filterValue) {
             } else {
                 // if we don't have a range
                 // check if the single value is valid
-                returnParts.push(currentEnumeration);
+                console.log('no range inside enumeration');
+                var valid = fBox.checkFilterValuesAreValid(filterObject,[currentEnumeration]);
+                if(valid) returnParts.push(currentEnumeration);
             }
         });
     } else {
@@ -33,7 +38,8 @@ function getAllFilterValues(filterValue) {
             var subParts = String(filterValue).split("-");
             console.log(subParts);
             // check if the extreme values are valid
-            checkFilterValuesAreValid(filterObject, subParts);
+            var valid = fBox.checkFilterValuesAreValid(filterObject, subParts);
+            console.log(valid);
             // get all the values between those two numbers
             var min = subParts[0];
             var max = subParts[1];
@@ -45,8 +51,8 @@ function getAllFilterValues(filterValue) {
             // just a single value
             console.log('single value');
             // check the validity of this value
-            checkFilterValuesAreValid(filterObject,filterValue.split(''));
-            returnParts.push(filterValue);
+            var valid = fBox.checkFilterValuesAreValid(filterObject,[filterValue]);
+            if(valid) returnParts.push(filterValue);
         }
     }
     return returnParts;
@@ -112,7 +118,8 @@ function getSelectedItems(boxID) {
 }
 
 
-function checkFilterValuesAreValid(filter, filterValues) {
+FiltersBox.prototype.checkFilterValuesAreValid = function(filter, filterValues) {
+    var fBox = this;
     var valid = true;
     // check if the filter is continuous or not
     if (filter.continuous == true) {
@@ -121,10 +128,9 @@ function checkFilterValuesAreValid(filter, filterValues) {
         // check if the values are between min and max
         $.each(filterValues, function(index, currentValue) {
             // check if we have a value outside the range
-            console.log(+currentValue);
             if (+currentValue < min || +currentValue > max) {
                 valid = false;
-                highlightInputBoxError(filter, currentValue);
+                fBox.highlightInputBoxError(filter, currentValue);
                 return;
             }
         });
@@ -140,19 +146,20 @@ function checkFilterValuesAreValid(filter, filterValues) {
                 }
             });
             if(!valid)
-                highlightInputBoxError(filter, filterValue);
+                fBox.highlightInputBoxError(filter, filterValue);
         });
     }
     return valid;
 }
 
-function highlightInputBoxError(filter, filterValue){
+FiltersBox.prototype.highlightInputBoxError = function(filter, filterValue){
+    var fBox = this;
     console.log('Invalid value for the filter: ' + filterValue);
     // highlight the input with error
     var filterToFind = filter.name;
     // find index of the filter
-    $.each(jsonFiltersArray, function(index, currentFilter) {
-        if(filterToFind == currentFilter.name)
-            $('#fbox'+index).parent().addClass("has-error");
+    $.each(fBox.filters, function(index, filter) {
+        if(filterToFind == filter.name)
+            $('#fbox' + index + '-'+fBox.map).parent().addClass("has-error");
     });
 }
