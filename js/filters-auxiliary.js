@@ -31,15 +31,11 @@ FiltersBox.prototype.getAllFilterValues = function(filterValue) {
         });
     } else {
         // just a single part
-        console.log('single');
         if (filterValue.indexOf("-") != -1) {
             // we have a range
-            console.log('range');
             var subParts = String(filterValue).split("-");
-            console.log(subParts);
             // check if the extreme values are valid
             var valid = fBox.checkFilterValuesAreValid(filterObject, subParts);
-            console.log(valid);
             // get all the values between those two numbers
             var min = subParts[0];
             var max = subParts[1];
@@ -49,7 +45,6 @@ FiltersBox.prototype.getAllFilterValues = function(filterValue) {
         } else
         {
             // just a single value
-            console.log('single value');
             // check the validity of this value
             var valid = fBox.checkFilterValuesAreValid(filterObject,[filterValue]);
             if(valid) returnParts.push(filterValue);
