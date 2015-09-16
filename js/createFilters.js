@@ -2,6 +2,7 @@ var FiltersBox = function(id, map, filterType) {
     this.id = id;
     this.map = map;
     this.filterType = filterType;
+    
 }
 
 FiltersBox.prototype.resetFiltersBox = function() {
