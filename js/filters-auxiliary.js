@@ -1,13 +1,16 @@
-function getAllFilterValues(filterValue) {
+FiltersBox.prototype.getAllFilterValues = function(filterValue) {
+    var fBox = this;
     var returnParts = [];
     // check if we have an enumeration (comma-separated values and/or ranges)
     if (String(filterValue).indexOf(",") != -1) {
+        console.log('enumeration');
         // get all the enumerated values (can be singular or range)
         var enumerationParts = String(filterValue).split(",");
         // check if we have a simple value or a range
         $.each(enumerationParts, function(index, currentEnumeration) {
             // if we have a range...
             if (currentEnumeration.indexOf("-") != -1) {
+                console.log('range inside enumeration');
                 // all the range parts
                 var rangeParts = String(currentEnumeration).split("-");
                 // check if the extreme values are valid
@@ -21,19 +24,18 @@ function getAllFilterValues(filterValue) {
             } else {
                 // if we don't have a range
                 // check if the single value is valid
-                returnParts.push(currentEnumeration);
+                console.log('no range inside enumeration');
+                var valid = fBox.checkFilterValuesAreValid(filterObject,[currentEnumeration]);
+                if(valid) returnParts.push(currentEnumeration);
             }
         });
     } else {
         // just a single part
-        console.log('single');
         if (filterValue.indexOf("-") != -1) {
             // we have a range
-            console.log('range');
             var subParts = String(filterValue).split("-");
-            console.log(subParts);
             // check if the extreme values are valid
-            checkFilterValuesAreValid(filterObject, subParts);
+            var valid = fBox.checkFilterValuesAreValid(filterObject, subParts);
             // get all the values between those two numbers
             var min = subParts[0];
             var max = subParts[1];
@@ -43,45 +45,31 @@ function getAllFilterValues(filterValue) {
         } else
         {
             // just a single value
-            console.log('single value');
             // check the validity of this value
-            checkFilterValuesAreValid(filterObject,filterValue.split(''));
-            returnParts.push(filterValue);
+            var valid = fBox.checkFilterValuesAreValid(filterObject,[filterValue]);
+            if(valid) returnParts.push(filterValue);
         }
     }
     return returnParts;
 }
 
-function checkWhatCountriesToAdd(selectedFilter, filterValue) {
-
+FiltersBox.prototype.checkWhatCountriesToAdd = function(selectedFilter, filterValue, map) {
     var countries = [];
-    $.each(jsonCountries, function(index, currentCountry) {
-        // check if any of the names is equal to the selected filter
-        // try to read all the names and values
-        var i = 0;
-        do {
-            i++;
-            var currentNameToCheck = 'name' + i;
-            var currentValue = 'value' + i;
-            // check if the Country has that name
-            if (currentCountry[currentNameToCheck]) {
-                if (currentCountry[currentValue] == filterValue) {
-                    countryValueToCheck = currentValue;
-                    // check by value
-                    if (currentCountry[currentValue] == filterValue)
-                        countries[currentCountry.country] = currentCountry.Count;
-                }
-            } else
-                break;
-        } while (true)
+    $.each(map.jsonCountries, function(index, country) {
+        $.each(Object.keys(country), function(index, attr) {
+            if (attr.toLowerCase() == selectedFilter.name.toLowerCase() && country[attr] == filterValue)
+            {
+                countries.push(country)
+            }
+        });
     });
     return countries;
 };
 
-function checkWhatMarkersToAdd(selectedFilter, filterValue) {
+FiltersBox.prototype.checkWhatMarkersToAdd = function(selectedFilter, filterValue, map) {
     var markers = [];
     // add only the markers who have that filter value
-    $.each(jsonMarkers, function(index, currentMarker) {
+    $.each(map.jsonMarkers, function(index, currentMarker) {
         $.each(Object.keys(currentMarker), function(index, attr) {
             if (attr.toLowerCase() == selectedFilter.name.toLowerCase() && currentMarker[attr] == filterValue)
                 markers.push(currentMarker)
@@ -90,20 +78,21 @@ function checkWhatMarkersToAdd(selectedFilter, filterValue) {
     return markers;
 };
 
-function checkWhatCountriesMarkersToAdd(selectedFilter, filterValue) {
+FiltersBox.prototype.checkWhatCountriesMarkersToAdd = function(selectedFilter, filterValue, map) {
     var countriesToAdd = [];
     var markersToAdd = [];
 
-    // check what countries to colour
-    countriesToAdd = checkWhatCountriesToAdd(selectedFilter, filterValue);
-    markersToAdd = checkWhatMarkersToAdd(selectedFilter, filterValue);
+    if(map.datatype == 'countries')
+        countriesToAdd = this.checkWhatCountriesToAdd(selectedFilter, filterValue, map);
+    else
+        markersToAdd = this.checkWhatMarkersToAdd(selectedFilter, filterValue, map);
 
     return [countriesToAdd, markersToAdd];
 }
 
-function checkFilterNameIsValid(filterName) {
+FiltersBox.prototype.checkFilterNameIsValid = function(filterName) {
     var valid = false;
-    $.each(jsonFiltersArray, function(index, currentFilter) {
+    $.each(this.filters, function(index, currentFilter) {
         if (currentFilter.name.toLowerCase() === filterName.toLowerCase()) {
             filterObject = currentFilter;
             valid = true;
@@ -113,10 +102,10 @@ function checkFilterNameIsValid(filterName) {
     return valid;
 }
 
-function restoreInputBoxes()
-{
-    for(var i = 0 ; i < jsonFiltersArray.length ; i++)
-        $('#fbox'+i).parent().removeClass("has-error");
+FiltersBox.prototype.restoreInputBoxes = function(){
+    var fBox = this;
+    for(var i = 0 ; i < this.filters.length ; i++)
+        $('#fbox' + i + '-'+fBox.map).parent().removeClass("has-error");
 }
 
 function getSelectedItems(boxID) {
@@ -124,7 +113,8 @@ function getSelectedItems(boxID) {
 }
 
 
-function checkFilterValuesAreValid(filter, filterValues) {
+FiltersBox.prototype.checkFilterValuesAreValid = function(filter, filterValues) {
+    var fBox = this;
     var valid = true;
     // check if the filter is continuous or not
     if (filter.continuous == true) {
@@ -133,10 +123,9 @@ function checkFilterValuesAreValid(filter, filterValues) {
         // check if the values are between min and max
         $.each(filterValues, function(index, currentValue) {
             // check if we have a value outside the range
-            console.log(+currentValue);
             if (+currentValue < min || +currentValue > max) {
                 valid = false;
-                highlightInputBoxError(filter, currentValue);
+                fBox.highlightInputBoxError(filter, currentValue);
                 return;
             }
         });
@@ -152,20 +141,20 @@ function checkFilterValuesAreValid(filter, filterValues) {
                 }
             });
             if(!valid)
-                highlightInputBoxError(filter, filterValue);
+                fBox.highlightInputBoxError(filter, filterValue);
         });
     }
     return valid;
 }
 
-function highlightInputBoxError(filter, filterValue)
-{
+FiltersBox.prototype.highlightInputBoxError = function(filter, filterValue){
+    var fBox = this;
     console.log('Invalid value for the filter: ' + filterValue);
     // highlight the input with error
     var filterToFind = filter.name;
     // find index of the filter
-    $.each(jsonFiltersArray, function(index, currentFilter) {
-        if(filterToFind == currentFilter.name)
-            $('#fbox'+index).parent().addClass("has-error");
+    $.each(fBox.filters, function(index, filter) {
+        if(filterToFind == filter.name)
+            $('#fbox' + index + '-'+fBox.map).parent().addClass("has-error");
     });
 }

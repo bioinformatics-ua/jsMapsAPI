@@ -3,10 +3,6 @@
 <dom-module id="vector-map">
 	<style>
 		/* CSS rules for the custom element */
-		head {
-			height: 100%;
-		}
-
 		.dropdown {
 			margin-bottom: 10px;
 		}
@@ -30,13 +26,17 @@
 			// attr containing the json file with the markers and countries
 			var vMap = this;
 			var jsonFile = this.countries;
+			var id = this.id;
+			if(!id)
+				return console.error('You must input an id to be associated with the map!');
+
 			if(this.markers)
 				jsonFile = this.markers;
 
 
 			// check if all the mandatory fields are present
 			if (!jsonFile)
-				return console.error('You must input a JSON with the markers');
+				return console.error('You must input a json file!');
 
 			// get the json file (Ajax request)
 			$.when($.getJSON(jsonFile)).then(function(jsonFile) {
@@ -48,17 +48,13 @@
 				// get the map type (world, europe, usa, etc)
 				mapType = vMap.map_type;
 				if(vMap.markers)
-				{
 					dataType = 'markers';
-				}
 				else if(vMap.countries)
-				{
 					dataType = 'countries';
-				}
 
 				// create a new VectorialMap
 				vectorMap = new VectorialMap();
-				vectorMap.createMap(jsonFile, minRadius, maxRadius, vMap.id, minColor, maxColor, mapType, backgroundColor, dataType);
+				vectorMap.createMap(jsonFile, minRadius, maxRadius, vMap.id, minColor, maxColor, mapType, backgroundColor, dataType, id);
 			});
 		},
 		properties: {

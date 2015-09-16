@@ -5,7 +5,7 @@
 <!--id - name of the custom component-->
 <dom-module id="filter-box">
 	<template>
-		<button>Show/Hide filters</button>
+		<button id='show'>Show/Hide filters</button>
 		<h3>Filters</h3>
 	</template>
 </dom-module>
@@ -16,13 +16,28 @@
 		is: "filter-box",
 		//Lifecycle callbacks
 		attached: function() {
-			$("button").click(function() {
-				$("filter-box").children().not('button').slideToggle("slow");
-			});
-
 			var filtersBox = this;
 			var jsonFilters = this.filters;
 			var filterType = this.type;
+			var associatedMap = this.map;
+			var id = this.id;
+
+			$("button").click(function() {
+				$('filter-box#'+id).children().not('button#show').slideToggle("slow");
+			});
+
+			if(!id)
+			{
+				console.error('You must associate an id with this filter box');
+				return;
+			}
+
+			if(!associatedMap)
+			{
+				console.error('You must associate the filters with a map!');
+				return;
+			}
+			// check if the corresponding id exists
 
 			// check if all the mandatory fields are present
 			if (!jsonFilters) {
@@ -31,13 +46,14 @@
 			}
 
 			$.when($.getJSON(jsonFilters)).then(function(jsonFilters) {
-				jsonFiltersArray = readFiltersFromJSON(jsonFilters);
+				var fBox = new FiltersBox(id, associatedMap, filterType);
+				fBox.readFiltersFromJSON(jsonFilters);
 				switch (filterType) {
 					case 'input':
-						createFiltersBoxWithEnumeration(jsonFiltersArray);
+						fBox.createFiltersBoxWithEnumeration();
 						break;
 					case 'checkboxes':
-						createFiltersBoxCheckboxes();
+						fBox.createFiltersBoxCheckboxes();
 						break;
 				}
 			});
@@ -51,6 +67,10 @@
 			type: {
 				type: String,
 				value: 'input'
+			},
+			map: {
+				type: String,
+				value: ''
 			}
 		}
 	});

@@ -18,9 +18,7 @@
 	<script src="lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
 	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-	<!--Load all the maps-->
-	<script type="text/javascript" src="finalJs/maps.js"></script>
-	<!--Load all the necessary scripts-->
+	<!-- jsMapsApi -->
 	<script type="text/javascript" src="./finalJs/jsMapsApi.js"></script>
 
 
@@ -32,13 +30,14 @@
 	<link rel="import" href="custom-elements/filter-box.html">
 
 	<style media="screen">
-		head {
-			height: 100%;
+		html, body{
+			height:100%;
+			margin: 0px;
+			padding: 0px;
 		}
 
 		#my_map {
-			position: absolute;
-			height: 600px;
+			height: 100%;
 			width: 100%;
 		}
 	</style>
@@ -46,12 +45,13 @@
 
 
 <body>
-	<div class="container-fluid" style="margin-top:10px">
-		<div class="starter-template col-sm-12 col-md-10">
-			<vector-map id="my_map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478" min_radius=5 max_radius=15 markers='./tests/json/test-markers.json' background_color="#666666"></vector-map>
+	<div class="container-fluid" style="margin-top:10px; height:100%">
+		<div class="starter-template col-sm-12 col-md-10" style="height:100%">
+			<vector-map id="my_map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478"
+			min_radius=5 max_radius=15 markers='./tests/json/test-markers.json' background_color="#666666"></vector-map>
 		</div>
 		<div class="starter-template col-sm-12 col-md-2">
-			<filter-box filters="./tests/json/test-filters.json" type="input"></filter-box>
+			<filter-box id="my-fbox" filters="./tests/json/test-filters.json" type="input" map="my_map"></filter-box>
 		</div>
 	</div>
 </body>

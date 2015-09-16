@@ -1,4 +1,11 @@
-// create a new FIlter object
+FiltersBox.prototype.readFiltersFromJSON = function(filtersJSON) {
+    var filters = [];
+    $.each(filtersJSON, function(index, filter) {
+        filters.push(new Filter(filter));
+    });
+    this.filters = filters;
+}
+
 var Filter = function(filterObject) {
     this.name = filterObject['name'];
     // check if the values are continuous or discrete
@@ -33,12 +40,4 @@ function resetFilters() {
             }
         });
     });
-}
-
-function readFiltersFromJSON(filtersJSON) {
-    var filters = [];
-    $.each(filtersJSON, function(index, filter) {
-        filters.push(new Filter(filter));
-    });
-    return filters;
 }

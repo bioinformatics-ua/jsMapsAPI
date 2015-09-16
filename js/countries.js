@@ -9,7 +9,7 @@ var Country = function(countryObject) {
 
     // try to read its regions in case he has any
     if (countryObject.Regions)
-        this.Regions = readRegionsFromJSON(countryObject.Regions, countryObject.country);
+        this.Regions = this.readRegionsFromJSON(countryObject.Regions, countryObject.country);
 
     this.name = countryObject.name;
     // + is used to assure that a Number is being read
@@ -25,9 +25,9 @@ function buildCountryTooltip(countryName, country) {
     return finalTooltip;
 }
 
-function generateColorsForTheCountries(countries) {
+VectorialMap.prototype.generateColorsForTheCountries = function(countries) {
     if (!countries)
-        countries = jsonCountries;
+        countries = this.jsonCountries;
     var countryColors = [];
     $.each(countries, function(index, currentCountry) {
         countryColors[currentCountry.name] = currentCountry.count;
@@ -35,29 +35,32 @@ function generateColorsForTheCountries(countries) {
     return countryColors;
 };
 
-function readCountriesFromJSON(countriesJSON) {
+VectorialMap.prototype.readCountriesFromJSON = function(countriesJSON) {
     var countries = [];
 
-    minCount = Infinity;
-    maxCount = -Infinity;
+    this.minCount = Infinity;
+    this.maxCount = -Infinity;
+
+    var vMap = this;
 
     $.each(countriesJSON, function(index, currentCountry) {
         countries.push(new Country(currentCountry));
 
-        if (countries[index].Count > maxCount)
-            maxCount = countries[index].Count;
+        if (countries[index].count > vMap.maxCount)
+            vMap.maxCount = countries[index].count;
 
-        if (countries[index].Count < minCount)
-            minCount = countries[index].Count;
+        if (countries[index].count < vMap.minCount)
+            vMap.minCount = countries[index].count;
     });
     return countries;
 }
 
 // return the country whose name is passed as an argument
-function findCountryByName(countryName) {
+
+VectorialMap.prototype.findCountryByName = function(countryName) {
     var returnCountry = null;
-    $.each(jsonCountries, function(index, currentCountry) {
-        if (currentCountry.country == countryName) {
+    $.each(this.jsonCountries, function(index, currentCountry) {
+        if (currentCountry.name == countryName) {
             returnCountry = currentCountry;
             return returnCountry;
         }
@@ -66,27 +69,18 @@ function findCountryByName(countryName) {
 }
 
 // read the min and max count of the countris
-function readMinMax(countriesNames) {
-    minCount = Infinity;
-    maxCount = -Infinity;
-
-    // countries names is a JSON object
-    // read keys to an array
-    var keys = [];
-    for (var key in countriesNames) {
-        if (countriesNames.hasOwnProperty(key)) {
-            keys.push(key);
-        }
-    }
+VectorialMap.prototype.readMinMax = function(countries) {
+    var vMap = this;
+    vMap.minCount = Infinity;
+    vMap.maxCount = -Infinity;
 
     // find country by name
-    $.each(keys, function(index, currentCountryName) {
+    $.each(countries, function(index, currentCountry) {
         // find the country by its name
-        var currentCountry = findCountryByName(currentCountryName);
-        if (currentCountry.Count > maxCount)
-            maxCount = currentCountry.Count;
+        if (currentCountry.count > vMap.maxCount)
+            vMap.maxCount = currentCountry.count;
 
-        if (currentCountry.Count < minCount)
-            minCount = currentCountry.Count;
+        if (currentCountry.count < vMap.minCount)
+            vMap.minCount = currentCountry.count;
     });
 }

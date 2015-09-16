@@ -1,4 +1,6 @@
-function filter(inputArgs) {
+FiltersBox.prototype.filter = function(inputArgs) {
+    var fBox = this;
+
     var keys = Object.keys(inputArgs)
     var numberKeys = keys.length;
     var validFilters = 0;
@@ -7,83 +9,84 @@ function filter(inputArgs) {
     var markersByFilter = new Array();
     for (i = 0; i < numberKeys; i++) {
         countriesByFilter[i] = new Array();
-        markersByFilter[i] = new Array();
     }
+
 
     // check if any of the names is all (reset all applied filters	)
     var exit = false;
     $.each(keys, function(index, filterName) {
         if (filterName.toLowerCase() == 'all') {
             exit = true;
-            // reloads the original markers and countries on the map
-            resetFilters();
-            // erase the text from the filters box
-            resetFiltersBox();
+            fBox.resetFilters();
+            fBox.resetFiltersBox();
             return;
         }
     });
     if (exit)
         return;
 
+    // access the map associated with the filters box
+    var map = findMapById(this.map);
+
     // for every key/filter
     $.each(keys, function(index, filterName) {
         // check if the filterName is valid
-        if (!checkFilterNameIsValid(filterName)) {
+        if (!fBox.checkFilterNameIsValid(filterName)) {
             // invalid filter name
             console.log('Invalid filter name!(' + filterName + ')');
             return;
-
         } else {
             // get the filter value (can contain enumeration and range)
             // '2004-2006' , 'F,M', etc
             var filterValue = inputArgs[filterName];
             // get all single filter values
-            var finalParts = getAllFilterValues(filterValue);
-            //console.log(finalParts);
-            validFilters++;
-
-            // for every single value get all the countrues and markers
-            $.each(finalParts, function(i, part) {
-                var checkReturn = checkWhatCountriesMarkersToAdd(filterObject, part);
-                var countriesAux = checkReturn[0];
-                var markersAux = checkReturn[1];
-                // add every country to the list of countriesByFilter
-                // add every marker to the list of markersByFilter
-                $.each(Object.keys(countriesAux), function(j, currentKey) {
-                    // the colors that are returned are in a json format
-                    var keyValue = countriesAux[currentKey];
-                    countriesByFilter[index][currentKey] = keyValue;
+            var finalParts = fBox.getAllFilterValues(filterValue);
+            if (finalParts.length != 0) {
+                markersByFilter[index] = new Array();
+                // for every single value get all the countrues and markers
+                $.each(finalParts, function(i, part) {
+                    var checkReturn = fBox.checkWhatCountriesMarkersToAdd(filterObject, part, map);
+                    var countriesAux = checkReturn[0];
+                    var markersAux = checkReturn[1];
+                    // add every country to the list of countriesByFilter
+                    // add every marker to the list of markersByFilter
+                    $.each(Object.keys(countriesAux), function(j, currentKey) {
+                        // the colors that are returned are in a json format
+                        var keyValue = countriesAux[currentKey];
+                        countriesByFilter[index][currentKey] = keyValue;
+                    });
+                    // get the markers
+                    $.each(markersAux, function(j, currentMarker) {
+                        markersByFilter[index].push(currentMarker);
+                    });
                 });
-                // get the markers
-                $.each(markersAux, function(j, currentMarker) {
-                    markersByFilter[index].push(currentMarker);
-                });
-            });
+            }
         }
     });
 
-    // get the final countries
-    var finalCountries = [];
-    if (countriesByFilter.length > 0) {
-        finalCountries = countriesByFilter[0];
-        for (var i = 0; i < countriesByFilter.length - 1; i++)
-            finalCountries = getCountriesIntersection(finalCountries, countriesByFilter[i + 1]);
-    }
-
-    // add countries to Map
-    reloadMap(finalCountries);
-
-    // get the final markers
-    filteredMarkers = [];
-    if (markersByFilter.length > 0) {
-        filteredMarkers = markersByFilter[0];
-        for (var i = 0; i < markersByFilter.length - 1; i++) {
-            filteredMarkers = getMarkersIntersection(filteredMarkers, markersByFilter[i + 1]);
+    if (map.datatype == 'countries') {
+        // get the final countries
+        var finalCountries = [];
+        if (countriesByFilter.length > 0) {
+            finalCountries = countriesByFilter[0];
+            for (var i = 0; i < countriesByFilter.length - 1; i++)
+                finalCountries = getCountriesIntersection(finalCountries, countriesByFilter[i + 1]);
+        }
+        // add countries to Map
+        map.reloadMap(finalCountries);
+    } else {
+        if (markersByFilter.length != 0) {
+            filteredMarkers = [];
+            if (markersByFilter.length > 0) {
+                filteredMarkers = markersByFilter[0];
+                for (var i = 0; i < markersByFilter.length - 1; i++) {
+                    filteredMarkers = getMarkersIntersection(filteredMarkers, markersByFilter[i + 1]);
+                }
+            }
+            map.filteredMarkers = filteredMarkers;
+            map.reloadMap();
         }
     }
-
-    // add markers to the map
-    addMarkersToMap();
 }
 
 function getMarkersIntersection(markersGroup1, markersGroup2) {
