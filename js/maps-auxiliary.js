@@ -11,6 +11,7 @@ function findMapById(id)
 
 // redraw the map
 VectorialMap.prototype.reloadMap = function(countries) {
+    console.log('reloading map')
     var vMap = this;
     if (vMap.jsonCountries.length > 0)
     {
@@ -66,7 +67,8 @@ VectorialMap.prototype.reloadMap = function(countries) {
         }
     });
 
-    // add the markes to the map
+    // add the markers to the map
+
     if (vMap.thereAreMarkers)
         vMap.addMarkersToMap();
 }
@@ -82,6 +84,7 @@ function removeBackButton() {
 }
 
 VectorialMap.prototype.switchMap = function(newMap) {
+    console.log('switching map')
     // this function gets called when a country on the world map is clicked
     // erase the previous map
     $('#' + this.mDiv).empty();
@@ -146,6 +149,6 @@ VectorialMap.prototype.switchMap = function(newMap) {
 
     // add the markes to the map
     if (this.thereAreMarkers) {
-        this.addMarkersToMap(this.filteredMarkers);
+        this.addMarkersToMap();
     }
 }
