@@ -1,0 +1,10 @@
+{
+  "input_file": "/home/rafael/Desktop/converter/countries/ne_10m_admin_0_countries.shp",
+  "output_file": "/home/rafael/Desktop/converter/example/countries.js",
+  "name_field": "name",
+  "code_field": "iso_a2",
+  "where": "iso_a2 != 'AQ'",
+  "longitude0": 11.5,
+  "name": "world",
+  "projection": "mill"
+}

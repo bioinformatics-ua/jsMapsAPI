@@ -2,51 +2,59 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Marker Filtering</title>
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <!-- Place favicon.ico in the root directory -->
-    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
-    <!--jVectormap-->
-    <link rel="stylesheet" href="lib/jvectormap/jquery-jvectormap-2.0.2.css">
-    <!--jQueryUI-->
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <!-- Scripts -->
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
-    <script src="lib/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <!--Load the Maps API-->
-    <script type="text/javascript" src="js/markers.js"></script>
-    <script type="text/javascript" src="js/countries.js"></script>
-    <script type="text/javascript" src="js/filters.js"></script>
-    <script type="text/javascript" src="js/maps-api.js"></script>
-    <!--Polymer-->
-    <script src="bower_components/webcomponentsjs/webcomponents-lite.min.js"></script>
-    <!-- Import custom elements created with Polymer-->
-    <link rel="import" href="vector-map.html">
-    <link rel="import" href="vector-map-filters.html">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>bioinformatics-ua/jsMapsAPI</title>
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<!--Bootstrap-->
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
+	<!--jVectormap-->
+	<link rel="stylesheet" href="lib/jvectormap/jquery-jvectormap-2.0.2.css">
+	<!--jQuery-->
+	<script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script src="lib/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+	<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	<!-- jsMapsApi -->
+	<script type="text/javascript" src="./finalJs/jsMapsApi.js"></script>
+
+
+	<!--Polymer-->
+	<script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+	<!-- Import custom elements created with Polymer-->
+	<link rel="import" href="custom-elements/vector-map.html">
+	<link rel="import" href="custom-elements/filter-box.html">
+
+	<style media="screen">
+
+		html, body{
+			height:100%;
+			margin: 0px;
+			padding: 0px;
+		}
+
+		#my_map {
+			height: 100%;
+			width: 100%;
+		}
+	</style>
 </head>
 
+
 <body>
-    <div class="container-fluid" style="margin-top:10px">
-        <div class="starter-template col-md-2" />
-    </div>
-    <div class="starter-template col-md-8">
-        <vector-map-filters id="filters" filters="json/filters.json" filter_type="menu"></vector-map-filters>
-        <vector-map id="map" min_color='#ffffff' max_color="#000000" min_radius=5 max_radius=15 markers='json/countries_plus_markers.json'></vector-map>
-    </div>
-    <div class="starter-template col-md-2">
-    </div>
-    </div>
-    <script type="text/javascript">
-    //$('vector-map').get(0).alertFunc();
-    </script>
+	<div class="container-fluid" style="margin-top:10px; height:100%">
+		<div class="starter-template col-sm-12 col-md-10" style="height:100%">
+			<vector-map id="my_map" map_type='world_mill_en' min_color='#2cb5d4' max_color="#153478"
+			min_radius=5 max_radius=15 markers='./tests/json/test-markers.json' background_color="#666666"></vector-map>
+		</div>
+		<div class="starter-template col-sm-12 col-md-2">
+			<filter-box id="my-fbox" filters="./tests/json/test-filters.json" type="input" map="my_map"></filter-box>
+		</div>
+	</div>
 </body>
 
 </html>

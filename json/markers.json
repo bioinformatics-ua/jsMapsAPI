@@ -1,0 +1,31 @@
+[{
+    "count": "153.00",
+    "attributes": {
+        "gender" : "T",
+        "year" : "2005"
+    },
+    "country": "PY",
+    "latitude": 40,
+    "longitude": 25,
+    "icon": "red"
+}, {
+    "count": "80.00",
+    "attributes": {
+        "gender" : "M",
+        "year" : "2005"
+    },
+    "country": "RU",
+    "latitude": -20,
+    "longitude": 21,
+    "icon": "blue"
+}, {
+    "count": "73.00",
+    "attributes": {
+        "gender" : "F",
+        "year" : "2005"
+    },
+    "country": "IT",
+    "latitude": 80,
+    "longitude": -40,
+    "icon": "blue"
+}]

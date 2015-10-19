@@ -1,0 +1,202 @@
+[{
+	"id": 15,
+	"name": "Not Applicable",
+	"country": "Spain",
+	"suburb": "Madrid",
+	"address": "C/Viento, 5, 5ºA. Tres Cantos",
+	"postcode": "28760",
+	"state": "",
+	"latitude": "40.5984399",
+	"longitude": "-3.715644199999999",
+	"authors": [{
+		"id": 15,
+		"name": "Cristina Calvo",
+		"email": "ccalvorey@ono.com",
+		"phone": "34914818460",
+		"areas": [{
+			"id": 2,
+			"name": "Soft Tissue Infections"
+		}, {
+			"id": 3,
+			"name": "Bone, Joint"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 9,
+			"name": "Metapneumovirus"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 45,
+			"name": "Rhinovirus"
+		}, {
+			"id": 53,
+			"name": "Bocavirus"
+		}]
+	}],
+	"fullAddress": "Not Applicable, C/Viento, 5, 5ºA. Tres Cantos, 28760, Madrid, Spain"
+}, {
+	"id": 20,
+	"name": "Children´s Hospital",
+	"country": "Spain",
+	"suburb": "Malaga",
+	"address": "C/Almogia, nº 14, bloque 4, 4ºD",
+	"postcode": "29007",
+	"state": "",
+	"latitude": "36.7166948",
+	"longitude": "-4.445223299999999",
+	"authors": [{
+		"id": 20,
+		"name": "David Moreno Perez",
+		"email": "dmp.malaga@gmail.com",
+		"phone": "0034 951292393",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 27,
+			"name": "Congenital Infections"
+		}, {
+			"id": 28,
+			"name": "Parainfluenza Virus"
+		}, {
+			"id": 29,
+			"name": "Influenza"
+		}, {
+			"id": 32,
+			"name": "Immunodeficiency"
+		}, {
+			"id": 35,
+			"name": "Central Nervous System Infections"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 37,
+			"name": "Mycobacterium Spp."
+		}, {
+			"id": 38,
+			"name": "Resistance"
+		}, {
+			"id": 39,
+			"name": "Antimicrobial Therapy"
+		}, {
+			"id": 44,
+			"name": "Bordetella Spp."
+		}, {
+			"id": 52,
+			"name": "Varicella Virus"
+		}]
+	}],
+	"fullAddress": "Children´s Hospital, C/Almogia, nº 14, bloque 4, 4ºD, 29007, Malaga, Spain"
+}, {
+	"id": 48,
+	"name": "Not Applicable",
+	"country": "Spain",
+	"suburb": "Santiago De Compostela",
+	"address": "Avenida de la Coruña nº 6 2D",
+	"postcode": "15701",
+	"state": "",
+	"latitude": "42.8735641",
+	"longitude": "-8.5487552",
+	"authors": [{
+		"id": 50,
+		"name": "Federico Martinon-Torres",
+		"email": "federico.martinon.torres@sergas.es",
+		"phone": "+34 981950615",
+		"areas": [{
+			"id": 1,
+			"name": "Bacterial Infections"
+		}, {
+			"id": 4,
+			"name": "Gastrointestinal Tract Infections"
+		}, {
+			"id": 5,
+			"name": "Viral Infections"
+		}, {
+			"id": 6,
+			"name": "Clinical Trials (observational)"
+		}, {
+			"id": 7,
+			"name": "Epidemiology"
+		}, {
+			"id": 12,
+			"name": "Immunizations"
+		}, {
+			"id": 13,
+			"name": "Vaccines"
+		}, {
+			"id": 14,
+			"name": "Neisseria Spp."
+		}, {
+			"id": 19,
+			"name": "Clinical Trials (phase 2 - 3)"
+		}, {
+			"id": 20,
+			"name": "Clinical Trials (post Marketing)"
+		}, {
+			"id": 21,
+			"name": "Streptococcus (incl. Pneumococcus)"
+		}, {
+			"id": 24,
+			"name": "Host-Pathogen Interactions"
+		}, {
+			"id": 25,
+			"name": "Bacteraemia"
+		}, {
+			"id": 26,
+			"name": "Sepsis"
+		}, {
+			"id": 30,
+			"name": "Respiratory Tract Infections"
+		}, {
+			"id": 31,
+			"name": "Genetics of Microorganisms"
+		}, {
+			"id": 33,
+			"name": "Respiratory Syncytial Virus"
+		}, {
+			"id": 34,
+			"name": "Rotavirus"
+		}, {
+			"id": 35,
+			"name": "Central Nervous System Infections"
+		}, {
+			"id": 36,
+			"name": "Diagnostic Tools"
+		}, {
+			"id": 40,
+			"name": "Enterococcus Spp."
+		}, {
+			"id": 50,
+			"name": "Sexually Transmitted Infections"
+		}]
+	}],
+	"fullAddress": "Not Applicable, Avenida de la Coruña nº 6 2D, 15701, Santiago De Compostela, Spain"
+}]
