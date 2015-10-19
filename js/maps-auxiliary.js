@@ -11,6 +11,7 @@ function findMapById(id)
 
 // redraw the map
 VectorialMap.prototype.reloadMap = function(countries) {
+    console.log('reloading map')
     var vMap = this;
     if (vMap.jsonCountries.length > 0)
     {
@@ -36,7 +37,7 @@ VectorialMap.prototype.reloadMap = function(countries) {
             vMap.switchMap(newMap);
         },
         onMarkerTipShow: function(e, label, index) {
-            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, index);
+            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, vMap.jsonMarkers[index]);
             label.html(finalTooltip);
         },
         onRegionTipShow: function(e, countryName, code) {
@@ -66,7 +67,8 @@ VectorialMap.prototype.reloadMap = function(countries) {
         }
     });
 
-    // add the markes to the map
+    // add the markers to the map
+
     if (vMap.thereAreMarkers)
         vMap.addMarkersToMap();
 }
@@ -94,7 +96,7 @@ VectorialMap.prototype.switchMap = function(newMap) {
         backgroundColor: vMap.background,
         container: $('#' + vMap.mDiv),
         onMarkerTipShow: function(e, label, index) {
-            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, index);
+            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, vMap.jsonMarkers[index]);
             label.html(finalTooltip);
         },
         onRegionTipShow: function(e, regionName, code) {
@@ -146,6 +148,6 @@ VectorialMap.prototype.switchMap = function(newMap) {
 
     // add the markes to the map
     if (this.thereAreMarkers) {
-        this.addMarkersToMap(this.filteredMarkers);
+        this.addMarkersToMap();
     }
 }

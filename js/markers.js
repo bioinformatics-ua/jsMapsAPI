@@ -33,12 +33,14 @@ function readMarkersFromJSON(jsonMarkers) {
         if (currentCountValue < minCount)
             minCount = currentCountValue;
     });
+
     return markers;
 }
 
 VectorialMap.prototype.addMarkersToMap = function(){
     var markersJSONArray = [];
     $.each(this.filteredMarkers, function(index, currentMarker) {
+
         var currentMarkerJSON = {
             latLng: [currentMarker.latitude, currentMarker.longitude],
             name: currentMarker.desc,

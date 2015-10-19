@@ -134,11 +134,9 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
 
     // draw markers on the map
     if (dataType == 'markers') {
-        this.filteredMarkers = this.jsonMarkers;
-        this.addMarkersToMap(this.filteredMarkers);
+        this.filteredMarkers = this.jsonMarkers
+        this.addMarkersToMap();
     }
-
-
 };
 
 // Auxiliary function to transpose a value from an initial range to another range

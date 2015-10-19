@@ -11,7 +11,7 @@ var Country = function(countryObject) {
     if (countryObject.Regions)
         this.Regions = this.readRegionsFromJSON(countryObject.Regions, countryObject.country);
 
-    this.name = countryObject.name;
+    this.name = countryObject.name; 
     // + is used to assure that a Number is being read
     this.count = +countryObject.count;
     this.desc = 'abc';
