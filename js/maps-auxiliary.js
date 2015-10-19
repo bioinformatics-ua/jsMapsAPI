@@ -37,7 +37,7 @@ VectorialMap.prototype.reloadMap = function(countries) {
             vMap.switchMap(newMap);
         },
         onMarkerTipShow: function(e, label, index) {
-            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, index);
+            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, vMap.jsonMarkers[index]);
             label.html(finalTooltip);
         },
         onRegionTipShow: function(e, countryName, code) {
@@ -84,7 +84,6 @@ function removeBackButton() {
 }
 
 VectorialMap.prototype.switchMap = function(newMap) {
-    console.log('switching map')
     // this function gets called when a country on the world map is clicked
     // erase the previous map
     $('#' + this.mDiv).empty();
@@ -97,7 +96,7 @@ VectorialMap.prototype.switchMap = function(newMap) {
         backgroundColor: vMap.background,
         container: $('#' + vMap.mDiv),
         onMarkerTipShow: function(e, label, index) {
-            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, index);
+            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, vMap.jsonMarkers[index]);
             label.html(finalTooltip);
         },
         onRegionTipShow: function(e, regionName, code) {

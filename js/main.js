@@ -135,7 +135,6 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     // draw markers on the map
     if (dataType == 'markers') {
         this.filteredMarkers = this.jsonMarkers
-        console.log('Adding markers to map...')
         this.addMarkersToMap();
     }
 };

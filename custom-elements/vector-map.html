@@ -39,7 +39,7 @@
 			// check if all the mandatory fields are present
 			if (!jsonFile)
 				return console.error('You must input a json file or a json string!');
-				
+
 
 				// get the json file (Ajax request)
 				$.when($.getJSON(jsonFile)).then(function(jsonFile) {
@@ -57,8 +57,6 @@
 
 					// create a new VectorialMap
 					vectorMap = new VectorialMap();
-					console.log("contents of the file")
-					console.log(jsonFile)
 					vectorMap.createMap(jsonFile, minRadius, maxRadius, vMap.id, minColor, maxColor, mapType, backgroundColor, dataType, id);
 				});
 

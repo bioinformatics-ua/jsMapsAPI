@@ -18,7 +18,6 @@ var Marker = function(markerObject) {
 
 // read the markers from a JSON file
 function readMarkersFromJSON(jsonMarkers) {
-    console.log("readMarkersFromJSON")
     var markers = [];
 
     minCount = Infinity;
@@ -35,7 +34,6 @@ function readMarkersFromJSON(jsonMarkers) {
             minCount = currentCountValue;
     });
 
-    console.log(markers);
     return markers;
 }
 
