@@ -47,7 +47,7 @@ VectorialMap.prototype.addMarkersToMap = function(){
             // set the style for this marker
             style: {
                 r: mapRange(currentMarker.count, minCount, maxCount, minRadius, maxRadius),
-                image: '../img/jsMapsAPI/' + currentMarker.icon + '.png'
+                image: '../jsMapsAPI/img/' + currentMarker.icon + '.png'
             }
         };
         markersJSONArray.push(currentMarkerJSON);
