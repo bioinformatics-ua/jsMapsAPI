@@ -47,7 +47,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         this.numMarkers = this.jsonMarkers.length;
         // MARKER tooltip
         jQuery.ajax({
-            url: './tooltip-templates/marker_tooltip.html',
+            url: './jsMapsAPI/tooltip-templates/marker_tooltip.html',
             success: function(result) {
                 markerTooltip = result;
             },
