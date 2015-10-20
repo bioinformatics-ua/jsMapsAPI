@@ -1,0 +1,9 @@
+{
+  "input_file": "/home/rafael/Desktop/converter/states_provinces/ne_10m_admin_1_states_provinces.shp",
+  "output_file": "/home/rafael/Desktop/converter/example/states_provinces.js",
+  "name_field": "name",
+  "code_field": "iso_a2",
+  "where": "iso_a2 = 'PT'",
+  "name": "world",
+  "input_file_encoding": "utf-8"
+}

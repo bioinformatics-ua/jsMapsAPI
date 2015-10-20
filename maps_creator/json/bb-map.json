@@ -1,0 +1,1 @@
+{"name_field": "name", "name": "bb", "input_file": "./states_provinces/ne_10m_admin_1_states_provinces.shp", "output_file": "./created_countries/bb.js", "input_file_encoding": "utf-8", "code_field": "iso_a2", "where": "iso_a2 = 'BB'"}
