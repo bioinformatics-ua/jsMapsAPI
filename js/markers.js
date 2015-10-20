@@ -33,12 +33,14 @@ function readMarkersFromJSON(jsonMarkers) {
         if (currentCountValue < minCount)
             minCount = currentCountValue;
     });
+
     return markers;
 }
 
-function addMarkersToMap() {
+VectorialMap.prototype.addMarkersToMap = function(){
     var markersJSONArray = [];
-    $.each(filteredMarkers, function(index, currentMarker) {
+    $.each(this.filteredMarkers, function(index, currentMarker) {
+
         var currentMarkerJSON = {
             latLng: [currentMarker.latitude, currentMarker.longitude],
             name: currentMarker.desc,
@@ -50,7 +52,7 @@ function addMarkersToMap() {
         };
         markersJSONArray.push(currentMarkerJSON);
     });
-    map.addMarkers(markersJSONArray);
+    this.map.addMarkers(markersJSONArray);
 }
 
 function buildMarkerTooltip(jsonMarkers, marker) {

@@ -1,20 +1,20 @@
 var Region = function(regionObject, country) {
     // read from the input parameters
-    this.Region = regionObject.name;
+    this.region = regionObject.name;
     this.country = country;
     // + is used to assure that a Number is being read
     this.desc = 'just a region...';
 };
 
-function readRegionsFromJSON(regions, country) {
+VectorialMap.prototype.readRegionsFromJSON = function(regions, country) {
     var regionsArr = [];
     $.each(regions, function(index, currentRegion) {
-        regionsArr[index] = new Region(currentRegion, country);
+        regionsArr.push(new Region(currentRegion, country));
     });
     return regions;
 }
 
-function generateColorsForTheRegions(country){
+VectorialMap.prototype.generateColorsForTheRegions = function(country){
     var isoCode = country.split("_")[0].toUpperCase();
     // find the country with that isoCode
     var regionColors = [];
@@ -40,7 +40,7 @@ function buildRegionTooltip(region) {
     return finalTooltip;
 }
 
-function addRegionsToMap(key) {
+VectorialMap.prototype.addRegionsToMap = function(key) {
     // check if the highlighted country has any region
     var isoCode = key.split("_")[0].toUpperCase();
     // find the country with that isoCode

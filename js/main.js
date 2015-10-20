@@ -1,31 +1,28 @@
-var vectorMap;
-var jsonFilters = [];
-var minColorMap;
-var maxColorMap;
-var mDiv;
-var mType;
-var background;
-var filteredMarkers;
-var thereAreMarkers = false;
+var vMaps = [];
 
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType, backgroundColor, dataType) {
-    background = backgroundColor;
-    mType = mapType;
+VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType, backgroundColor, dataType, id) {
+    // add the map to the VMaps array
+    vMaps.push(this);
+
+    this.id = id;
+    this.background = backgroundColor;
+    this.mType = mapType;
+    this.datatype = dataType;
     // countries list
-    jsonCountries = [];
+    this.jsonCountries = [];
     // markers list
-    jsonMarkers = [];
-    // id of the map
-    mDiv = mapDiv;
+    this.jsonMarkers = [];
+    // id of the ma
+    this.mDiv = mapDiv;
     // assign the colors for the range
-    minColorMap = minColor;
-    maxColorMap = maxColor;
+    this.minColorMap = minColor;
+    this.maxColorMap = maxColor;
 
     if (dataType == 'countries') {
-        jsonCountries = readCountriesFromJSON(inputJSON);
+        this.jsonCountries = this.readCountriesFromJSON(inputJSON);
         // get the tooltip templates
         // COUNTRY tooltip
         jQuery.ajax({
@@ -44,10 +41,10 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
             async: false
         });
     } else if (dataType == 'markers') {
-        thereAreMarkers = true;
-        jsonMarkers = readMarkersFromJSON(inputJSON);
-        filteredMarkers = jsonMarkers;
-        numMarkers = jsonMarkers.length;
+        this.thereAreMarkers = true;
+        this.jsonMarkers = readMarkersFromJSON(inputJSON);
+        this.filteredMarkers = this.jsonMarkers;
+        this.numMarkers = this.jsonMarkers.length;
         // MARKER tooltip
         jQuery.ajax({
             url: '../tooltip-templates/marker_tooltip.html',
@@ -62,53 +59,56 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     }
 
     // get the Count value for each Country
-    auxColors = ((dataType=='countries') ? generateColorsForTheCountries() : []);
+    this.auxColors = ((this.datatype=='countries') ? this.generateColorsForTheCountries() : []);
 
     // marker legend
     var legendVar = {
-        vertical: true,
-        //title: 'Countries',
+        vertical: true
     };
+
     markersWithLegend = {
-        scale: [minColorMap, maxColorMap],
+        scale: [this.minColorMap, this.maxColorMap],
         // range of values associated with the Count
-        values: [minCount, maxCount],
+        values: [this.minCount, this.maxCount],
         // add a legend
         legend: legendVar
     };
+
     markersWithoutLegend = {
-        scale: [minColorMap, maxColorMap],
+        scale: [this.minColorMap, this.maxColorMap],
         // range of values associated with the Count
-        values: [minCount, maxCount]
+        values: [this.minCount, this.maxCount]
     };
     finalMarkersInMap = markersWithLegend;
-    if (dataType == 'markers') {
+    if (this.datatype == 'markers') {
         finalMarkersInMap = markersWithoutLegend;
     }
 
+    var vMap = this;
+
     // create a new Map
-    map = new jvm.Map({
-        container: $('#' + mapDiv),
+    this.map = new jvm.Map({
+        container: $('#' + vMap.mDiv),
         // configuration of the main map
         // type of map (world, Europe, USA, etc)
-        map: mType,
-        backgroundColor: background,
+        map: vMap.mType,
+        backgroundColor: vMap.background,
         // triggered when a marker is hovered
         onRegionClick: function(e, code) {
             countryCode = code.toLowerCase();
             var newMap = countryCode + '_mill_en';
-            switchMap(newMap);
+            vMap.switchMap(newMap);
         },
         onMarkerTipShow: function(e, label, index) {
             // select what text to display when marker is hovered
-            var finalTooltip = buildMarkerTooltip(jsonMarkers, jsonMarkers[index]);
+            var finalTooltip = buildMarkerTooltip(vMap.jsonMarkers, vMap.jsonMarkers[index]);
             label.html(finalTooltip);
         },
         // triggered when a region is hovered
         onRegionTipShow: function(e, countryName, code) {
             // code contains the code of the country (i.e., PT, ES, FR, etc)
             var selectedCountry = -1;
-            $.each(jsonCountries, function(index, currentCountry) {
+            $.each(vMap.jsonCountries, function(index, currentCountry) {
                 if (currentCountry.name === code) {
                     selectedCountry = currentCountry;
                     return;
@@ -125,17 +125,17 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
             markers: [finalMarkersInMap],
             regions: [{
                 // min and max values of count
-                scale: [minColorMap, maxColorMap],
+                scale: [vMap.minColorMap, vMap.maxColorMap],
                 attribute: 'fill',
-                values: auxColors
+                values: this.auxColors
             }]
         }
     });
 
     // draw markers on the map
     if (dataType == 'markers') {
-        filteredMarkers = jsonMarkers;
-        addMarkersToMap();
+        this.filteredMarkers = this.jsonMarkers
+        this.addMarkersToMap();
     }
 };
 

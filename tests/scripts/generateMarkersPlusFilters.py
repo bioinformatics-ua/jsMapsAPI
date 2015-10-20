@@ -25,13 +25,9 @@ filters = [
 	},
 	{
 		'name' : 'year',
-		'continuous' : 'false',
-		'values' : [
-			2010,
-			2011,
-			2012,
-			2013
-		]
+		'continuous' : 'true',
+		'min' : 2010,
+		'max' : 2014
 	},
 	{
 		'name':'height',
@@ -73,3 +69,6 @@ for i in range(int(numMarkers)):
 
 with open('../json/test-markers.json', 'w') as outfile:
     json.dump(jsonArray, outfile)
+
+with open('../json/test-filters.json', 'w') as outfile:
+    json.dump(filters, outfile)
