@@ -3,7 +3,9 @@ var vMaps = [];
 var VectorialMap = function() {};
 
 // VectorialMap Prototype
-VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, mapDiv, minColor, maxColor, mapType, backgroundColor, dataType, id) {
+VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius,
+     mapDiv, minColor, maxColor, mapType, backgroundColor,
+      dataType, id, folderLocation) {
     // add the map to the VMaps array
     vMaps.push(this);
 
@@ -20,13 +22,15 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
     // assign the colors for the range
     this.minColorMap = minColor;
     this.maxColorMap = maxColor;
+    this.folder = folderLocation;
+
 
     if (dataType == 'countries') {
         this.jsonCountries = this.readCountriesFromJSON(inputJSON);
         // get the tooltip templates
         // COUNTRY tooltip
         jQuery.ajax({
-            url: '../tooltip-templates/country_tooltip.html',
+            url: '../'+folder+'/'+'tooltip-templates/country_tooltip.html',
             success: function(result) {
                 countryTooltip = result;
             },
@@ -34,7 +38,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         });
         // REGION tooltip
         jQuery.ajax({
-            url: '../tooltip-templates/region_tooltip.html',
+            url: '../'+folder+'/'+'tooltip-templates/region_tooltip.html',
             success: function(result) {
                 regionTooltip = result;
             },
@@ -47,7 +51,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius, map
         this.numMarkers = this.jsonMarkers.length;
         // MARKER tooltip
         jQuery.ajax({
-            url: '../tooltip-templates/marker_tooltip.html',
+            url: '../'+this.folder+'tooltip-templates/marker_tooltip.html',
             success: function(result) {
                 markerTooltip = result;
             },
