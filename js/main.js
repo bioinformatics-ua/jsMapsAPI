@@ -30,7 +30,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius,
         // get the tooltip templates
         // COUNTRY tooltip
         jQuery.ajax({
-            url: '../'+folder+'/'+'tooltip-templates/country_tooltip.html',
+            url: '../'+this.folder+'/'+'tooltip-templates/country_tooltip.html',
             success: function(result) {
                 countryTooltip = result;
             },
@@ -38,7 +38,7 @@ VectorialMap.prototype.createMap = function(inputJSON, minRadius, maxRadius,
         });
         // REGION tooltip
         jQuery.ajax({
-            url: '../'+folder+'/'+'tooltip-templates/region_tooltip.html',
+            url: '../'+this.folder+'/'+'tooltip-templates/region_tooltip.html',
             success: function(result) {
                 regionTooltip = result;
             },
