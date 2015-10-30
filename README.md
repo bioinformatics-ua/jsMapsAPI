@@ -25,6 +25,7 @@ Now that you have done the previous steps, you are ready to display a map on you
 |    max_radius      |      max radius for the markers         |
 |    markers      |     path to the file that contains the JSON of the countries    |
 |    countries      |      path to the file that contains the JSON of the markers  |
+|    folder      | location of the folder that contains the 'img' and 'tooltip-templates' sub-directories        |
 |    background_color      | colour of the map background in hex format (has a default value of #666666 )        |
 
 Here is an example:

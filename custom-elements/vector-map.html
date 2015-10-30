@@ -55,9 +55,14 @@
 					else if(vMap.countries)
 						dataType = 'countries';
 
+					// the folder where the templates and images are located
+					folderLocation = vMap.folder;
+
 					// create a new VectorialMap
 					vectorMap = new VectorialMap();
-					vectorMap.createMap(jsonFile, minRadius, maxRadius, vMap.id, minColor, maxColor, mapType, backgroundColor, dataType, id);
+					vectorMap.createMap(jsonFile, minRadius, maxRadius, vMap.id, minColor,
+						maxColor, mapType, backgroundColor,
+						dataType, id, folderLocation);
 				});
 
 
@@ -96,6 +101,10 @@
 			background_color: {
 				type: String,
 				value: '#666666'
+			},
+			folder: {
+				type: String,
+				value: ''
 			}
 		}
 	});
