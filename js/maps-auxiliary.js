@@ -13,7 +13,9 @@ function findMapById(id)
 VectorialMap.prototype.reloadMap = function(countries) {
     console.log('reloading map')
     var vMap = this;
-    if (vMap.jsonCountries.length > 0)
+
+    console.log(this.jsonCountries)
+    if (this.jsonCountries.length > 0)
     {
         // update min and max Count of the countries
         vMap.readMinMax(countries);
