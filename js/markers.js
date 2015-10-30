@@ -39,15 +39,15 @@ function readMarkersFromJSON(jsonMarkers) {
 
 VectorialMap.prototype.addMarkersToMap = function(){
     var markersJSONArray = [];
+    folderLocation = this.folder
     $.each(this.filteredMarkers, function(index, currentMarker) {
-
         var currentMarkerJSON = {
             latLng: [currentMarker.latitude, currentMarker.longitude],
             name: currentMarker.desc,
             // set the style for this marker
             style: {
                 r: mapRange(currentMarker.count, minCount, maxCount, minRadius, maxRadius),
-                image: '../img/' + currentMarker.icon + '.png'
+                image: '../'+folderLocation+'img/' + currentMarker.icon + '.png'
             }
         };
         markersJSONArray.push(currentMarkerJSON);
