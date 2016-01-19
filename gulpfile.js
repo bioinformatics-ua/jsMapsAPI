@@ -15,7 +15,7 @@ gulp.task('jsFiles', function() {
         .pipe(concat('jsMapsApi.js'))
         .pipe(uglify())
         .pipe(sourcemaps.write()) // Add the map to modified source
-        .pipe(gulp.dest('./finalJs'));
+        .pipe(gulp.dest('./dist'));
 });
 
 // default gulp task
